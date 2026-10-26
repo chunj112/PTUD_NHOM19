@@ -1,0 +1,21 @@
+/target/
+/.metadata/
+/.settings/
+/.classpath
+/.project
+/.factorypath
+*.log
+.env
+.env.*
+!.env.example
+*.db
+*.bak
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+# Tai lieu chi giu local
+/docs/
+/prompts/
+/AGENTS.md
+/PROMPT_START_CODEX.md

@@ -1,0 +1,127 @@
+/* JavaFX AppShell — Figma 1:2903 / 1:4375 / 1:4957 / 1:8725.
+   Segoe UI is the desktop fallback for Inter. Controller owns Role and selection. */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #F4F7FA;
+    -fx-accent: #087E91;
+    -fx-focus-color: #087E91;
+    -fx-faint-focus-color: transparent;
+}
+.shell {
+    -df-primary: #087E91;
+    -df-primary-soft: #E8F5F6;
+    -df-ink: #172B3A;
+    -df-muted: #617584;
+    -df-border: #DCE4EA;
+    -df-canvas: #F4F7FA;
+    -fx-background-color: -df-canvas;
+}
+.sidebar {
+    -fx-padding: 24 16 24 16;
+    -fx-background-color: white;
+    -fx-border-color: transparent -df-border transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+.brand-name { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: -df-ink; }
+.role-label, .muted { -fx-font-size: 12px; -fx-text-fill: -df-muted; }
+.identity-name { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: -df-ink; }
+.sidebar-identity { -fx-padding: 0 8 0 8; }
+.shell-scroll, .shell-scroll > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+.shell-scroll:focused { -fx-background-insets: 0; }
+.navigation-scroll > .viewport { -fx-background-color: white; }
+.nav-button {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 11 9 11 9;
+    -fx-min-height: 46;
+    -fx-pref-height: 46;
+    -fx-font-size: 14px;
+    -fx-text-fill: -df-muted;
+    -fx-cursor: hand;
+}
+.nav-button:hover { -fx-background-color: #F4F7FA; -fx-text-fill: -df-ink; }
+.nav-button:pressed { -fx-background-color: #DFEFF1; }
+.nav-button.menu-selected {
+    -fx-background-color: -df-primary-soft;
+    -fx-text-fill: -df-primary;
+    -fx-font-weight: bold;
+}
+.nav-button:focused { -fx-border-color: -df-primary; }
+.topbar {
+    -fx-padding: 0 28 0 28;
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent -df-border transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.breadcrumb, .breadcrumb-separator { -fx-text-fill: -df-muted; -fx-font-size: 13px; }
+.breadcrumb-separator { -fx-text-fill: #9AAAB5; }
+.avatar {
+    -fx-background-color: -df-primary-soft;
+    -fx-background-radius: 100;
+    -fx-text-fill: -df-primary;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+.icon-button {
+    -fx-padding: 5;
+    -fx-min-width: 32;
+    -fx-min-height: 32;
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.icon-button:hover, .account-menu:hover, .account-menu:showing { -fx-background-color: -df-primary-soft; }
+.icon-button:focused, .account-menu:focused { -fx-border-color: -df-primary; }
+.account-menu {
+    -fx-padding: 6 0 6 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.account-menu > .label { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: -df-ink; }
+.account-menu > .arrow-button { -fx-padding: 0 0 0 8; }
+.account-menu > .arrow-button > .arrow { -fx-background-color: -df-ink; }
+.context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 10;
+    -fx-padding: 12;
+}
+.menu-item { -fx-padding: 10 12; -fx-background-radius: 6; }
+.menu-item > .label { -fx-font-size: 14px; -fx-text-fill: #172B3A; }
+.menu-item:focused { -fx-background-color: #E8F5F6; }
+.menu-item:focused > .label { -fx-text-fill: #087E91; }
+.main-content { -fx-padding: 28; -fx-background-color: -df-canvas; }
+.page-title { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: -df-ink; }
+.body-text { -fx-font-size: 14px; -fx-text-fill: -df-muted; }
+.notice-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: -df-border;
+    -fx-border-radius: 10;
+    -fx-padding: 20;
+}
+.card-title { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: -df-ink; }
+.preview-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -df-primary;
+    -fx-background-color: -df-primary-soft;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+}

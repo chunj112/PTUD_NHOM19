@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<!-- Shared shell: Figma 1:2903 / 1:4375 / 1:4957 / 1:8725.
+     UI preview only: Tuong supplies Controller and authenticated Role.
+     Show exactly one role group using BOTH visible and managed.
+     UI visibility never replaces Service authorization.
+     Replace shellPlaceholder with content-only pages inside contentArea.
+     contentArea provides the shared 28px inset; pages must not repeat it or the shell.
+     Navigation: clear menu-selected on every nav-button, then add it to the active button.
+     Populate lblRole, breadcrumb, sidebar identity, avatar, date and mnuAccount from Session.
+     Account actions: miProfile / miChangePassword / miLogout have no handlers yet.
+     Date and identity are sample values, not a live session.
+     Receptionist schedule follows UC003; its specific Figma page is not mapped yet.
+     Nurse examination assistance is excluded by PROJECT_CONTEXT. -->
+<BorderPane fx:id="appShell" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="shell" stylesheets="@/css/theme.css" prefWidth="1280.0" prefHeight="800.0">
+    <left>
+        <VBox fx:id="sidebar" minWidth="232.0" prefWidth="232.0" maxWidth="232.0" spacing="24.0" styleClass="sidebar">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <ImageView fx:id="imgBrandLogo" fitWidth="38.0" fitHeight="38.0" preserveRatio="true"
+                           smooth="true" accessibleText="Logo DentaFlow">
+                    <image><Image url="@/images/dentaflow-logo.png"/></image>
+                </ImageView>
+                <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                    <Label text="DentaFlow" styleClass="brand-name"/>
+                    <Label text="Quản lý phòng khám" styleClass="muted"/>
+                </VBox>
+            </HBox>
+            <Label fx:id="lblRole" text="QUẢN LÝ" styleClass="role-label"/>
+            <ScrollPane fx:id="sidebarScroll" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                        minHeight="0.0" VBox.vgrow="ALWAYS" styleClass="shell-scroll, navigation-scroll">
+                <content>
+                    <VBox fx:id="navigationMenu" spacing="6.0" fillWidth="true">
+                        <Button fx:id="btnDashboard" text="Dashboard" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button, menu-selected"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/dashboard.png"/></image></ImageView></graphic></Button>
+                        <VBox fx:id="managerMenu" spacing="6.0" fillWidth="true" visible="true" managed="true">
+                            <Button fx:id="btnStaff" text="Nhân sự" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/users.png"/></image></ImageView></graphic></Button>
+                            <Button fx:id="btnAssignments" text="Lịch &amp; Phân công" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/calendar.png"/></image></ImageView></graphic></Button>
+                            <Button fx:id="btnServices" text="Dịch vụ" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/services.png"/></image></ImageView></graphic></Button>
+                            <Button fx:id="btnReports" text="Báo cáo" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/reports.png"/></image></ImageView></graphic></Button>
+                        </VBox>
+                        <VBox fx:id="receptionistMenu" spacing="6.0" fillWidth="true" visible="false" managed="false">
+                            <Button fx:id="btnIntakeAppointments" text="Tiếp nhận &amp; Lịch hẹn" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/intake.png"/></image></ImageView></graphic></Button>
+                            <Button fx:id="btnCashier" text="Thu ngân" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/wallet.png"/></image></ImageView></graphic></Button>
+                            <Button fx:id="btnPatientLookup" text="Tra cứu" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/search.png"/></image></ImageView></graphic></Button>
+                            <Button fx:id="btnReceptionistSchedule" text="Lịch làm việc" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/calendar.png"/></image></ImageView></graphic></Button>
+                        </VBox>
+                        <VBox fx:id="dentistMenu" spacing="6.0" fillWidth="true" visible="false" managed="false">
+                            <Button fx:id="btnExamination" text="Khám bệnh" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/exam.png"/></image></ImageView></graphic></Button>
+                            <Button fx:id="btnDentistSchedule" text="Lịch làm việc" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/calendar.png"/></image></ImageView></graphic></Button>
+                        </VBox>
+                        <VBox fx:id="nurseMenu" spacing="6.0" fillWidth="true" visible="false" managed="false">
+                            <Button fx:id="btnNurseSchedule" text="Lịch làm việc" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="nav-button"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/calendar.png"/></image></ImageView></graphic></Button>
+                        </VBox>
+                    </VBox>
+                </content>
+            </ScrollPane>
+            <VBox spacing="2.0" styleClass="sidebar-identity">
+                <Label fx:id="lblSidebarName" text="Tài khoản mẫu" maxWidth="Infinity" styleClass="identity-name"/>
+                <Label fx:id="lblSidebarStatus" text="Quản lý · Bản xem trước" wrapText="true" styleClass="muted"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <BorderPane fx:id="workspace" minWidth="0.0">
+            <top>
+                <HBox fx:id="topbar" alignment="CENTER_LEFT" spacing="18.0" minHeight="68.0"
+                      prefHeight="68.0" maxHeight="68.0" styleClass="topbar">
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" minWidth="0.0">
+                        <Label fx:id="lblBreadcrumbRole" text="Quản lý" styleClass="breadcrumb"/>
+                        <Label text="/" styleClass="breadcrumb-separator"/>
+                        <Label fx:id="lblBreadcrumbPage" text="Dashboard" styleClass="breadcrumb"/>
+                    </HBox>
+                    <Region HBox.hgrow="ALWAYS" minWidth="0.0"/>
+                    <Label fx:id="lblCurrentDate" text="Thứ Ba, 27/10/2026" styleClass="muted"/>
+                    <Button fx:id="btnNotifications" styleClass="icon-button" accessibleText="Thông báo">
+                        <graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/bell.png"/></image></ImageView></graphic>
+                        <tooltip><Tooltip text="Thông báo"/></tooltip>
+                    </Button>
+                    <Label fx:id="lblAvatarInitials" text="TK" alignment="CENTER" minWidth="32.0" prefWidth="32.0"
+                           maxWidth="32.0" minHeight="32.0" prefHeight="32.0" maxHeight="32.0" styleClass="avatar"/>
+                    <MenuButton fx:id="mnuAccount" text="Tài khoản mẫu" styleClass="account-menu" popupSide="BOTTOM">
+                        <items>
+                            <MenuItem fx:id="miProfile" text="Hồ sơ cá nhân"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/profile.png"/></image></ImageView></graphic></MenuItem>
+                            <MenuItem fx:id="miChangePassword" text="Đổi mật khẩu"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/password.png"/></image></ImageView></graphic></MenuItem>
+                            <SeparatorMenuItem/>
+                            <MenuItem fx:id="miLogout" text="Đăng xuất"><graphic><ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true"><image><Image url="@/images/shell/logout.png"/></image></ImageView></graphic></MenuItem>
+                        </items>
+                    </MenuButton>
+                </HBox>
+            </top>
+            <center>
+                <ScrollPane fx:id="contentScroll" fitToWidth="true" fitToHeight="true"
+                            hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED" styleClass="shell-scroll">
+                    <content>
+                        <StackPane fx:id="contentArea" alignment="TOP_LEFT" minWidth="0.0" styleClass="main-content">
+                            <!-- Prompt 02 supplies actual Dashboard and business pages. -->
+                            <VBox fx:id="shellPlaceholder" spacing="20.0" fillWidth="true">
+                                <VBox spacing="4.0">
+                                    <Label text="Chào mừng đến với DentaFlow" wrapText="true" styleClass="page-title"/>
+                                    <Label text="Hệ thống quản lý phòng khám nha khoa" wrapText="true" styleClass="body-text"/>
+                                </VBox>
+                                <VBox spacing="12.0" styleClass="notice-card">
+                                    <Label text="BẢN XEM TRƯỚC GIAO DIỆN" styleClass="preview-badge"/>
+                                    <Label text="Không gian làm việc" styleClass="card-title"/>
+                                    <Label text="Các màn hình nghiệp vụ sẽ được hiển thị tại đây." wrapText="true" styleClass="body-text"/>
+                                    <Label text="Menu đang minh họa vai trò Quản lý. Điều hướng và dữ liệu sẽ hoạt động sau khi nhóm kết nối Controller."
+                                           wrapText="true" styleClass="muted"/>
+                                </VBox>
+                                <Region VBox.vgrow="ALWAYS" minHeight="24.0"/>
+                                <Label text="DentaFlow · IUH · Nhóm 19" styleClass="muted"/>
+                            </VBox>
+                        </StackPane>
+                    </content>
+                </ScrollPane>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>
