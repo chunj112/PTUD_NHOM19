@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC004, MANAGER, Figma 1:3002: trạng thái chưa chọn nhân viên.
+     Chỉ content; AppShell đã có Sidebar/Topbar/contentArea và padding 28px.
+     Tất cả tên, SĐT, email và trạng thái dưới đây là DỮ LIỆU MẪU, không đọc SQL.
+     MapValueFactory/HashMap là lớp sẵn có, không tạo Controller/Entity/DAO.
+     Tường sẽ nối tìm kiếm, lọc, chọn bản ghi, nút Thêm và phân trang sau.
+     Không khai báo fx:controller/onAction khi chưa có lớp/phương thức.
+     Panel chi tiết mẫu lấy từ 1:3118; Controller sẽ chuyển visible/managed sau. -->
+<VBox fx:id="staffPage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/manager-staff.css" styleClass="staff-page" spacing="20" minWidth="960">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblStaffTitle" text="Nhân sự" styleClass="staff-page-title"/>
+            <Label fx:id="lblStaffSubtitle" text="Quản lý thông tin nhân viên, lịch làm việc và tài khoản theo vai trò"
+                   wrapText="true" minHeight="-Infinity" styleClass="staff-page-subtitle"/>
+        </VBox>
+        <Button fx:id="btnAddStaff" text="Thêm nhân viên" graphicTextGap="8" styleClass="primary-button">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/staff/add-staff.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <!-- Thanh tìm kiếm/lọc đúng ba ô trong frame; chưa có xử lý lọc dữ liệu. -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtStaffSearch" promptText="Tìm mã nhân viên / họ tên / SĐT"
+                   minWidth="0" HBox.hgrow="ALWAYS" styleClass="staff-search"
+                   accessibleText="Tìm nhân viên theo mã, họ tên hoặc số điện thoại"/>
+        <ComboBox fx:id="cboPositionFilter" value="Tất cả chức vụ" minWidth="180" prefWidth="180" maxWidth="180"
+                  styleClass="staff-filter" accessibleText="Lọc theo chức vụ">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả chức vụ"/><String fx:value="Quản lý"/><String fx:value="Nha sĩ"/>
+                    <String fx:value="Lễ tân"/><String fx:value="Y tá"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="cboStatusFilter" value="Tất cả trạng thái" minWidth="180" prefWidth="180" maxWidth="180"
+                  styleClass="staff-filter" accessibleText="Lọc theo trạng thái nhân viên">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả trạng thái"/><String fx:value="Hoạt động"/><String fx:value="Ngừng hoạt động"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+
+    <HBox fx:id="staffColumns" spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" styleClass="staff-card">
+            <Label text="Danh sách nhân viên" styleClass="staff-card-title"/>
+            <Label fx:id="lblStaffCount" text="8 nhân viên · Chọn một bản ghi để xem thông tin" styleClass="staff-caption"/>
+            <VBox styleClass="staff-table-frame">
+                <TableView fx:id="tblStaff" editable="false" fixedCellSize="72"
+                           minHeight="616" prefHeight="616" maxHeight="616" styleClass="staff-table">
+                    <!-- Cột giữ độ rộng dễ đọc; TableView tự cuộn ngang khi cửa sổ hẹp. -->
+                    <columnResizePolicy><TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    <placeholder><Label text="Không có nhân viên phù hợp" styleClass="staff-caption"/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colStaffId" text="Mã NV" prefWidth="65" minWidth="60"
+                                     sortable="false" reorderable="false" styleClass="staff-id-column">
+                            <cellValueFactory><MapValueFactory key="staffId"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colStaffName" text="Họ tên" prefWidth="135" minWidth="125"
+                                     sortable="false" reorderable="false">
+                            <cellValueFactory><MapValueFactory key="fullName"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colPosition" text="Chức vụ" prefWidth="75" minWidth="70"
+                                     sortable="false" reorderable="false">
+                            <cellValueFactory><MapValueFactory key="position"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colPhone" text="SĐT" prefWidth="115" minWidth="110"
+                                     sortable="false" reorderable="false">
+                            <cellValueFactory><MapValueFactory key="phone"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="180" minWidth="175"
+                                     sortable="false" reorderable="false" styleClass="staff-email-column">
+                            <cellValueFactory><MapValueFactory key="email"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colStaffStatus" text="Trạng thái" prefWidth="130" minWidth="125"
+                                     sortable="false" reorderable="false">
+                            <cellValueFactory><MapValueFactory key="status"/></cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <HashMap staffId="NV001" fullName="Lê Hoàng Nam" position="Quản lý" phone="0901 012 345" email="hoangnam@example.com">
+                                <status><Label text="Hoạt động" styleClass="staff-status-active"/></status>
+                            </HashMap>
+                            <HashMap staffId="NV002" fullName="Trần Minh Đức" position="Nha sĩ" phone="0902 123 456" email="minhduc@example.com">
+                                <status><Label text="Hoạt động" styleClass="staff-status-active"/></status>
+                            </HashMap>
+                            <HashMap staffId="NV003" fullName="Nguyễn Lan Anh" position="Nha sĩ" phone="0903 234 567" email="lananh@example.com">
+                                <status><Label text="Hoạt động" styleClass="staff-status-active"/></status>
+                            </HashMap>
+                            <HashMap staffId="NV004" fullName="Phạm Thu Hà" position="Lễ tân" phone="0904 345 678" email="thuha@example.com">
+                                <status><Label text="Hoạt động" styleClass="staff-status-active"/></status>
+                            </HashMap>
+                            <HashMap staffId="NV005" fullName="Võ Ngọc Mai" position="Y tá" phone="0905 456 789" email="ngocmai@example.com">
+                                <status><Label text="Hoạt động" styleClass="staff-status-active"/></status>
+                            </HashMap>
+                            <HashMap staffId="NV006" fullName="Đặng Thị Hương" position="Y tá" phone="0906 567 890" email="thihuong@example.com">
+                                <status><Label text="Hoạt động" styleClass="staff-status-active"/></status>
+                            </HashMap>
+                            <HashMap staffId="NV007" fullName="Đỗ Minh Tú" position="Lễ tân" phone="0907 678 901" email="minhtu@example.com">
+                                <status><Label text="Hoạt động" styleClass="staff-status-active"/></status>
+                            </HashMap>
+                            <HashMap staffId="NV008" fullName="Bùi Quốc Huy" position="Nha sĩ" phone="0908 789 012" email="quochuy@example.com">
+                                <status><Label text="Ngừng hoạt động" styleClass="staff-status-inactive"/></status>
+                            </HashMap>
+                        </FXCollections>
+                    </items>
+                </TableView>
+                <HBox alignment="CENTER_LEFT" spacing="6" minHeight="38" prefHeight="38" styleClass="staff-table-footer">
+                    <Label fx:id="lblRecordCount" text="Hiển thị 8 / 8 bản ghi" styleClass="staff-caption"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <!-- Một trang mẫu, chưa có Controller phân trang. -->
+                    <Button fx:id="btnPreviousPage" text="‹" disable="true" accessibleText="Trang nhân viên trước" styleClass="staff-page-button"/>
+                    <Label fx:id="lblCurrentPage" text="1" styleClass="staff-caption"/>
+                    <Button fx:id="btnNextPage" text="›" disable="true" accessibleText="Trang nhân viên tiếp theo" styleClass="staff-page-button"/>
+                </HBox>
+            </VBox>
+        </VBox>
+
+        <!-- Giữ trạng thái ban đầu 1:3002; phần đã chọn 1:3118 được include và ẩn.
+             Tường tự nối selectedItemProperty, đổi visible VÀ managed cho hai phần. -->
+        <VBox fx:id="staffDetailsPane" spacing="16" minWidth="370" prefWidth="370" maxWidth="370"
+              maxHeight="-Infinity" styleClass="staff-card">
+            <VBox fx:id="staffEmptyDetails" spacing="16">
+                <Label fx:id="lblDetailsTitle" text="Thông tin chi tiết nhân viên" styleClass="staff-card-title"/>
+                <Separator/>
+                <Label fx:id="lblDetailsPlaceholder" text="Chọn một nhân viên để xem thông tin chi tiết."
+                       wrapText="true" minHeight="-Infinity" styleClass="staff-details-hint"/>
+                <Separator/>
+            </VBox>
+            <fx:include fx:id="staffSelectedDetails" source="staff-details.fxml" visible="false" managed="false"/>
+        </VBox>
+    </HBox>
+    <Label fx:id="lblStaffDemoNotice"
+           text="DỮ LIỆU MINH HỌA · Tên, SĐT và email giả lập · Chưa nối xử lý nghiệp vụ · 09/10/2026"
+           wrapText="true" minHeight="-Infinity" styleClass="staff-caption"/>
+</VBox>

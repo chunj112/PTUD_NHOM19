@@ -1,0 +1,176 @@
+/* Dashboard MANAGER — Figma 1:2903. Chỉ áp dụng trong .manager-dashboard.
+   AppShell đã cung cấp padding 28px; không đặt lại ở root trang.
+   Giữ stylesheet riêng để không đổi Login hoặc trang của Role khác. */
+.manager-dashboard {
+    -fx-background-color: transparent;
+}
+.manager-dashboard .dashboard-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.manager-dashboard .dashboard-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #617584;
+}
+.manager-dashboard .dashboard-card {
+    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+.manager-dashboard .dashboard-metric-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #617584;
+}
+.manager-dashboard .dashboard-metric-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.manager-dashboard .dashboard-caption {
+    -fx-font-size: 12px;
+    -fx-text-fill: #617584;
+}
+.manager-dashboard .dashboard-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.manager-dashboard .dashboard-summary {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.manager-dashboard .dashboard-inline-note {
+    -fx-padding: 12;
+    -fx-font-size: 12px;
+    -fx-text-fill: #087E91;
+    -fx-background-color: #E8F5F6;
+    -fx-background-radius: 8;
+}
+.manager-dashboard .separator .line {
+    -fx-border-color: #DCE4EA transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.manager-dashboard .dashboard-table-frame {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+.manager-dashboard .dashboard-table {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+.manager-dashboard .dashboard-activity-table {
+    -fx-border-color: #DCE4EA;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+.manager-dashboard .dashboard-table .column-header-background,
+.manager-dashboard .dashboard-table .column-header,
+.manager-dashboard .dashboard-table .filler {
+    -fx-background-color: #F4F7FA;
+}
+.manager-dashboard .dashboard-table .column-header {
+    -fx-border-width: 0;
+    -fx-pref-height: 38;
+    -fx-min-height: 38;
+}
+.manager-dashboard .dashboard-table .column-header .label {
+    -fx-padding: 10 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #617584;
+    -fx-alignment: CENTER_LEFT;
+}
+.manager-dashboard .dashboard-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.manager-dashboard .dashboard-table .table-row-cell:filled:hover {
+    -fx-background-color: #F4FAFB;
+}
+.manager-dashboard .dashboard-table .table-row-cell:filled:selected {
+    -fx-background-color: #E8F5F6;
+}
+.manager-dashboard .dashboard-table .table-cell {
+    -fx-padding: 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #172B3A;
+    -fx-alignment: TOP_LEFT;
+    -fx-wrap-text: true;
+    -fx-border-color: transparent transparent #DCE4EA transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.manager-dashboard .dashboard-table .table-cell:empty {
+    -fx-border-width: 0;
+}
+.manager-dashboard .dashboard-status-waiting,
+.manager-dashboard .dashboard-status-received {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+.manager-dashboard .dashboard-status-waiting { -fx-text-fill: #966B16; }
+.manager-dashboard .dashboard-status-received { -fx-text-fill: #087E91; }
+.manager-dashboard .dashboard-table-footer {
+    -fx-padding: 0 12;
+    -fx-border-color: #DCE4EA transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.manager-dashboard .dashboard-page-button {
+    -fx-padding: 2 6;
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-text-fill: #172B3A;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.manager-dashboard .dashboard-page-button:focused {
+    -fx-border-color: #087E91;
+    -fx-border-radius: 4;
+}
+
+/* Chỉ bảng Lịch khám gần nhất: không hover/selected/focus highlight.
+   Đây là hiển thị chỉ xem; CSS không xóa selection model.
+   Không chặn mouse event để bánh xe và thanh cuộn vẫn hoạt động. */
+.manager-dashboard .readonly-table {
+    -fx-selection-bar: white;
+    -fx-selection-bar-non-focused: white;
+    -fx-selection-bar-text: #172B3A;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-cursor: default;
+}
+.manager-dashboard .readonly-table .table-row-cell,
+.manager-dashboard .readonly-table .table-row-cell:filled:hover,
+.manager-dashboard .readonly-table .table-row-cell:selected,
+.manager-dashboard .readonly-table .table-row-cell:filled:selected,
+.manager-dashboard .readonly-table .table-row-cell:focused,
+.manager-dashboard .readonly-table .table-row-cell:filled:focused,
+.manager-dashboard .readonly-table .table-row-cell:filled:selected:hover,
+.manager-dashboard .readonly-table .table-row-cell:filled:selected:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-cursor: default;
+}
+.manager-dashboard .readonly-table .table-cell,
+.manager-dashboard .readonly-table .table-cell:hover,
+.manager-dashboard .readonly-table .table-cell:selected,
+.manager-dashboard .readonly-table .table-cell:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-text-fill: #172B3A;
+    -fx-cursor: default;
+}
+.manager-dashboard .readonly-table .table-cell .label {
+    -fx-cursor: default;
+}

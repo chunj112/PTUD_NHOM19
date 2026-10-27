@@ -1,0 +1,67 @@
+/* UC004: modal Thêm 1:5204 và Sửa 1:5270. Chỉ áp dụng trong .staff-form.
+   Theme chung cung cấp font và các nút primary-button/secondary-button. */
+.staff-form {
+    /* 23px + viền 1px = khoảng cách nội dung 24px của Figma. */
+    -fx-padding: 23;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+.staff-form .staff-form-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.staff-form .staff-form-close {
+    -fx-padding: 7;
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.staff-form .staff-form-close:hover { -fx-background-color: #E8F5F6; }
+.staff-form .staff-form-close:focused { -fx-border-color: #087E91; }
+.staff-form .staff-form-field {
+    -fx-padding: 8 11;
+    -fx-min-height: 62;
+    -fx-pref-height: 62;
+    -fx-max-height: 62;
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+.staff-form .staff-form-readonly { -fx-background-color: #F4F7FA; }
+.staff-form .staff-form-field-label { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.staff-form .staff-form-input,
+.staff-form .staff-form-choice,
+.staff-form .staff-form-date,
+.staff-form .staff-form-date > .text-field {
+    -fx-min-height: 23;
+    -fx-pref-height: 23;
+    -fx-max-height: 23;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-font-size: 14px;
+    -fx-text-fill: #172B3A;
+    -fx-prompt-text-fill: #617584;
+}
+.staff-form .staff-form-input:focused,
+.staff-form .staff-form-date > .text-field:focused {
+    -fx-background-color: #E8F5F6;
+    -fx-background-radius: 2;
+}
+.staff-form .staff-form-readonly .staff-form-input { -fx-text-fill: #617584; }
+.staff-form .staff-form-choice > .list-cell {
+    -fx-padding: 0;
+    -fx-font-size: 14px;
+    -fx-text-fill: #172B3A;
+    -fx-background-color: transparent;
+}
+.staff-form .staff-form-choice > .arrow-button,
+.staff-form .staff-form-date > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 3; }
+.staff-form .staff-form-choice > .arrow-button > .arrow { -fx-background-color: #172B3A; }
+.staff-form .staff-form-choice:focused { -fx-background-color: #E8F5F6; -fx-background-radius: 2; }
+.staff-form .staff-form-date > .arrow-button > .arrow { -fx-background-color: #617584; }

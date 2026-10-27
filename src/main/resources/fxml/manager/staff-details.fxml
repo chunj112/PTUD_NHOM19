@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC004, chi tiết đã chọn: Figma 1:3118, panel 1:3244.
+     Nội dung nằm BÊN TRONG staffDetailsPane rộng 370px đã có padding 20px.
+     NV002 là dữ liệu xem trước; không có listener chọn dòng hoặc xử lý nút.
+     NHASI là chữ hiển thị từ Figma, không phải mã SQL/Role dùng để phân quyền. -->
+<VBox fx:id="staffSelectedDetails" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/manager-staff.css" styleClass="staff-page, staff-details" spacing="16" minWidth="0">
+    <Label fx:id="lblSelectedStaffName" text="Trần Minh Đức" wrapText="true" styleClass="staff-card-title"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label fx:id="lblSelectedStaffSummary" text="NV002 · NHASI" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="staff-detail-summary"/>
+        <Label fx:id="lblSelectedStaffStatusBadge" text="Hoạt động" styleClass="staff-detail-badge"/>
+    </HBox>
+    <Separator/>
+    <HBox spacing="12">
+        <VBox spacing="3" HBox.hgrow="ALWAYS" prefWidth="0" minWidth="0">
+            <Label text="Họ tên" styleClass="staff-caption"/>
+            <Label fx:id="lblDetailFullName" text="Trần Minh Đức" wrapText="true" styleClass="staff-detail-value"/>
+        </VBox>
+        <VBox spacing="3" HBox.hgrow="ALWAYS" prefWidth="0" minWidth="0">
+            <Label text="Mã NV" styleClass="staff-caption"/>
+            <Label fx:id="lblDetailStaffId" text="NV002" styleClass="staff-detail-value"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="3">
+        <Label text="Chức vụ" styleClass="staff-caption"/>
+        <Label fx:id="lblDetailPosition" text="Nha sĩ" styleClass="staff-detail-value"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="SĐT" styleClass="staff-caption"/>
+        <Label fx:id="lblDetailPhone" text="0902 123 456" styleClass="staff-detail-value"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="Email" styleClass="staff-caption"/>
+        <Label fx:id="lblDetailEmail" text="minhduc@example.com" wrapText="true" styleClass="staff-detail-value"/>
+    </VBox>
+    <Label text="Trạng thái" styleClass="staff-detail-value"/>
+    <VBox spacing="3">
+        <Label text="Trạng thái" styleClass="staff-caption"/>
+        <Label fx:id="lblDetailStatus" text="Hoạt động" styleClass="staff-detail-value"/>
+    </VBox>
+    <Separator/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnEditStaff" text="Sửa" graphicTextGap="8" styleClass="secondary-button">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/staff/edit-staff.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnStaffAccountPermissions" text="Tài khoản &amp; quyền" styleClass="secondary-button"/>
+    </HBox>
+</VBox>
