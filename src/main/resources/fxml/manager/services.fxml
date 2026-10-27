@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC006, MANAGER, chủ Controller: Khang.
+     Figma chính thức ROPzygiAnJyl1VudYGf0sm, node 15:511 (chưa chọn dịch vụ).
+     Chỉ content; Sidebar/Topbar/padding 28px do AppShell hiện có cung cấp.
+     HashMap + MapValueFactory là lớp có sẵn để trình bày mẫu, không phải Entity/DAO.
+     Bỏ DV006 Chụp X-quang theo nghiệp vụ đã chốt; còn 6 dịch vụ mẫu hợp lệ.
+     Nhóm dịch vụ hiện chỉ là giá trị UI mẫu vì schema DichVu chưa có cột nhóm.
+     Giá là chuỗi đã định dạng để hiển thị; Backend thật dùng BigDecimal/DECIMAL.
+     description chỉ có giá trị mẫu đã đọc từ Figma cho DV002; chưa có panel chi tiết.
+     Không SQL, fx:controller, onAction hoặc kết quả lưu giả. -->
+<VBox fx:id="servicesPage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/manager-services.css" styleClass="services-page" spacing="20"
+      minWidth="960" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblServicesTitle" text="Dịch vụ" styleClass="services-title"/>
+            <Label fx:id="lblServicesSubtitle" text="Danh mục và bảng giá sử dụng trong chỉ định điều trị"
+                   wrapText="true" minHeight="-Infinity" styleClass="services-subtitle"/>
+        </VBox>
+        <Button fx:id="btnAddService" text="Thêm dịch vụ" graphicTextGap="8" styleClass="primary-button">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/staff/add-staff.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtServiceSearch" promptText="Tìm mã / tên dịch vụ" minWidth="0" HBox.hgrow="ALWAYS"
+                   accessibleText="Tìm dịch vụ theo mã hoặc tên" styleClass="services-search"/>
+        <ComboBox fx:id="cboServiceGroupFilter" value="Tất cả nhóm dịch vụ" minWidth="200" prefWidth="200" maxWidth="200"
+                  accessibleText="Lọc nhóm dịch vụ, dữ liệu mẫu" styleClass="services-filter">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả nhóm dịch vụ"/><String fx:value="Khám"/><String fx:value="Phục hồi"/>
+                    <String fx:value="Dự phòng"/><String fx:value="Phẫu thuật"/><String fx:value="Nội nha"/><String fx:value="Thẩm mỹ"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="cboServiceStatusFilter" value="Đang hoạt động" minWidth="180" prefWidth="180" maxWidth="180"
+                  accessibleText="Lọc trạng thái sử dụng dịch vụ" styleClass="services-filter">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Đang hoạt động"/><String fx:value="Ngừng hoạt động"/><String fx:value="Tất cả trạng thái"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+
+    <!-- Frame 15:511 chỉ có bảng toàn chiều ngang, không có panel sẵn bên phải. -->
+    <VBox fx:id="servicesListCard" spacing="16" minWidth="0" styleClass="services-card">
+        <Label fx:id="lblServicesListTitle" text="Danh mục dịch vụ" styleClass="services-card-title"/>
+        <Label fx:id="lblServicesCurrencyHint" text="Đơn giá tính bằng VNĐ" styleClass="services-caption"/>
+        <VBox styleClass="services-table-frame">
+            <TableView fx:id="tblServices" editable="false" fixedCellSize="72"
+                       minHeight="472" prefHeight="472" maxHeight="472" styleClass="services-table">
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/></columnResizePolicy>
+                <placeholder><Label text="Không có dịch vụ phù hợp" styleClass="services-caption"/></placeholder>
+                <columns>
+                    <TableColumn fx:id="colServiceId" text="Mã" minWidth="65" prefWidth="155" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="serviceId"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceName" text="Tên" minWidth="205" prefWidth="260" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="name"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceGroup" text="Nhóm dịch vụ" minWidth="145" prefWidth="211" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="group"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceUnit" text="Đơn vị" minWidth="80" prefWidth="155" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="unit"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServicePrice" text="Giá" minWidth="125" prefWidth="193" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="price"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceStatus" text="Trạng thái" minWidth="135" prefWidth="135" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="status"/></cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap serviceId="DV001" name="Khám tổng quát" group="Khám" unit="Lần" price="100.000" description="">
+                            <status><Label text="Hoạt động" styleClass="services-status-active"/></status>
+                        </HashMap>
+                        <HashMap serviceId="DV002" name="Trám răng composite" group="Phục hồi" unit="Răng" price="500.000"
+                                 description="Phục hồi tổn thương sâu răng bằng vật liệu composite.">
+                            <status><Label text="Hoạt động" styleClass="services-status-active"/></status>
+                        </HashMap>
+                        <HashMap serviceId="DV003" name="Cạo vôi răng" group="Dự phòng" unit="Lần" price="300.000" description="">
+                            <status><Label text="Hoạt động" styleClass="services-status-active"/></status>
+                        </HashMap>
+                        <HashMap serviceId="DV004" name="Nhổ răng thường" group="Phẫu thuật" unit="Răng" price="400.000" description="">
+                            <status><Label text="Hoạt động" styleClass="services-status-active"/></status>
+                        </HashMap>
+                        <HashMap serviceId="DV005" name="Điều trị tủy" group="Nội nha" unit="Răng" price="1.500.000" description="">
+                            <status><Label text="Hoạt động" styleClass="services-status-active"/></status>
+                        </HashMap>
+                        <HashMap serviceId="DV007" name="Tẩy trắng răng" group="Thẩm mỹ" unit="Lần" price="2.000.000" description="">
+                            <status><Label text="Hoạt động" styleClass="services-status-active"/></status>
+                        </HashMap>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="6" alignment="CENTER_LEFT" minHeight="38" prefHeight="38" styleClass="services-table-footer">
+                <Label fx:id="lblServicesRecordCount" text="Hiển thị 6 / 6 bản ghi" styleClass="services-caption"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnServicesPreviousPage" text="‹" disable="true" accessibleText="Trang dịch vụ trước" styleClass="services-page-button"/>
+                <Label fx:id="lblServicesCurrentPage" text="1" styleClass="services-caption"/>
+                <Button fx:id="btnServicesNextPage" text="›" disable="true" accessibleText="Trang dịch vụ tiếp theo" styleClass="services-page-button"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <Label fx:id="lblServicesDemoNotice" text="DỮ LIỆU MINH HỌA · 6 dịch vụ mẫu · Không kết nối SQL Server · 09/10/2026"
+           wrapText="true" minHeight="-Infinity" styleClass="services-caption"/>
+</VBox>
