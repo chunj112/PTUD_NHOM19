@@ -11,8 +11,8 @@
      Tên, ngày, phòng và tất cả các ca là DỮ LIỆU MẪU 05–11/10/2026.
      Không lấy ngày hiện tại hoặc dữ liệu SQL, không giả lập lưu thành công.
      GridPane trình bày lịch/ma trận để giữ đúng card ca, không cần Entity/cellFactory.
-     Panel bên phải có trạng thái chưa chọn theo 1:3697.
-     Chi tiết đã chọn, modal Thêm/Sửa/Hủy và các trạng thái kết quả dành cho Prompt 03.
+     Panel đã chọn theo 1:3932 được include, vẫn ẩn mặc định để bảng dùng đủ chiều ngang.
+     Modal Thêm/Sửa/Hủy độc lập; Controller của Tường sẽ tự nối các sự kiện.
      Nha sĩ và Y tá được cùng phòng/cùng ca; không cho cùng nhân viên trùng ca. -->
 <VBox fx:id="assignmentsPage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       stylesheets="@/css/manager-assignments.css" styleClass="assignments-page" spacing="20" minWidth="960"
@@ -736,14 +736,8 @@
                                      Controller sau này điền thông tin ca rồi hiện cả hai thuộc tính;
                                      bỏ chọn thì ẩn lại. Chưa gắn handler nhấn card bằng Java. -->
                                 <VBox fx:id="assignmentDetailsSlot" minWidth="222" prefWidth="222" maxWidth="222"
-                                      maxHeight="-Infinity" spacing="16" visible="false" managed="false" styleClass="assignment-details-card">
-                                    <Label fx:id="lblAssignmentDetailsTitle" text="Chi tiết phân công"
-                                           wrapText="true" styleClass="assignment-details-title"/>
-                                    <Separator/>
-                                    <Label fx:id="lblAssignmentDetailsPlaceholder"
-                                           text="Chọn một ca làm để xem thông tin chi tiết."
-                                           wrapText="true" minHeight="-Infinity" styleClass="assignment-details-hint"/>
-                                    <Separator/>
+                                      maxHeight="-Infinity" visible="false" managed="false">
+                                    <fx:include fx:id="assignmentSelectedDetails" source="assignment-details.fxml"/>
                                 </VBox>
                             </HBox>
                             <HBox spacing="16" alignment="CENTER_LEFT">

@@ -62,8 +62,8 @@
             <VBox styleClass="staff-table-frame">
                 <TableView fx:id="tblStaff" editable="false" fixedCellSize="72"
                            minHeight="616" prefHeight="616" maxHeight="616" styleClass="staff-table">
-                    <!-- Cột giữ độ rộng dễ đọc; TableView tự cuộn ngang khi cửa sổ hẹp. -->
-                    <columnResizePolicy><TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    <!-- Phân bố các cột theo chiều ngang bảng khi panel mặc định ẩn. -->
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/></columnResizePolicy>
                     <placeholder><Label text="Không có nhân viên phù hợp" styleClass="staff-caption"/></placeholder>
                     <columns>
                         <TableColumn fx:id="colStaffId" text="Mã NV" prefWidth="65" minWidth="60"
@@ -131,11 +131,12 @@
             </VBox>
         </VBox>
 
-        <!-- Giữ trạng thái ban đầu 1:3002; phần đã chọn 1:3118 được include và ẩn.
-             Tường tự nối selectedItemProperty, đổi visible VÀ managed cho hai phần. -->
+        <!-- Chưa chọn nhân viên: ẩn cả panel và không giữ chỗ bên phải.
+             Controller điền dữ liệu rồi hiện staffDetailsPane + staffSelectedDetails
+             bằng cả visible/managed; bỏ chọn thì ẩn lại. Không hiện panel lời nhắc. -->
         <VBox fx:id="staffDetailsPane" spacing="16" minWidth="370" prefWidth="370" maxWidth="370"
-              maxHeight="-Infinity" styleClass="staff-card">
-            <VBox fx:id="staffEmptyDetails" spacing="16">
+              maxHeight="-Infinity" visible="false" managed="false" styleClass="staff-card">
+            <VBox fx:id="staffEmptyDetails" spacing="16" visible="false" managed="false">
                 <Label fx:id="lblDetailsTitle" text="Thông tin chi tiết nhân viên" styleClass="staff-card-title"/>
                 <Separator/>
                 <Label fx:id="lblDetailsPlaceholder" text="Chọn một nhân viên để xem thông tin chi tiết."

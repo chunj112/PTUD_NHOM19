@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC005, Figma 1:10709, ảnh xác nhận Hủy do người dùng cung cấp.
+     Đây chỉ là giao diện xác nhận. Không đổi trạng thái hoặc xóa bản ghi.
+     Tường sẽ điền đúng ca được chọn; dữ liệu NV002 dưới đây chỉ để preview. -->
+<VBox fx:id="cancelAssignmentDialog" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/theme.css, @/css/assignment-forms.css" styleClass="assignment-cancel-dialog"
+      spacing="16" minWidth="440" prefWidth="440" maxWidth="440" prefHeight="283" maxHeight="-Infinity">
+    <Label fx:id="lblCancelAssignmentTitle" text="Hủy phân công?" styleClass="assignment-form-title"/>
+    <GridPane fx:id="cancelAssignmentSummary" hgap="12" vgap="2" styleClass="assignment-cancel-summary">
+        <columnConstraints>
+            <ColumnConstraints minWidth="78" prefWidth="78"/>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+        </columnConstraints>
+        <Label text="Nhân viên" GridPane.rowIndex="0" styleClass="assignment-cancel-caption"/>
+        <Label fx:id="lblCancelEmployee" text="Trần Minh Đức" GridPane.rowIndex="0" GridPane.columnIndex="1"
+               wrapText="true" styleClass="assignment-cancel-value, assignment-cancel-name"/>
+        <Label text="Ngày" GridPane.rowIndex="1" styleClass="assignment-cancel-caption"/>
+        <Label fx:id="lblCancelDate" text="Thứ Sáu, 09/10/2026" GridPane.rowIndex="1" GridPane.columnIndex="1"
+               wrapText="true" styleClass="assignment-cancel-value"/>
+        <Label text="Ca" GridPane.rowIndex="2" styleClass="assignment-cancel-caption"/>
+        <Label fx:id="lblCancelShift" text="Ca sáng · 08:00–12:00" GridPane.rowIndex="2" GridPane.columnIndex="1"
+               wrapText="true" styleClass="assignment-cancel-value"/>
+        <Label text="Phòng" GridPane.rowIndex="3" styleClass="assignment-cancel-caption"/>
+        <Label fx:id="lblCancelRoom" text="P01" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="assignment-cancel-value"/>
+    </GridPane>
+    <Label fx:id="lblCancelAssignmentQuestion" text="Bạn có chắc muốn hủy phân công này?"
+           wrapText="true" minHeight="-Infinity" styleClass="assignment-cancel-question"/>
+    <HBox spacing="12">
+        <Button fx:id="btnKeepAssignment" text="Không" cancelButton="true" styleClass="secondary-button"/>
+        <Button fx:id="btnConfirmCancelAssignment" text="Hủy phân công" styleClass="secondary-button, assignment-danger-button"/>
+    </HBox>
+</VBox>
