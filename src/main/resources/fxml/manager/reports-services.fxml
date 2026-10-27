@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC007 · Tab ServiceUsage · Figma 15:2435, file ROPzygiAnJyl1VudYGf0sm.
+     Fragment của reports.fxml, không có Sidebar/Topbar hoặc Controller riêng.
+     Toàn bộ ngày, KPI, cột và dòng bảng là DỮ LIỆU MINH HỌA từ Figma.
+     HashMap/MapValueFactory là JavaFX/Java chuẩn để preview, không phải Entity.
+     Nhi tự thay bằng dữ liệu thống kê thật, không trộn mẫu với SQL.
+     Giá là chuỗi hiển thị; Backend dùng BigDecimal và thanh toán đã xác nhận. -->
+<VBox fx:id="serviceUsageReport" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      spacing="20" minWidth="0" prefHeight="1088">
+    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="reports-filter-card">
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Từ ngày" styleClass="reports-field-label"/>
+                <DatePicker fx:id="dpServiceUsageFrom" editable="false" maxWidth="Infinity" minWidth="0"
+                            accessibleText="Từ ngày, ngày mẫu 01/10/2026" styleClass="reports-date">
+                    <!-- Chỉ chữ xem trước; Nhi tự setValue(LocalDate) và converter khi viết Controller. -->
+                    <editor text="01/10/2026"/>
+                </DatePicker>
+            </VBox>
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Đến ngày" styleClass="reports-field-label"/>
+                <DatePicker fx:id="dpServiceUsageTo" editable="false" maxWidth="Infinity" minWidth="0"
+                            accessibleText="Đến ngày, ngày mẫu 09/10/2026" styleClass="reports-date">
+                    <!-- Chỉ chữ xem trước; Nhi tự setValue(LocalDate) và converter khi viết Controller. -->
+                    <editor text="09/10/2026"/>
+                </DatePicker>
+            </VBox>
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Dịch vụ" styleClass="reports-field-label"/>
+                <ComboBox fx:id="cboServiceUsageService" value="Tất cả" maxWidth="Infinity" minWidth="0" styleClass="reports-filter"
+                          accessibleText="Lọc dịch vụ, dữ liệu mẫu">
+                    <items><FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Cạo vôi răng"/>
+                        <String fx:value="Trám răng composite"/>
+                        <String fx:value="Nhổ răng thường"/>
+                    </FXCollections></items>
+                </ComboBox>
+            </VBox>
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Nha sĩ" styleClass="reports-field-label"/>
+                <ComboBox fx:id="cboServiceUsageDentist" value="Tất cả" maxWidth="Infinity" minWidth="0" styleClass="reports-filter"
+                          accessibleText="Lọc nha sĩ, dữ liệu mẫu">
+                    <items><FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Trần Minh Đức"/>
+                        <String fx:value="Nguyễn Lan Anh"/>
+                    </FXCollections></items>
+                </ComboBox>
+            </VBox>
+        <Button fx:id="btnApplyServiceUsageReport" text="Áp dụng" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+
+    <GridPane fx:id="ServiceUsageMetrics" hgap="16" minHeight="132" prefHeight="132" maxHeight="132">
+        <rowConstraints><RowConstraints percentHeight="100" fillHeight="true"/></rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+        </columnConstraints>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="0">
+            <Label text="Tổng dịch vụ thực hiện" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblServiceUsageTotal" text="236" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblServiceUsageTotalNote" text="Chỉ định trong kỳ báo cáo" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="1">
+            <Label text="Dịch vụ phổ biến nhất" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblServiceUsagePopular" text="Cạo vôi răng" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblServiceUsagePopularNote" text="82 lượt · 34,7%" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="2">
+            <Label text="Tổng doanh thu dịch vụ" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblServiceUsageRevenue" text="142.680.000 ₫" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblServiceUsageRevenueNote" text="Trong kỳ báo cáo" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="3">
+            <Label text="Trung bình dịch vụ/lượt khám" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblServiceUsageAverage" text="1,23" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblServiceUsageAverageNote" text="236 dịch vụ / 192 lượt hoàn tất" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+    </GridPane>
+
+    <VBox spacing="16" minWidth="0" styleClass="reports-card">
+        <Label fx:id="lblServiceUsageChartTitle" text="Top dịch vụ được sử dụng" styleClass="reports-card-title"/>
+        <Label fx:id="lblServiceUsageChartSubtitle" text="Khác là nhóm dịch vụ gộp, không phải một dịch vụ riêng" styleClass="reports-caption" wrapText="true"/>
+        <!-- Cột JavaFX thật, không ảnh biểu đồ. Chiều cao mẫu giữ theo Figma.
+             Khi đổi kỳ, Nhi tự dựng lại các VBox/cột và nhãn từ số liệu thống kê. -->
+        <HBox fx:id="chartServiceUsage" spacing="20" alignment="BOTTOM_CENTER" minHeight="222" prefHeight="222" maxHeight="222"
+              styleClass="reports-chart" accessibleText="Top dịch vụ được sử dụng, dữ liệu minh họa">
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblServiceUsageBarValue1" text="82" styleClass="reports-bar-value"/>
+                <Region fx:id="barServiceUsage1" minHeight="148.744" prefHeight="148.744" maxHeight="148.744"
+                        maxWidth="Infinity" styleClass="reports-bar, reports-bar-accent"/>
+                <Label text="Cạo vôi răng" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblServiceUsageBarValue2" text="68" styleClass="reports-bar-value"/>
+                <Region fx:id="barServiceUsage2" minHeight="123.349" prefHeight="123.349" maxHeight="123.349"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="Trám răng composite" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblServiceUsageBarValue3" text="86" styleClass="reports-bar-value"/>
+                <Region fx:id="barServiceUsage3" minHeight="156" prefHeight="156" maxHeight="156"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="Khác (gộp)" styleClass="reports-axis-label"/>
+            </VBox>
+        </HBox>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="reports-divider"/>
+        <Label fx:id="lblServiceUsageChartNote" text="Trục giá trị: Số lượt thực hiện · Tổng kỳ 236 chỉ định" styleClass="reports-caption" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+
+    <VBox spacing="16" minWidth="0" styleClass="reports-card">
+        <Label text="Dữ liệu chi tiết" styleClass="reports-card-title"/>
+        <VBox styleClass="reports-table-frame">
+            <!-- Chỉ đọc; không mở chi tiết, không hover/selected highlight.
+                 editable=false không tắt selection: Nhi tự setSelectionModel(null) khi nối Controller. -->
+            <TableView fx:id="tblServiceUsage" editable="false" focusTraversable="false" fixedCellSize="72"
+                       minHeight="254" prefHeight="254" maxHeight="254" styleClass="reports-table">
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/></columnResizePolicy>
+                <placeholder><Label text="Chưa có dữ liệu" styleClass="reports-caption"/></placeholder>
+                <columns>
+                    <TableColumn fx:id="colServiceUsageName" text="Tên dịch vụ" prefWidth="330" minWidth="215" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="name"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceUsageCount" text="Số lượt thực hiện" prefWidth="178" minWidth="150" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="count"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceUsagePrice" text="Đơn giá" prefWidth="168" minWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="price"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceUsageRevenue" text="Doanh thu" prefWidth="244" minWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="revenue"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServiceUsageUsageRate" text="Tỷ lệ sử dụng" prefWidth="188" minWidth="135" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="rate"/></cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items><FXCollections fx:factory="observableArrayList">
+                    <HashMap name="Trám răng composite" count="68" price="500.000 ₫" revenue="34.000.000 ₫" rate="28,8%"/>
+                    <HashMap name="Cạo vôi răng" count="82" price="300.000 ₫" revenue="24.600.000 ₫" rate="34,7%"/>
+                    <HashMap name="Khác (nhóm dịch vụ)" count="86" price="Nhiều mức giá" revenue="84.080.000 ₫" rate="36,4%"/>
+                </FXCollections></items>
+            </TableView>
+            <HBox spacing="6" alignment="CENTER_LEFT" minHeight="40" prefHeight="40" styleClass="reports-table-footer">
+                <Label fx:id="lblServiceUsageRecordCount" text="Hiển thị 3 / 3 bản ghi" styleClass="reports-caption"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnServiceUsagePreviousPage" text="‹" disable="true" accessibleText="Trang báo cáo trước" styleClass="reports-page-button"/>
+                <Label fx:id="lblServiceUsageCurrentPage" text="1" styleClass="reports-caption"/>
+                <Button fx:id="btnServiceUsageNextPage" text="›" disable="true" accessibleText="Trang báo cáo tiếp theo, chưa có xử lý" styleClass="reports-page-button"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <VBox spacing="2">
+        <Label fx:id="lblServiceUsageDemoNotice" text="DỮ LIỆU MINH HỌA · Phòng khám nha khoa · 09/10/2026 · Không kết nối SQL Server"
+               styleClass="reports-caption" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+</VBox>
