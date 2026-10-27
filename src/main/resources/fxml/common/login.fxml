@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Figma Login 1:11801. DentaFlow logo replaces old clinic mark.
+     DEMO ONLY decision: role buttons replace credential fields; no SQL, password or hashing. -->
+<BorderPane fx:id="loginRoot" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="vn.edu.nhom19.nhakhoa.view.common.LoginController" styleClass="shell, login-shell">
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <ImageView fitWidth="40" fitHeight="40" preserveRatio="true" accessibleText="Logo DentaFlow">
+                <image><Image url="@/images/dentaflow-logo.png"/></image>
+            </ImageView>
+            <Label text="DentaFlow · Hệ thống quản lý phòng khám" styleClass="brand-name" wrapText="true"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Ứng dụng nội bộ" styleClass="muted"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" styleClass="shell-scroll, login-scroll">
+            <content>
+                <StackPane alignment="CENTER" styleClass="login-stage">
+                    <HBox maxWidth="1056" minWidth="0" styleClass="login-card" alignment="TOP_LEFT">
+                        <VBox prefWidth="500" minWidth="320" minHeight="600" spacing="28"
+                              HBox.hgrow="ALWAYS" styleClass="login-intro">
+                            <ImageView fitWidth="40" fitHeight="40" preserveRatio="true"><image><Image url="@/images/shell/login-shield.png"/></image></ImageView>
+                            <Label text="HỆ THỐNG QUẢN LÝ PHÒNG KHÁM NHA KHOA" wrapText="true" styleClass="login-heading"/>
+                            <Label text="Một không gian làm việc thống nhất cho tiếp nhận, khám bệnh và vận hành phòng khám."
+                                   wrapText="true" styleClass="body-text"/>
+                            <Separator/>
+                            <VBox spacing="20">
+                                <HBox spacing="12" alignment="CENTER_LEFT"><ImageView fitWidth="20" fitHeight="20" preserveRatio="true"><image><Image url="@/images/shell/login-calendar.png"/></image></ImageView><VBox spacing="4" HBox.hgrow="ALWAYS"><Label text="Tiếp nhận &amp; lịch hẹn" styleClass="identity-name"/><Label text="Sắp xếp lịch, tiếp nhận đúng quy trình." wrapText="true" styleClass="muted"/></VBox></HBox>
+                                <HBox spacing="12" alignment="CENTER_LEFT"><ImageView fitWidth="20" fitHeight="20" preserveRatio="true"><image><Image url="@/images/shell/login-exam.png"/></image></ImageView><VBox spacing="4" HBox.hgrow="ALWAYS"><Label text="Khám &amp; điều trị" styleClass="identity-name"/><Label text="Hồ sơ, dịch vụ và đơn thuốc cùng một ca khám." wrapText="true" styleClass="muted"/></VBox></HBox>
+                                <HBox spacing="12" alignment="CENTER_LEFT"><ImageView fitWidth="20" fitHeight="20" preserveRatio="true"><image><Image url="@/images/shell/login-operations.png"/></image></ImageView><VBox spacing="4" HBox.hgrow="ALWAYS"><Label text="Quản lý vận hành" styleClass="identity-name"/><Label text="Nhân sự, phân công và báo cáo." wrapText="true" styleClass="muted"/></VBox></HBox>
+                            </VBox>
+                            <Label text="Bản demo giao diện · Không sử dụng dữ liệu thật" wrapText="true" styleClass="muted"/>
+                        </VBox>
+                        <VBox prefWidth="556" minWidth="360" minHeight="600" spacing="20" HBox.hgrow="ALWAYS" styleClass="login-form">
+                            <VBox spacing="6">
+                                <Label text="Đăng nhập demo" styleClass="page-title"/>
+                                <Label text="Chọn vai trò để mở giao diện DentaFlow." wrapText="true" styleClass="body-text"/>
+                            </VBox>
+                            <Label fx:id="lblDemoNotice" text="DEMO ONLY · Chỉ dùng để kiểm tra giao diện. Không xác thực tài khoản và không phải cơ chế phân quyền bảo mật."
+                                   wrapText="true" minHeight="-Infinity" maxWidth="Infinity" styleClass="demo-banner"/>
+                            <VBox spacing="8">
+                                <Label text="Không cần tên đăng nhập hoặc mật khẩu." wrapText="true" styleClass="body-text"/>
+                                <Label text="Nhấn một nút bên dưới để vào AppShell với Sidebar tương ứng." wrapText="true" styleClass="muted"/>
+                            </VBox>
+                            <Separator/>
+                            <Label text="Chọn vai trò demo" styleClass="identity-name"/>
+                            <FlowPane hgap="12" vgap="16">
+                                <VBox spacing="6" alignment="CENTER">
+                                    <Button fx:id="btnDemoManager" text="Quản lý" userData="MANAGER" onAction="#handleDemoRole"
+                                            styleClass="secondary-button, demo-role-button" accessibleText="Mở demo Quản lý"/>
+                                    <Label text="MANAGER" styleClass="demo-role-code"/>
+                                </VBox>
+                                <VBox spacing="6" alignment="CENTER">
+                                    <Button fx:id="btnDemoReceptionist" text="Lễ tân" userData="RECEPTIONIST" onAction="#handleDemoRole"
+                                            styleClass="secondary-button, demo-role-button" accessibleText="Mở demo Lễ tân"/>
+                                    <Label text="RECEPTIONIST" styleClass="demo-role-code"/>
+                                </VBox>
+                                <VBox spacing="6" alignment="CENTER">
+                                    <Button fx:id="btnDemoDentist" text="Nha sĩ" userData="DENTIST" onAction="#handleDemoRole"
+                                            styleClass="secondary-button, demo-role-button" accessibleText="Mở demo Nha sĩ"/>
+                                    <Label text="DENTIST" styleClass="demo-role-code"/>
+                                </VBox>
+                                <VBox spacing="6" alignment="CENTER">
+                                    <Button fx:id="btnDemoNurse" text="Y tá" userData="NURSE" onAction="#handleDemoRole"
+                                            styleClass="secondary-button, demo-role-button" accessibleText="Mở demo Y tá"/>
+                                    <Label text="NURSE" styleClass="demo-role-code"/>
+                                </VBox>
+                            </FlowPane>
+                            <Label fx:id="lblError" text="" wrapText="true" minHeight="-Infinity" visible="false" managed="false"
+                                   maxWidth="Infinity" styleClass="error-banner"/>
+                            <Region VBox.vgrow="ALWAYS" minHeight="12"/>
+                            <Label text="Đăng nhập thật sẽ do Tường triển khai ở UC001 trong Sprint Backend."
+                                   wrapText="true" styleClass="muted"/>
+                        </VBox>
+                    </HBox>
+                </StackPane>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom><Label text="DEMO ONLY · Không xác thực tài khoản · IUH · Nhóm 19"
+                   alignment="CENTER" maxWidth="Infinity" wrapText="true" styleClass="muted"/></bottom>
+</BorderPane>

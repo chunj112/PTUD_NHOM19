@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Figma 1:2903 content only, inset 28px comes from AppShell.
+     No fabricated metrics: em dash + empty tables = CHUA CO BACKEND, not zero activity.
+     No Controller/backend for reports, patients or appointments is implemented here. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" spacing="20" minWidth="0">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" HBox.hgrow="ALWAYS" minWidth="0">
+            <Label text="Tổng quan phòng khám" wrapText="true" styleClass="page-title"/>
+            <Label text="Theo dõi hoạt động và chỉ số trong ngày" wrapText="true" styleClass="body-text"/>
+        </VBox>
+        <Button fx:id="btnViewReports" id="btnViewReports" text="Xem báo cáo" graphicTextGap="8" styleClass="secondary-button">
+            <graphic><ImageView fitWidth="16" fitHeight="16" preserveRatio="true"><image><Image url="@/images/shell/dashboard-reports.png"/></image></ImageView></graphic>
+        </Button>
+    </HBox>
+    <Label text="CHƯA CÓ BACKEND · Các chỉ số và danh sách chưa được tải từ hệ thống."
+           maxWidth="Infinity" wrapText="true" styleClass="info-banner"/>
+    <GridPane hgap="16">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/><ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/><ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        <VBox GridPane.columnIndex="0" spacing="8" minWidth="0" styleClass="notice-card">
+            <Label text="Bệnh nhân hôm nay" wrapText="true" styleClass="muted"/>
+            <Label fx:id="lblPatientsToday" text="—" styleClass="metric-value"/>
+            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        </VBox>
+        <VBox GridPane.columnIndex="1" spacing="8" minWidth="0" styleClass="notice-card">
+            <Label text="Lịch hẹn hôm nay" wrapText="true" styleClass="muted"/>
+            <Label fx:id="lblAppointmentsToday" text="—" styleClass="metric-value"/>
+            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        </VBox>
+        <VBox GridPane.columnIndex="2" spacing="8" minWidth="0" styleClass="notice-card">
+            <Label text="Doanh thu hôm nay" wrapText="true" styleClass="muted"/>
+            <Label fx:id="lblRevenueToday" text="—" styleClass="metric-value"/>
+            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        </VBox>
+        <VBox GridPane.columnIndex="3" spacing="8" minWidth="0" styleClass="notice-card">
+            <Label text="Dịch vụ đã thực hiện hôm nay" wrapText="true" styleClass="muted"/>
+            <Label fx:id="lblServicesToday" text="—" styleClass="metric-value"/>
+            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        </VBox>
+    </GridPane>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+            <VBox spacing="16" styleClass="notice-card">
+                <Label text="Lịch khám gần nhất" styleClass="card-title"/>
+                <Label text="Các lịch hẹn trong ca" styleClass="muted"/>
+                <TableView fx:id="tblRecentAppointments" prefHeight="330" minHeight="330">
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    <placeholder><Label text="Chưa kết nối dữ liệu lịch khám" styleClass="muted"/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colTime" text="Giờ"/><TableColumn fx:id="colPatient" text="Bệnh nhân"/>
+                        <TableColumn fx:id="colDentist" text="Nha sĩ"/>
+                        <TableColumn fx:id="colReason" text="Lý do khám"/>
+                        <TableColumn fx:id="colStatus" text="Trạng thái"/>
+                    </columns>
+                </TableView>
+            </VBox>
+            <VBox spacing="16" styleClass="notice-card">
+                <Label text="Hoạt động hôm nay" styleClass="card-title"/>
+                <TableView fx:id="tblTodayActivity" prefHeight="260" minHeight="260">
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    <placeholder><Label text="Chưa kết nối dữ liệu hoạt động" styleClass="muted"/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colActivityTime" text="Thời gian"/>
+                        <TableColumn fx:id="colActivity" text="Hoạt động"/>
+                        <TableColumn fx:id="colActor" text="Người thực hiện"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+        <VBox spacing="16" prefWidth="320" minWidth="260" maxWidth="320">
+            <VBox spacing="16" styleClass="notice-card">
+                <Label text="Tình hình trong ngày" wrapText="true" styleClass="card-title"/>
+                <VBox spacing="6"><Label text="Đã tiếp nhận" styleClass="muted"/><Label fx:id="lblReceived" text="—" styleClass="identity-name"/></VBox>
+                <Separator/>
+                <VBox spacing="6"><Label text="Phiếu khám hoàn tất" styleClass="muted"/><Label fx:id="lblCompleted" text="—" styleClass="identity-name"/></VBox>
+                <Separator/>
+                <VBox spacing="6"><Label text="Hóa đơn chờ thu" styleClass="muted"/><Label fx:id="lblUnpaid" text="—" styleClass="identity-name"/></VBox>
+                <Label text="Số liệu sẽ hiển thị sau khi kết nối Backend." wrapText="true" maxWidth="Infinity" styleClass="info-banner"/>
+            </VBox>
+            <VBox spacing="16" styleClass="notice-card">
+                <Label text="Lịch làm việc nha sĩ" wrapText="true" styleClass="card-title"/>
+                <Label text="Chưa kết nối dữ liệu ca làm việc." wrapText="true" maxWidth="Infinity" styleClass="info-banner"/>
+                <Button fx:id="btnViewSchedule" id="btnViewSchedule" text="Xem Lịch làm việc" styleClass="secondary-button"/>
+            </VBox>
+        </VBox>
+    </HBox>
+    <Label text="DentaFlow · Chưa kết nối dữ liệu Dashboard" styleClass="muted"/>
+</VBox>

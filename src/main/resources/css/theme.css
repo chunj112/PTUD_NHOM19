@@ -125,3 +125,40 @@
     -fx-background-radius: 6;
     -fx-padding: 6 10;
 }
+
+/* Prompt 02 — Login Figma 1:11801, Dashboard 1:2903. */
+.login-shell { -fx-padding: 40; }
+.login-stage { -fx-padding: 32 0; }
+.login-card {
+    -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 10;
+}
+.login-intro {
+    -fx-padding: 40; -fx-background-color: #E8F5F6;
+    -fx-background-radius: 10 0 0 10;
+}
+.login-form { -fx-padding: 40; }
+.login-heading { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.primary-button, .secondary-button {
+    -fx-min-height: 40; -fx-padding: 9 14; -fx-font-size: 14px;
+    -fx-font-weight: bold; -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-border-width: 1; -fx-cursor: hand;
+}
+.primary-button { -fx-background-color: #087E91; -fx-text-fill: white; -fx-border-color: #087E91; }
+.primary-button:hover { -fx-background-color: #066B7B; }
+.secondary-button { -fx-background-color: white; -fx-text-fill: #172B3A; -fx-border-color: #DCE4EA; }
+.secondary-button:hover { -fx-background-color: #E8F5F6; }
+.primary-button:focused, .secondary-button:focused { -fx-border-color: #172B3A; }
+.demo-role-button { -fx-min-width: 86; }
+.demo-role-code { -fx-font-size: 10px; -fx-text-fill: #617584; }
+.demo-banner {
+    -fx-padding: 12; -fx-background-color: #FFF7E0; -fx-background-radius: 8;
+    -fx-text-fill: #815B0A; -fx-font-size: 12px;
+}
+.error-banner { -fx-padding: 12; -fx-background-color: #FEF0F0; -fx-background-radius: 8; -fx-text-fill: #C33D42; -fx-font-size: 12px; }
+.info-banner { -fx-padding: 12; -fx-background-color: #E8F5F6; -fx-background-radius: 8; -fx-text-fill: #087E91; -fx-font-size: 12px; }
+.metric-value { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.table-view { -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-background-radius: 8; }
+.table-view .column-header-background, .table-view .column-header { -fx-background-color: #F4F7FA; }
+.table-view .column-header .label { -fx-text-fill: #617584; -fx-font-size: 12px; -fx-alignment: CENTER_LEFT; -fx-padding: 10 6; }
+.table-view .table-cell { -fx-text-fill: #172B3A; -fx-padding: 12; }

@@ -1,37 +1,30 @@
 package vn.edu.nhom19.nhakhoa.app;
 
 import java.net.URL;
-import java.util.Objects;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import vn.edu.nhom19.nhakhoa.auth.UserSession;
 
-/** Bootstrap JavaFX. Controller và Backend sẽ do các thành viên triển khai. */
+/** Bootstrap giữ nguyên JavaFX; ngoại lệ Prompt 02 cho phần Login/Session của Tường. */
 public class DentaFlowApp extends Application {
+    private AppNavigator navigator;
     @Override
     public void start(Stage stage) throws Exception {
-        URL fxml = Objects.requireNonNull(
-            getClass().getResource("/fxml/common/app-shell.fxml"),
-            "Missing FXML: /fxml/common/app-shell.fxml"
-        );
-        Parent root = FXMLLoader.load(fxml);
-        Scene scene = new Scene(root, 1280, 800);
-        URL css = getClass().getResource("/css/theme.css");
-        if (css != null) {
-            scene.getStylesheets().add(css.toExternalForm());
-        }
+        // Quyết định UI hiện tại: chọn Role DEMO ONLY, không xác thực SQL hoặc mật khẩu.
+        navigator = new AppNavigator(stage, new UserSession());
+        navigator.start();
 
-        stage.setTitle("DentaFlow - Quan ly phong kham nha khoa");
         stage.setMinWidth(1040);
         stage.setMinHeight(650);
         URL icon = getClass().getResource("/images/dentaflow-logo.png");
         if (icon != null) {
             stage.getIcons().add(new Image(icon.toExternalForm()));
         }
-        stage.setScene(scene);
         stage.show();
+    }
+
+    @Override public void stop() {
+        if (navigator != null) navigator.close();
     }
 }
