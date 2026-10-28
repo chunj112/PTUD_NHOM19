@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC006 · Khang · Figma 39:5486, ROPzygiAnJyl1VudYGf0sm.
+     Form UI độc lập 680x802, dùng dữ liệu xem trước DV002 đúng frame Figma.
+     Khang phải điền thông tin dịch vụ đang chọn, không mặc định cập nhật DV002.
+     Nhóm dịch vụ và yêu cầu FDI chỉ là trường UI, chưa có mapping trong schema DichVu.
+     Giá và thời gian là text đã định dạng; Khang tự validate/chuyển sang BigDecimal và số phút.
+     Không lưu dữ liệu, không thêm nút Xóa, không thông báo thành công giả, không fx:controller/onAction. -->
+<VBox fx:id="editServiceForm" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/theme.css, @/css/service-form.css" styleClass="service-form"
+      spacing="16" minWidth="680" prefWidth="680" maxWidth="680"
+      minHeight="-Infinity" prefHeight="802" maxHeight="-Infinity">
+    <HBox alignment="CENTER_LEFT" minHeight="32" prefHeight="32" maxHeight="32">
+        <Label fx:id="lblServiceFormTitle" text="Sửa dịch vụ" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+               styleClass="service-form-title"/>
+        <!-- Figma dùng ký tự ×, không thay bằng icon tự vẽ. -->
+        <Button fx:id="btnCloseServiceForm" text="×" accessibleText="Đóng sửa dịch vụ"
+                minWidth="32" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32"
+                styleClass="service-form-close"/>
+    </HBox>
+
+    <VBox styleClass="service-form-field, service-form-readonly">
+        <Label text="Mã dịch vụ · Chỉ đọc" styleClass="service-form-field-label"/>
+        <TextField fx:id="txtServiceId" text="DV002" editable="false" focusTraversable="false"
+                   accessibleText="Mã dịch vụ chỉ đọc, DV002 là dữ liệu mẫu" styleClass="service-form-input"/>
+    </VBox>
+    <VBox styleClass="service-form-field">
+        <Label text="Tên dịch vụ *" styleClass="service-form-field-label"/>
+        <TextField fx:id="txtServiceName" text="Trám răng composite" styleClass="service-form-input"/>
+    </VBox>
+    <VBox styleClass="service-form-field">
+        <Label text="Nhóm dịch vụ *" styleClass="service-form-field-label"/>
+        <ComboBox fx:id="cboServiceGroup" value="Phục hồi" maxWidth="Infinity" styleClass="service-form-choice">
+            <items><FXCollections fx:factory="observableArrayList">
+                <String fx:value="Khám"/><String fx:value="Phục hồi"/><String fx:value="Dự phòng"/>
+                <String fx:value="Phẫu thuật"/><String fx:value="Nội nha"/><String fx:value="Thẩm mỹ"/>
+            </FXCollections></items>
+        </ComboBox>
+    </VBox>
+    <HBox spacing="12">
+        <VBox prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="service-form-field">
+            <Label text="Đơn vị *" styleClass="service-form-field-label"/>
+            <ComboBox fx:id="cboServiceUnit" value="Răng" maxWidth="Infinity" styleClass="service-form-choice">
+                <items><FXCollections fx:factory="observableArrayList"><String fx:value="Răng"/><String fx:value="Lần"/></FXCollections></items>
+            </ComboBox>
+        </VBox>
+        <VBox prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="service-form-field">
+            <Label text="Thời gian thực hiện *" styleClass="service-form-field-label"/>
+            <TextField fx:id="txtServiceDuration" text="30 phút" styleClass="service-form-input"/>
+        </VBox>
+    </HBox>
+    <VBox styleClass="service-form-field">
+        <Label text="Đơn giá (₫) *" styleClass="service-form-field-label"/>
+        <TextField fx:id="txtServicePrice" text="500.000" styleClass="service-form-input"/>
+    </VBox>
+    <VBox styleClass="service-form-field">
+        <Label text="Yêu cầu vị trí FDI" styleClass="service-form-field-label"/>
+        <ComboBox fx:id="cboServiceFdiRequirement" value="Bắt buộc chọn răng" maxWidth="Infinity" styleClass="service-form-choice">
+            <!-- Figma chỉ thể hiện giá trị này, chưa có frame mở danh sách lựa chọn. -->
+            <items><FXCollections fx:factory="observableArrayList"><String fx:value="Bắt buộc chọn răng"/></FXCollections></items>
+        </ComboBox>
+    </VBox>
+    <VBox styleClass="service-form-description-field">
+        <Label text="Mô tả" styleClass="service-form-field-label"/>
+        <TextArea fx:id="txtServiceDescription" text="Phục hồi tổn thương sâu răng bằng vật liệu composite."
+                  wrapText="true" prefRowCount="3" VBox.vgrow="ALWAYS" styleClass="service-form-description"/>
+    </VBox>
+    <VBox styleClass="service-form-field">
+        <Label text="Trạng thái" styleClass="service-form-field-label"/>
+        <ComboBox fx:id="cboServiceStatus" value="Hoạt động" maxWidth="Infinity" styleClass="service-form-choice">
+            <items><FXCollections fx:factory="observableArrayList"><String fx:value="Hoạt động"/><String fx:value="Ngừng hoạt động"/></FXCollections></items>
+        </ComboBox>
+    </VBox>
+
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="40" prefHeight="40" maxHeight="40">
+        <Button fx:id="btnCancelServiceForm" text="Hủy" cancelButton="true" minWidth="-Infinity" styleClass="secondary-button"/>
+        <Button fx:id="btnSaveService" text="Lưu thay đổi" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+</VBox>
