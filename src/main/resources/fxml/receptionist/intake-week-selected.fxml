@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · intake · Figma 104:16073.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="intakeWeekSelected" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-page, receptionist-intake" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="850">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnPreviousAppointmentWeek" text="‹" minWidth="-Infinity" styleClass="secondary-button"/>
+        <Button fx:id="btnAppointmentWeekToday" text="Hôm nay" minWidth="-Infinity" styleClass="secondary-button"/>
+        <Button fx:id="btnNextAppointmentWeek" text="›" minWidth="-Infinity" styleClass="secondary-button"/>
+        <ComboBox fx:id="cboWeekDentist" value="Nha sĩ: Tất cả" prefWidth="190" minWidth="190" maxWidth="190" styleClass="rx-filter">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Nha sĩ: Tất cả"/>
+                    <String fx:value="Trần Minh Đức"/>
+                    <String fx:value="Nguyễn Lan Anh"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="cboWeekStatus" value="Trạng thái: Tất cả" prefWidth="200" minWidth="200" maxWidth="200" styleClass="rx-filter">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Trạng thái: Tất cả"/>
+                    <String fx:value="Chờ tiếp nhận"/>
+                    <String fx:value="Đã tiếp nhận"/>
+                    <String fx:value="Đã hoàn tất"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <TextField fx:id="txtWeekPatientSearch" promptText="Tìm bệnh nhân" minWidth="0" HBox.hgrow="ALWAYS" styleClass="rx-search"/>
+    </HBox>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" styleClass="rx-card" HBox.hgrow="ALWAYS">
+            <Label text="Lịch hẹn tuần · 05–11/10/2026" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <Label text="Chọn lịch hẹn để xem chi tiết · Giờ làm việc 08:00–17:00" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <GridPane fx:id="appointmentWeekGrid" hgap="8" minHeight="460" prefHeight="460">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="14.285714285714286"/>
+                    <ColumnConstraints percentWidth="14.285714285714286"/>
+                    <ColumnConstraints percentWidth="14.285714285714286"/>
+                    <ColumnConstraints percentWidth="14.285714285714286"/>
+                    <ColumnConstraints percentWidth="14.285714285714286"/>
+                    <ColumnConstraints percentWidth="14.285714285714286"/>
+                    <ColumnConstraints percentWidth="14.285714285714286"/>
+                </columnConstraints>
+                <VBox spacing="8" minWidth="0" styleClass="rx-calendar-day" GridPane.columnIndex="0" minHeight="460">
+                    <Label fx:id="lblWeekDay0" text="T2 · 05/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWeekCount0" text="8 lịch hẹn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard00">
+                        <Label fx:id="lblWeekTime00" text="09:00–09:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient00" text="BN006 · Đỗ Thị F" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist00" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus00" text="Đã hoàn tất" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard01">
+                        <Label fx:id="lblWeekTime01" text="14:00–14:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient01" text="BN007 · Bùi Văn G" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist01" text="Nguyễn Lan Anh · P02" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus01" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="8" minWidth="0" styleClass="rx-calendar-day" GridPane.columnIndex="1" minHeight="460">
+                    <Label fx:id="lblWeekDay1" text="T3 · 06/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWeekCount1" text="9 lịch hẹn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard10">
+                        <Label fx:id="lblWeekTime10" text="08:30–09:00" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient10" text="BN008 · Nguyễn Thị H" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist10" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus10" text="Đã hoàn tất" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard11">
+                        <Label fx:id="lblWeekTime11" text="14:00–14:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient11" text="BN007 · Bùi Văn G" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist11" text="Nguyễn Lan Anh · P02" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus11" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="8" minWidth="0" styleClass="rx-calendar-day" GridPane.columnIndex="2" minHeight="460">
+                    <Label fx:id="lblWeekDay2" text="T4 · 07/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWeekCount2" text="10 lịch hẹn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard20">
+                        <Label fx:id="lblWeekTime20" text="09:00–09:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient20" text="BN003 · Lê Văn C" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist20" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus20" text="Đã hoàn tất" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard21">
+                        <Label fx:id="lblWeekTime21" text="14:00–14:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient21" text="BN007 · Bùi Văn G" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist21" text="Nguyễn Lan Anh · P02" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus21" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="8" minWidth="0" styleClass="rx-calendar-day" GridPane.columnIndex="3" minHeight="460">
+                    <Label fx:id="lblWeekDay3" text="T5 · 08/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWeekCount3" text="11 lịch hẹn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard30">
+                        <Label fx:id="lblWeekTime30" text="08:30–09:00" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient30" text="BN004 · Phạm Thị D" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist30" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus30" text="Đã hoàn tất" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard31">
+                        <Label fx:id="lblWeekTime31" text="14:00–14:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient31" text="BN007 · Bùi Văn G" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist31" text="Nguyễn Lan Anh · P02" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus31" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="8" minWidth="0" styleClass="rx-calendar-day, rx-calendar-today" GridPane.columnIndex="4" minHeight="460">
+                    <Label fx:id="lblWeekDay4" text="T6 · 09/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWeekCount4" text="24 lịch hẹn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard40">
+                        <Label fx:id="lblWeekTime40" text="09:00–09:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient40" text="BN001 · Nguyễn Văn A" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist40" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus40" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard41">
+                        <Label fx:id="lblWeekTime41" text="09:30–10:00" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient41" text="BN002 · Trần Thị B" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist41" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus41" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="8" minWidth="0" styleClass="rx-calendar-day" GridPane.columnIndex="5" minHeight="460">
+                    <Label fx:id="lblWeekDay5" text="T7 · 10/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWeekCount5" text="13 lịch hẹn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard50">
+                        <Label fx:id="lblWeekTime50" text="08:30–09:00" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient50" text="BN009 · Vũ Văn K" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist50" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus50" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-calendar-appointment" fx:id="appointmentCard51">
+                        <Label fx:id="lblWeekTime51" text="14:00–14:30" styleClass="rx-calendar-time" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekPatient51" text="BN007 · Bùi Văn G" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekDentist51" text="Nguyễn Lan Anh · P02" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblWeekStatus51" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="8" minWidth="0" styleClass="rx-calendar-day" GridPane.columnIndex="6" minHeight="460">
+                    <Label fx:id="lblWeekDay6" text="CN · 11/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWeekCount6" text="Không có lịch" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </GridPane>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                <Label text="Đã tiếp nhận" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+                <Label text="Đã hoàn tất" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+            </HBox>
+        </VBox>
+        <VBox spacing="16" minWidth="250" prefWidth="250" maxWidth="250">
+            <fx:include fx:id="weekAppointmentDetails" source="appointment-detail.fxml"/>
+        </VBox>
+    </HBox>
+</VBox>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · UC003 · Chỉ FXML/CSS, không Controller/SQL.
+     Bố cục Ngày/Tuần theo hai ảnh người dùng cung cấp ngày 28/10/2026.
+     Lịch tuần kế thừa 15:1763; dữ liệu NV004/ca sáng/LT tham chiếu 39:5720.
+     Công việc là nội dung minh họa phù hợp Lễ tân, không phải nhiệm vụ khám.
+     Tab chuyển bằng JavaFX; chọn ca/đổi ngày-tuần sẽ do Controller triển khai. -->
+<VBox fx:id="receptionistSchedule" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-schedule.css" styleClass="receptionist-page, receptionist-schedule" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="Lịch làm việc" styleClass="rx-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Lịch được quản lý phân công · Chỉ xem, không chỉnh sửa ca" styleClass="rx-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <StackPane minWidth="0">
+        <TabPane fx:id="scheduleTabs" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${scheduleTabs.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="rx-tabs">
+            <tabs>
+                <Tab fx:id="tabScheduleDay" text="Ngày">
+                    <content>
+                        <fx:include fx:id="tabScheduleDayContent" source="schedule-day.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabScheduleWeek" text="Tuần">
+                    <content>
+                        <fx:include fx:id="tabScheduleWeekContent" source="schedule-week.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <ComboBox fx:id="cboScheduleWeek" value="05–11/10/2026" prefWidth="200" minWidth="200" maxWidth="200" styleClass="rx-filter" StackPane.alignment="TOP_RIGHT" visible="${tabScheduleWeek.selected}" managed="${tabScheduleWeek.selected}">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="05–11/10/2026"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </StackPane>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

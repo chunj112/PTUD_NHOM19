@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · cashier · Figma 104:16808.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="cashierWaitingSelected" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-cashier.css" styleClass="receptionist-page, receptionist-cashier" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="1290">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtCashierSearch" promptText="Tìm bệnh nhân / phiếu khám / hóa đơn" minWidth="0" HBox.hgrow="ALWAYS" styleClass="rx-search"/>
+        <DatePicker fx:id="dpCashierDate" prefWidth="190" minWidth="190" maxWidth="190" editable="false" styleClass="rx-filter">
+            <editor text="09/10/2026"/>
+        </DatePicker>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label text="Hóa đơn chờ thu tiền" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <Label text="3 hóa đơn đã lập, chưa thu tiền · Chọn hóa đơn để thanh toán" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="rx-table-frame">
+            <TableView fx:id="tblWaitingInvoices" editable="false" fixedCellSize="72" minHeight="260" prefHeight="260" maxHeight="260" styleClass="rx-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblWaitingInvoicesColId" text="Mã hóa đơn" minWidth="100" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblWaitingInvoicesColPatient" text="Bệnh nhân" minWidth="180" prefWidth="240" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblWaitingInvoicesColDate" text="Ngày lập" minWidth="140" prefWidth="180" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblWaitingInvoicesColAmount" text="Tổng tiền" minWidth="130" prefWidth="200" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblWaitingInvoicesColStatus" text="Trạng thái" minWidth="130" prefWidth="200" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="HD001" v1="BN001 · Nguyễn Văn A" v2="09/10/2026" v3="800.000 ₫">
+                            <v4>
+                                <Label text="Chưa thanh toán" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                            </v4>
+                        </HashMap>
+                        <HashMap v0="HD002" v1="BN006 · Đỗ Thị F" v2="09/10/2026" v3="300.000 ₫">
+                            <v4>
+                                <Label text="Chưa thanh toán" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                            </v4>
+                        </HashMap>
+                        <HashMap v0="HD003" v1="BN003 · Lê Văn C" v2="09/10/2026" v3="500.000 ₫">
+                            <v4>
+                                <Label text="Chưa thanh toán" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                            </v4>
+                        </HashMap>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                <Label fx:id="tblWaitingInvoicesCount" text="Hiển thị 3 / 3 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblWaitingInvoicesPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                <Label fx:id="tblWaitingInvoicesPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblWaitingInvoicesNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="334" styleClass="rx-card" prefWidth="334" maxWidth="334">
+            <Label text="Thông tin thu tiền" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Tổng chờ thu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblCashierSummaryAmount" text="1.600.000 ₫" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Số hóa đơn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblCashierSummaryCount" text="3 hóa đơn" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+            <Label fx:id="lblCashierSummaryRule" text="Chỉ thu tiền cho hóa đơn đã lập từ dịch vụ thực hiện. Không thu tiền thuốc." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+            <VBox spacing="16" minWidth="0" styleClass="rx-card" fx:id="invoiceSelectionHint" visible="false" managed="false">
+                <Label text="Chi tiết hóa đơn" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+                <VBox spacing="16" minWidth="0" alignment="CENTER" minHeight="148">
+                    <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/receptionist/select-record.png"/>
+                        </image>
+                    </ImageView>
+                    <Label fx:id="lblSelectInvoiceHint" text="Chọn một hóa đơn chờ thu tiền để xem dịch vụ, tổng tiền và phương thức thanh toán." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+            </VBox>
+            <VBox spacing="16" minWidth="0" fx:id="selectedInvoicePane" visible="true" managed="true">
+                <fx:include fx:id="selectedInvoiceDetails" source="invoice-waiting-detail.fxml"/>
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox>

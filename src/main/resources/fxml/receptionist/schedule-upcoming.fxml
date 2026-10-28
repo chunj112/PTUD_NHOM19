@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · UC003 · Chỉ FXML/CSS, không Controller/SQL.
+     Bố cục Ngày/Tuần theo hai ảnh người dùng cung cấp ngày 28/10/2026.
+     Lịch tuần kế thừa 15:1763; dữ liệu NV004/ca sáng/LT tham chiếu 39:5720.
+     Công việc là nội dung minh họa phù hợp Lễ tân, không phải nhiệm vụ khám.
+     Tab chuyển bằng JavaFX; chọn ca/đổi ngày-tuần sẽ do Controller triển khai. -->
+<VBox fx:id="receptionistUpcomingSchedule" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-schedule.css" styleClass="receptionist-page, receptionist-schedule" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label text="Lịch sắp tới" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="rx-table-frame">
+            <TableView fx:id="tblUpcomingShifts" editable="false" fixedCellSize="72" minHeight="116" prefHeight="116" maxHeight="116" styleClass="rx-table, rx-readonly-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblUpcomingShiftsColDate" text="Ngày" minWidth="100" prefWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblUpcomingShiftsColShift" text="Ca" minWidth="120" prefWidth="150" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblUpcomingShiftsColRoom" text="Phòng" minWidth="80" prefWidth="100" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblUpcomingShiftsColWork" text="Công việc" minWidth="160" prefWidth="280" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="10/10/2026" v1="08:00–12:00" v2="LT" v3="Tiếp nhận và hướng dẫn bệnh nhân"/>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                <Label fx:id="tblUpcomingShiftsCount" text="Hiển thị 1 / 1 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblUpcomingShiftsPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                <Label fx:id="tblUpcomingShiftsPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblUpcomingShiftsNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>

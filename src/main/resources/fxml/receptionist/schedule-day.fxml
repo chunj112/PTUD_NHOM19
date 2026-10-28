@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · UC003 · Chỉ FXML/CSS, không Controller/SQL.
+     Bố cục Ngày/Tuần theo hai ảnh người dùng cung cấp ngày 28/10/2026.
+     Lịch tuần kế thừa 15:1763; dữ liệu NV004/ca sáng/LT tham chiếu 39:5720.
+     Công việc là nội dung minh họa phù hợp Lễ tân, không phải nhiệm vụ khám.
+     Tab chuyển bằng JavaFX; chọn ca/đổi ngày-tuần sẽ do Controller triển khai. -->
+<VBox fx:id="receptionistScheduleDay" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-schedule.css" styleClass="receptionist-page, receptionist-schedule" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="570">
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="20" minWidth="0" HBox.hgrow="ALWAYS">
+            <VBox spacing="16" minWidth="0" styleClass="rx-card">
+                <Label fx:id="lblScheduleDayTitle" text="Thứ Sáu · 09/10/2026" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <VBox styleClass="rx-table-frame">
+                    <TableView fx:id="tblDailyShifts" editable="false" fixedCellSize="72" minHeight="116" prefHeight="116" maxHeight="116" styleClass="rx-table, rx-readonly-table">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                        </columnResizePolicy>
+                        <placeholder>
+                            <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </placeholder>
+                        <columns>
+                            <TableColumn fx:id="tblDailyShiftsColTime" text="Giờ" minWidth="100" prefWidth="140" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v0"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblDailyShiftsColRoom" text="Phòng" minWidth="80" prefWidth="100" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v1"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblDailyShiftsColWork" text="Công việc" minWidth="160" prefWidth="280" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v2"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblDailyShiftsColStatus" text="Trạng thái" minWidth="130" prefWidth="160" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v3"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <HashMap v0="08:00–12:00" v1="LT" v2="Tiếp nhận và hướng dẫn bệnh nhân">
+                                    <v3>
+                                        <Label text="Đã phân công" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+                                    </v3>
+                                </HashMap>
+                            </FXCollections>
+                        </items>
+                    </TableView>
+                    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                        <Label fx:id="tblDailyShiftsCount" text="Hiển thị 1 / 1 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="tblDailyShiftsPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                        <Label fx:id="tblDailyShiftsPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Button fx:id="tblDailyShiftsNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                    </HBox>
+                </VBox>
+                <Label fx:id="lblScheduleDayNotice" text="Mọi thay đổi lịch vui lòng liên hệ quản lý. Lịch làm việc chỉ đọc." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+            </VBox>
+            <fx:include fx:id="upcomingSchedule" source="schedule-upcoming.fxml"/>
+        </VBox>
+        <VBox spacing="16" minWidth="300" prefWidth="300" maxWidth="300">
+            <fx:include fx:id="selectedScheduleDetail" source="schedule-detail.fxml"/>
+        </VBox>
+    </HBox>
+</VBox>

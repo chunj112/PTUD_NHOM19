@@ -1,0 +1,3 @@
+.receptionist-profile .rx-profile-avatar { -fx-background-color: #E8F5F6; -fx-background-radius: 100; -fx-padding: 16; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.receptionist-profile .rx-profile-active { -fx-padding: 4 8; -fx-background-color: #EDF7F1; -fx-background-radius: 6; -fx-text-fill: #21764F; }
+.receptionist-profile .rx-password-input { -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-border-width: 0; -fx-font-size: 14px; -fx-prompt-text-fill: #617584; -fx-pref-height: 23; }

@@ -1,0 +1,135 @@
+/* UI dùng riêng cho RECEPTIONIST; không đổi theme hoặc UI Manager. */
+.receptionist-page { -fx-background-color: transparent; }
+.receptionist-page .rx-title { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.receptionist-page .rx-subtitle { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.receptionist-page .rx-body, .receptionist-modal .rx-body { -fx-font-size: 13px; -fx-text-fill: #172B3A; }
+.receptionist-page .rx-caption, .receptionist-modal .rx-caption { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.receptionist-page .rx-card, .receptionist-modal .rx-card {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.receptionist-page .rx-card-title, .receptionist-modal .rx-card-title {
+    -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.receptionist-page .rx-detail, .receptionist-modal .rx-detail { -fx-min-height: 44; }
+.receptionist-page .rx-detail-value, .receptionist-modal .rx-detail-value {
+    -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.receptionist-page .rx-divider, .receptionist-modal .rx-divider { -fx-background-color: #DCE4EA; }
+.receptionist-page .rx-alert, .receptionist-modal .rx-alert { -fx-padding: 12; -fx-background-radius: 8; -fx-font-size: 12px; }
+.receptionist-page .rx-alert-info, .receptionist-modal .rx-alert-info { -fx-background-color: #E8F5F6; -fx-text-fill: #087E91; }
+.receptionist-page .rx-alert-warning, .receptionist-modal .rx-alert-warning { -fx-background-color: #FFF7E1; -fx-text-fill: #966B16; }
+.receptionist-page .rx-alert-success, .receptionist-modal .rx-alert-success { -fx-background-color: #EDF7F1; -fx-text-fill: #21764F; }
+.receptionist-page .rx-alert-danger, .receptionist-modal .rx-alert-danger { -fx-background-color: #FDEFF0; -fx-text-fill: #C33D42; }
+.receptionist-page .rx-search, .receptionist-page .rx-filter {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-max-height: 42;
+    -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A;
+}
+.receptionist-page .rx-search { -fx-padding: 10 12; -fx-prompt-text-fill: #617584; }
+.receptionist-page .rx-filter > .text-field, .receptionist-page .rx-filter > .list-cell {
+    -fx-padding: 8 12; -fx-background-color: transparent; -fx-background-insets: 0; -fx-text-fill: #172B3A;
+}
+.receptionist-page .rx-filter > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 10; }
+.receptionist-page .rx-filter > .arrow-button > .arrow { -fx-background-color: #617584; }
+.receptionist-page .rx-search:focused, .receptionist-page .rx-filter:focused { -fx-border-color: #087E91; }
+.receptionist-page .rx-table-frame, .receptionist-modal .rx-table-frame {
+    -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+}
+.receptionist-page .rx-table, .receptionist-modal .rx-table {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0; -fx-border-width: 0;
+}
+.receptionist-page .rx-table .column-header-background, .receptionist-page .rx-table .column-header,
+.receptionist-page .rx-table .filler, .receptionist-modal .rx-table .column-header-background,
+.receptionist-modal .rx-table .column-header, .receptionist-modal .rx-table .filler { -fx-background-color: #F4F7FA; }
+.receptionist-page .rx-table .column-header, .receptionist-modal .rx-table .column-header {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-border-width: 0;
+}
+.receptionist-page .rx-table .column-header .label, .receptionist-modal .rx-table .column-header .label {
+    -fx-padding: 4 8; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584;
+    -fx-alignment: CENTER_LEFT; -fx-wrap-text: true;
+}
+.receptionist-page .rx-table .table-row-cell, .receptionist-modal .rx-table .table-row-cell {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0;
+}
+.receptionist-page .rx-table .table-row-cell:filled:hover, .receptionist-modal .rx-table .table-row-cell:filled:hover { -fx-background-color: #F0F6F8; }
+.receptionist-page .rx-table .table-row-cell:filled:selected, .receptionist-modal .rx-table .table-row-cell:filled:selected {
+    -fx-background-color: #087E91, #E8F5F6; -fx-background-insets: 0, 0 0 0 3;
+}
+.receptionist-page .rx-table .table-cell, .receptionist-modal .rx-table .table-cell {
+    -fx-padding: 12; -fx-font-size: 13px; -fx-text-fill: #172B3A; -fx-wrap-text: true; -fx-alignment: TOP_LEFT;
+    -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.receptionist-page .rx-table .table-cell:empty, .receptionist-modal .rx-table .table-cell:empty { -fx-border-width: 0; }
+.receptionist-page .rx-readonly-table .table-row-cell:filled:hover,
+.receptionist-page .rx-readonly-table .table-row-cell:filled:selected { -fx-background-color: white; -fx-background-insets: 0; -fx-cursor: default; }
+.receptionist-page .rx-table-footer, .receptionist-modal .rx-table-footer {
+    -fx-padding: 8 12; -fx-min-height: 38; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0;
+}
+.receptionist-page .rx-page-button, .receptionist-modal .rx-page-button {
+    -fx-padding: 0 6; -fx-background-color: transparent; -fx-text-fill: #172B3A; -fx-cursor: hand;
+}
+.receptionist-page .rx-status-warning, .receptionist-modal .rx-status-warning { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #966B16; }
+.receptionist-page .rx-status-success, .receptionist-modal .rx-status-success { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #21764F; }
+.receptionist-page .rx-status-danger, .receptionist-modal .rx-status-danger { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #C33D42; }
+.receptionist-page .rx-status-info, .receptionist-modal .rx-status-info { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.receptionist-page .rx-tabs { -fx-background-color: transparent; }
+.receptionist-page .rx-tabs > .tab-header-area { -fx-padding: 0; }
+.receptionist-page .rx-tabs > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent; -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.receptionist-page .rx-tabs .tab {
+    -fx-padding: 12 16; -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 0;
+    -fx-border-color: transparent; -fx-border-width: 0 0 2 0;
+}
+.receptionist-page .rx-tabs .tab .tab-label { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.receptionist-page .rx-tabs .tab:selected { -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent; }
+.receptionist-page .rx-tabs .tab:selected .tab-label { -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.receptionist-page .rx-tabs .tab .focus-indicator,
+.receptionist-page .rx-tabs:focused .tab:selected .focus-indicator { -fx-border-width: 0; -fx-border-color: transparent; }
+.receptionist-page .rx-tabs > .tab-content-area { -fx-padding: 16 0 0 0; }
+.receptionist-page .rx-field, .receptionist-modal .rx-field {
+    -fx-padding: 8 11; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62;
+}
+.receptionist-page .rx-field-tall, .receptionist-modal .rx-field-tall { -fx-min-height: 104; -fx-pref-height: 104; -fx-max-height: 104; }
+.receptionist-page .rx-field-readonly, .receptionist-modal .rx-field-readonly { -fx-background-color: #F4F7FA; }
+.receptionist-page .rx-field-input, .receptionist-page .rx-field-choice, .receptionist-page .rx-field-date,
+.receptionist-modal .rx-field-input, .receptionist-modal .rx-field-choice, .receptionist-modal .rx-field-date {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-border-width: 0;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-min-height: 23; -fx-pref-height: 23; -fx-max-height: 23;
+}
+.receptionist-page .rx-field-readonly .text-field, .receptionist-modal .rx-field-readonly .text-field { -fx-text-fill: #617584; }
+.receptionist-page .rx-field-date > .text-field, .receptionist-modal .rx-field-date > .text-field,
+.receptionist-page .rx-field-choice > .list-cell, .receptionist-modal .rx-field-choice > .list-cell {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-text-fill: #172B3A;
+}
+.receptionist-page .rx-field-date > .arrow-button, .receptionist-modal .rx-field-date > .arrow-button,
+.receptionist-page .rx-field-choice > .arrow-button, .receptionist-modal .rx-field-choice > .arrow-button { -fx-padding: 0 3; -fx-background-color: transparent; }
+.receptionist-page .rx-field-area, .receptionist-modal .rx-field-area {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-border-width: 0;
+    -fx-text-fill: #172B3A; -fx-font-size: 14px;
+}
+.receptionist-page .rx-field-area .content, .receptionist-modal .rx-field-area .content,
+.receptionist-page .rx-field-area .scroll-pane, .receptionist-modal .rx-field-area .scroll-pane,
+.receptionist-page .rx-field-area .viewport, .receptionist-modal .rx-field-area .viewport { -fx-padding: 0; -fx-background-color: transparent; }
+.receptionist-page .rx-field-input:focused, .receptionist-modal .rx-field-input:focused,
+.receptionist-page .rx-field-choice:focused, .receptionist-modal .rx-field-choice:focused { -fx-background-color: #E8F5F6; }
+.receptionist-modal {
+    -fx-padding: 23; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.receptionist-modal .rx-modal-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.receptionist-modal .rx-close {
+    -fx-padding: 0; -fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-text-fill: #617584; -fx-font-size: 16px; -fx-cursor: hand;
+}
+.receptionist-page .rx-danger-button, .receptionist-modal .rx-danger-button { -fx-border-color: #C33D42; -fx-text-fill: #C33D42; }
+.receptionist-page .rx-total, .receptionist-modal .rx-total { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.receptionist-page .rx-empty-circle { -fx-background-color: #E8F5F6; -fx-background-radius: 100; }
+.receptionist-page .rx-selected-card { -fx-background-color: #E8F5F6; -fx-border-color: #087E91; }
+.receptionist-page .rx-skeleton { -fx-background-color: #E8EDF1; -fx-background-radius: 6; }
+
+.receptionist-page .primary-button:disabled, .receptionist-modal .primary-button:disabled { -fx-opacity: 1; -fx-background-color: #E8EDF1; -fx-border-color: #E8EDF1; -fx-text-fill: #617584; }

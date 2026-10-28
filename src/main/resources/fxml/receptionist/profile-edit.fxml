@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · profile · Figma 104:17731.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="editReceptionistProfile" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-profile.css" styleClass="receptionist-modal, receptionist-profile" spacing="16" minWidth="640" prefWidth="640" maxWidth="640" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblDialogTitle" text="Chỉnh sửa hồ sơ" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnClose" text="×" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng"/>
+    </HBox>
+    <Label text="Chỉ cập nhật thông tin cá nhân của tài khoản đang đăng nhập." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-readonly">
+            <Label text="Mã NV · Chỉ đọc" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <TextField fx:id="txtProfileEmployeeId" text="NV004" styleClass="rx-field-input" editable="false" focusTraversable="false"/>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-readonly">
+            <Label text="Chức vụ · Chỉ đọc" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <TextField fx:id="txtProfileRole" text="Lễ tân" styleClass="rx-field-input" editable="false" focusTraversable="false"/>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-readonly">
+            <Label text="Quyền · Chỉ đọc" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <TextField fx:id="txtProfilePermission" text="LETAN" styleClass="rx-field-input" editable="false" focusTraversable="false"/>
+        </VBox>
+    </HBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+        <Label text="Họ tên *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtProfileName" text="Phạm Thu Hà" styleClass="rx-field-input"/>
+    </VBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Số điện thoại *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <TextField fx:id="txtProfilePhone" text="0904 345 678" styleClass="rx-field-input"/>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Email" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <TextField fx:id="txtProfileEmail" text="thuha@example.com" styleClass="rx-field-input"/>
+        </VBox>
+    </HBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Ngày sinh" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpProfileBirthDate" maxWidth="Infinity" minWidth="0" editable="false" styleClass="rx-field-date">
+                <editor text="20/06/1995"/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Giới tính" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <ComboBox fx:id="cboProfileGender" value="Nữ" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Nữ"/>
+                        <String fx:value="Nam"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+    </HBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-tall">
+        <Label text="Địa chỉ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <TextArea fx:id="txtProfileAddress" text="15 Lê Lợi, TP. Hồ Chí Minh" wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="rx-field-area"/>
+    </VBox>
+    <Label fx:id="lblEditProfileRule" text="Không thể thay đổi mã nhân viên, chức vụ hoặc quyền truy cập trong hồ sơ cá nhân." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnCancel" text="Hủy" minWidth="-Infinity" styleClass="secondary-button" cancelButton="true"/>
+        <Button fx:id="btnSaveProfile" text="Lưu thay đổi" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+    <Label text="Thông tin minh họa · Không phải dữ liệu cá nhân thật" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

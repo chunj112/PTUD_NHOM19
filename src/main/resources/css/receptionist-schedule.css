@@ -1,0 +1,9 @@
+.receptionist-schedule .rx-schedule-day { -fx-padding: 10; -fx-background-color: #F4F7FA; -fx-background-radius: 8; }
+.receptionist-schedule .rx-schedule-today { -fx-background-color: #E8F5F6; }
+.receptionist-schedule .rx-shift-card { -fx-padding: 10; -fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #DCE4EA; -fx-border-radius: 6; -fx-border-width: 1; -fx-cursor: default; }
+.receptionist-schedule .rx-shift-card:hover, .receptionist-schedule .rx-shift-card:pressed { -fx-background-color: white; -fx-border-color: #DCE4EA; }
+.receptionist-schedule .rx-shift-time { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+
+/* Trạng thái và panel chi tiết riêng cho lịch cá nhân, không đổi theme chung. */
+.receptionist-schedule .rx-shift-status { -fx-padding: 4 8; -fx-background-color: #E8F5F6; -fx-background-radius: 4; -fx-text-fill: #087E91; -fx-font-size: 12px; -fx-font-weight: bold; }
+.receptionist-schedule .rx-detail-value { -fx-font-size: 13px; }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · intake · Figma 104:16569.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="walkInnotfound" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-page, receptionist-intake" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="610">
+    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-step-bar">
+        <Label fx:id="lblWalkInStepPatient" text="1  Tìm và chọn bệnh nhân" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+        <Label text="›" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblWalkInStepSlot" text="2  Chọn ca và tiếp nhận" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </HBox>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="420" styleClass="rx-card" prefWidth="420" maxWidth="420">
+            <Label text="Bước 1 · Tìm bệnh nhân" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <Label text="Kiểm tra hồ sơ trước khi tạo bệnh nhân mới." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+                <Label text="Tìm mã BN / họ tên / SĐT" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <TextField fx:id="txtWalkInPatientSearch" text="0988 765 432" styleClass="rx-field-input"/>
+            </VBox>
+            <Button fx:id="btnSearchWalkInPatient" text="Tìm kiếm" minWidth="-Infinity" styleClass="primary-button"/>
+            <Label fx:id="lblWalkInNotFound" text="Không tìm thấy hồ sơ phù hợp. Kiểm tra lại mã, họ tên hoặc SĐT trước khi tạo mới." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+            <Button fx:id="btnCreateWalkInPatient" text="+ Tạo bệnh nhân mới" minWidth="-Infinity" styleClass="secondary-button"/>
+            <Label text="Lưu hồ sơ mới sẽ trở lại thẻ Khách không hẹn. Chưa tạo phiếu khám khi chỉ lưu hồ sơ." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="16" minWidth="0" styleClass="rx-card" HBox.hgrow="ALWAYS">
+            <Label text="Bước 2 · Chọn ca và tiếp nhận" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <Label text="Tìm và chọn bệnh nhân ở bước 1 để tiếp tục." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field" disable="true">
+                    <Label text="Nha sĩ *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <ComboBox fx:id="cboWalkInDentist" value="Chọn nha sĩ" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Chọn nha sĩ"/>
+                                <String fx:value="Trần Minh Đức"/>
+                                <String fx:value="Nguyễn Lan Anh"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </VBox>
+                <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field" disable="true">
+                    <Label text="Ngày khám *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <DatePicker fx:id="dpWalkInDate" maxWidth="Infinity" minWidth="0" editable="false" styleClass="rx-field-date">
+                        <editor text="09/10/2026"/>
+                    </DatePicker>
+                </VBox>
+            </HBox>
+            <Label fx:id="lblWalkInSlotHint" text="Chưa chọn bệnh nhân. Các ca khả dụng sẽ được hiển thị sau khi hoàn thành bước 1." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+            <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-tall" disable="true">
+                <Label text="Lý do khám *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <TextArea fx:id="txtWalkInReason" text="" wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="rx-field-area"/>
+            </VBox>
+            <Label fx:id="lblWalkInRule" text="Xác nhận tiếp nhận sẽ tạo phiếu khám và đưa bệnh nhân vào hàng chờ của nha sĩ. Không cần lịch hẹn trước." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button fx:id="btnResetWalkIn" text="Làm mới" minWidth="-Infinity" styleClass="secondary-button"/>
+                <Button fx:id="btnAdmitWalkIn" text="Tiếp nhận bệnh nhân" minWidth="-Infinity" styleClass="primary-button" disable="true"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>

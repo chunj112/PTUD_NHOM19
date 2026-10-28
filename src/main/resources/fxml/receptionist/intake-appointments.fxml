@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · intake · Figma 15:924, 112:5173, 104:16073, 104:16298.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="receptionistIntake" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-page, receptionist-intake" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="Tiếp nhận &amp; Lịch hẹn" styleClass="rx-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Quản lý lịch hẹn và tiếp nhận bệnh nhân trong cùng một quy trình" styleClass="rx-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <Button fx:id="btnBookAppointment" text="Đặt lịch" minWidth="-Infinity" styleClass="primary-button" graphicTextGap="8">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/add-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <TabPane fx:id="intakeTabs" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${intakeTabs.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="rx-tabs">
+        <tabs>
+            <Tab fx:id="tabToday" text="Hôm nay">
+                <content>
+                    <fx:include fx:id="tabTodayContent" source="intake-today.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabWeek" text="Lịch tuần">
+                <content>
+                    <fx:include fx:id="tabWeekContent" source="intake-week.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabWalkIn" text="Khách không hẹn">
+                <content>
+                    <fx:include fx:id="tabWalkInContent" source="walk-in.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · patients · Figma 59:31264.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="patientLoadingDetail" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-patients.css" styleClass="receptionist-page, receptionist-patients" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="410">
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label text="Thông tin bệnh nhân" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <Label text="Đang tải dữ liệu, vui lòng chờ…" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+        </HBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+        </HBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+        </HBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="rx-skeleton"/>
+        </HBox>
+    </VBox>
+</VBox>

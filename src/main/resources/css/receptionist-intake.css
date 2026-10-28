@@ -1,0 +1,14 @@
+.receptionist-intake .rx-calendar-day { -fx-padding: 8; -fx-background-color: #F4F7FA; -fx-background-radius: 8; }
+.receptionist-intake .rx-calendar-today { -fx-background-color: #E8F5F6; }
+.receptionist-intake .rx-calendar-appointment {
+    -fx-padding: 8; -fx-background-color: white; -fx-background-radius: 6;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 6; -fx-border-width: 1;
+}
+.receptionist-intake .rx-calendar-appointment .rx-detail-value { -fx-font-size: 12px; }
+.receptionist-intake .rx-calendar-appointment .rx-caption,
+.receptionist-intake .rx-calendar-appointment .rx-status-warning,
+.receptionist-intake .rx-calendar-appointment .rx-status-success { -fx-font-size: 11px; }
+.receptionist-intake .rx-calendar-time { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.receptionist-intake .rx-slot-selected { -fx-background-color: #087E91; }
+.receptionist-intake .rx-slot-selected .label { -fx-text-fill: white; }
+.receptionist-intake .rx-step-bar { -fx-padding: 16; -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; }

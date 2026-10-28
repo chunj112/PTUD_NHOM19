@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · profile · Figma 104:17577.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="receptionistProfileDrawer" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-profile.css" styleClass="receptionist-modal, receptionist-profile" spacing="16" minWidth="503" prefWidth="503" maxWidth="503" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblDialogTitle" text="Hồ sơ cá nhân" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnClose" text="×" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng"/>
+    </HBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label text="TH" styleClass="rx-profile-avatar" wrapText="true" minHeight="-Infinity"/>
+        <VBox spacing="4" minWidth="0">
+            <Label fx:id="lblProfileName" text="Phạm Thu Hà" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblProfileIdRole" text="NV004 · Lễ tân" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Họ tên" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblProfileFullName" text="Phạm Thu Hà" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+        </VBox>
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Mã NV" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblProfileEmployeeId" text="NV004" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+        </VBox>
+    </HBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Chức vụ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblProfileRole" text="Lễ tân" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Số điện thoại" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblProfilePhone" text="0904 345 678" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Email" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblProfileEmail" text="thuha@example.com" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Ngày sinh" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblProfileBirthDate" text="20/06/1995" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+        </VBox>
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Giới tính" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblProfileGender" text="Nữ" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+        </VBox>
+    </HBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Địa chỉ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblProfileAddress" text="15 Lê Lợi, TP. Hồ Chí Minh" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Trạng thái tài khoản" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblProfileAccountStatus" text="Hoạt động" styleClass="rx-detail-value, rx-profile-active" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <Label fx:id="lblProfileReadonly" text="Thông tin chỉ đọc. Chức vụ và quyền truy cập do quản lý cấp, không thể tự thay đổi." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnEditPersonalProfile" text="Chỉnh sửa hồ sơ" minWidth="-Infinity" styleClass="primary-button"/>
+        <Button fx:id="btnChangePassword" text="Đổi mật khẩu" minWidth="-Infinity" styleClass="secondary-button"/>
+    </HBox>
+    <Label text="Thông tin minh họa · Không phải dữ liệu cá nhân thật" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

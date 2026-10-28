@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · cashier · Figma 104:2535.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="cashPaymentForm" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-cashier.css" styleClass="receptionist-modal, receptionist-cashier" spacing="16" minWidth="640" prefWidth="640" maxWidth="640" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblDialogTitle" text="Thanh toán tiền mặt" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnClose" text="×" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng"/>
+    </HBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Mã hóa đơn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblCashInvoice" text="HD001" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Bệnh nhân" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblCashPatient" text="BN001 · Nguyễn Văn A" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <Label fx:id="lblCashAmount" text="800.000 ₫" styleClass="rx-total" wrapText="true" minHeight="-Infinity"/>
+    <Label text="Số tiền cần thanh toán" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+        <Label text="Tiền khách đưa (₫) *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtCashTendered" text="1.000.000" styleClass="rx-field-input"/>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-readonly">
+        <Label text="Tiền thừa (₫) · Chỉ đọc" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtCashChange" text="200.000" styleClass="rx-field-input" editable="false" focusTraversable="false"/>
+    </VBox>
+    <Label fx:id="lblCashPaymentRule" text="Kiểm tra số tiền thực nhận trước khi xác nhận." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnCancel" text="Hủy" minWidth="-Infinity" styleClass="secondary-button" cancelButton="true"/>
+        <Button fx:id="btnConfirmCashPayment" text="Xác nhận thanh toán" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+</VBox>

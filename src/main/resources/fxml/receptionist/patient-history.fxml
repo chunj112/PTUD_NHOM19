@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · patients · Figma 59:31818.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="patientHistory" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-patients.css" styleClass="receptionist-page, receptionist-patients" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="800">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Từ ngày" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpHistoryFrom" maxWidth="Infinity" minWidth="0" editable="false" styleClass="rx-field-date">
+                <editor text="01/01/2025"/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Đến ngày" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpHistoryTo" maxWidth="Infinity" minWidth="0" editable="false" styleClass="rx-field-date">
+                <editor text="09/10/2026"/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Nha sĩ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <ComboBox fx:id="cboHistoryDentist" value="Tất cả" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Trần Minh Đức"/>
+                        <String fx:value="Nguyễn Lan Anh"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+        <Button fx:id="btnApplyHistoryFilter" text="Áp dụng" minWidth="-Infinity" styleClass="secondary-button"/>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label text="Lịch sử khám" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="rx-table-frame">
+            <TableView fx:id="tblPatientHistory" editable="false" fixedCellSize="72" minHeight="188" prefHeight="188" maxHeight="188" styleClass="rx-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblPatientHistoryColDate" text="Ngày khám" minWidth="130" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientHistoryColExam" text="Mã phiếu khám" minWidth="130" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientHistoryColDentist" text="Nha sĩ" minWidth="150" prefWidth="190" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientHistoryColReason" text="Lý do khám" minWidth="150" prefWidth="190" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientHistoryColDiagnosis" text="Chẩn đoán" minWidth="160" prefWidth="230" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientHistoryColStatus" text="Trạng thái" minWidth="110" prefWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v5"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="15/04/2026" v1="PK015" v2="Trần Minh Đức" v3="Kiểm tra định kỳ" v4="Viêm lợi nhẹ; cao răng toàn hàm">
+                            <v5>
+                                <Label text="Đã khám" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                            </v5>
+                        </HashMap>
+                        <HashMap v0="15/10/2025" v1="PK094" v2="Trần Minh Đức" v3="Đau răng 46" v4="Sâu ngà răng 46">
+                            <v5>
+                                <Label text="Đã khám" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                            </v5>
+                        </HashMap>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                <Label fx:id="tblPatientHistoryCount" text="Hiển thị 2 / 2 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblPatientHistoryPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                <Label fx:id="tblPatientHistoryPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblPatientHistoryNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label fx:id="lblHistoryDetailTitle" text="Chi tiết phiếu khám · PK015" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                            <Label text="Ngày khám" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblHistoryExamDate" text="15/04/2026 · 09:00" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                            <Label text="Nha sĩ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblHistoryDentist" text="Trần Minh Đức" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <Label text="Chỉ đọc" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+        </HBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Triệu chứng" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblHistorySymptoms" text="Chảy máu lợi khi chải răng." styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Chẩn đoán" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblHistoryDiagnosis" text="Viêm lợi nhẹ; cao răng toàn hàm" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Ghi chú" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblHistoryNotes" text="Hướng dẫn chải răng đúng cách, dùng chỉ nha khoa. Tái khám sau 6 tháng." styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Dịch vụ đã thực hiện" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblHistoryServices" text="Cạo vôi răng · Toàn hàm · 300.000 ₫" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Đơn thuốc liên quan" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblHistoryPrescription" text="DT015 · Paracetamol 500 mg · 10 viên" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+    <Label fx:id="lblPatientHistoryReadonly" text="Lịch sử khám chỉ đọc. Lễ tân không chỉnh sửa chẩn đoán hoặc kê đơn." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+</VBox>

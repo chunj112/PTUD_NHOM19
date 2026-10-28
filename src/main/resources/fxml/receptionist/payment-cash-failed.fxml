@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · cashier · Figma 104:2600.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="cashFailedPreview" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-cashier.css" styleClass="receptionist-modal, receptionist-cashier, rx-state-card" spacing="16" minWidth="640" prefWidth="640" maxWidth="640" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblDialogTitle" text="Thanh toán thất bại" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+    </HBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Hóa đơn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblCashFailedInvoice" text="HD001 · 800.000 ₫" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <Label fx:id="lblCashFailedMessage" text="Ghi nhận thanh toán thất bại. Hóa đơn vẫn ở trạng thái Chưa thanh toán." styleClass="rx-alert, rx-alert-danger" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnRetryCashPayment" text="Thử lại" minWidth="-Infinity" styleClass="primary-button"/>
+        <Button fx:id="btnClosePaymentResult" text="Đóng" minWidth="-Infinity" styleClass="secondary-button"/>
+    </HBox>
+</VBox>

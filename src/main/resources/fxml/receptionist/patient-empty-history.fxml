@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · patients · Figma 59:31358.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="emptyPatient5931358" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-patients.css" styleClass="receptionist-page, receptionist-patients" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="470">
+    <VBox spacing="16" minWidth="0" styleClass="rx-card" minHeight="406">
+        <Label text="Lịch sử khám" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <VBox spacing="16" minWidth="0" alignment="CENTER" minHeight="300" VBox.vgrow="ALWAYS" styleClass="rx-search-center">
+            <StackPane minWidth="64" prefWidth="64" maxWidth="64" minHeight="64" prefHeight="64" maxHeight="64" styleClass="rx-empty-circle">
+                <ImageView fitWidth="28" fitHeight="28" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/receptionist/search-state-small.png"/>
+                    </image>
+                </ImageView>
+            </StackPane>
+            <Label fx:id="lblPatientSearchStateTitle" text="Chưa có lịch sử khám." styleClass="rx-card-title" wrapText="true" minHeight="-Infinity" alignment="CENTER" textAlignment="CENTER" maxWidth="600"/>
+            <Label fx:id="lblPatientSearchStateMessage" text="BN002 · Trần Thị B chưa có dữ liệu tại thẻ này. Thông tin bệnh nhân vẫn được giữ ở phía trên." styleClass="rx-caption" wrapText="true" minHeight="-Infinity" alignment="CENTER" textAlignment="CENTER" maxWidth="620"/>
+        </VBox>
+    </VBox>
+    <Label fx:id="lblEmptyPatientHistoryRule" text="Hồ sơ mới · Chưa có phiếu khám hoàn tất, dịch vụ đã thực hiện, đơn thuốc hoặc hóa đơn." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+</VBox>
