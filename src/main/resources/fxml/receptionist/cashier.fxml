@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · cashier · Figma 15:1048, 104:16682, 104:16977.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="receptionistCashier" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-cashier.css" styleClass="receptionist-page, receptionist-cashier" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="Thu ngân" styleClass="rx-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Lập hóa đơn từ ca khám hoàn tất, sau đó thu tiền và đối soát" styleClass="rx-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <TabPane fx:id="cashierTabs" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${cashierTabs.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="rx-tabs">
+        <tabs>
+            <Tab fx:id="tabReadyInvoice" text="Chờ lập hóa đơn">
+                <content>
+                    <fx:include fx:id="tabReadyInvoiceContent" source="cashier-ready.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabAwaitingPayment" text="Chờ thu tiền">
+                <content>
+                    <fx:include fx:id="tabAwaitingPaymentContent" source="cashier-waiting.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabPaid" text="Đã hoàn tất">
+                <content>
+                    <fx:include fx:id="tabPaidContent" source="cashier-paid.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

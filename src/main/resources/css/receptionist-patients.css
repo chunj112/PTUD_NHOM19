@@ -1,0 +1,6 @@
+.receptionist-patients .rx-patient-avatar { -fx-background-color: #E8F5F6; -fx-background-radius: 100; -fx-text-fill: #087E91; -fx-font-weight: bold; -fx-padding: 14; }
+.receptionist-patients .rx-search-center { -fx-padding: 32; }
+
+.receptionist-patients .rx-preview-tabs { -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0; -fx-background-color: white; }
+.receptionist-patients .rx-preview-tab { -fx-background-color: white; -fx-padding: 12 16; -fx-background-radius: 0; -fx-border-color: transparent; -fx-border-width: 0 0 2 0; -fx-text-fill: #617584; }
+.receptionist-patients .rx-preview-tab:selected { -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent; -fx-text-fill: #087E91; -fx-font-weight: bold; }

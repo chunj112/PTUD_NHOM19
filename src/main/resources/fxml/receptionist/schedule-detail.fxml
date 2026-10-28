@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · UC003 · Chỉ FXML/CSS, không Controller/SQL.
+     Bố cục Ngày/Tuần theo hai ảnh người dùng cung cấp ngày 28/10/2026.
+     Lịch tuần kế thừa 15:1763; dữ liệu NV004/ca sáng/LT tham chiếu 39:5720.
+     Công việc là nội dung minh họa phù hợp Lễ tân, không phải nhiệm vụ khám.
+     Tab chuyển bằng JavaFX; chọn ca/đổi ngày-tuần sẽ do Controller triển khai. -->
+<VBox fx:id="receptionistScheduleDetail" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-schedule.css" styleClass="receptionist-page, receptionist-schedule" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label fx:id="lblScheduleDetailTitle" text="Chi tiết ca · 09/10/2026" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblScheduleStatus" text="Đã phân công" styleClass="rx-shift-status" wrapText="true" minHeight="-Infinity"/>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Nhân viên" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblReceptionistEmployee" text="NV004 · Phạm Thu Hà" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Ngày / ca" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblReceptionistShift" text="09/10/2026 · Ca sáng" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Thời gian / phòng" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblReceptionistTimeRoom" text="08:00–12:00 · LT" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Công việc" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblReceptionistWork" text="Tiếp nhận và hướng dẫn bệnh nhân" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+        <Label fx:id="lblScheduleReadonlyNotice" text="Lịch do quản lý phân công. Lễ tân chỉ xem ca cá nhân." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    </VBox>
+</VBox>

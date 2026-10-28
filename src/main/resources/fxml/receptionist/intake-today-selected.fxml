@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · intake · Figma 15:924.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="intakeTodaySelected" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-page, receptionist-intake" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="800">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtAppointmentSearch" promptText="Tìm bệnh nhân / mã lịch hẹn" minWidth="0" HBox.hgrow="ALWAYS" styleClass="rx-search"/>
+        <DatePicker fx:id="dpAppointmentDay" prefWidth="190" minWidth="190" maxWidth="190" editable="false" styleClass="rx-filter">
+            <editor text="09/10/2026"/>
+        </DatePicker>
+        <ComboBox fx:id="cboAppointmentDentist" value="Tất cả nha sĩ" prefWidth="230" minWidth="230" maxWidth="230" styleClass="rx-filter">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả nha sĩ"/>
+                    <String fx:value="Trần Minh Đức"/>
+                    <String fx:value="Nguyễn Lan Anh"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" styleClass="rx-card" HBox.hgrow="ALWAYS">
+            <Label text="Lịch hẹn hôm nay" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <Label text="24 lịch hẹn · Hiển thị 5 lịch gần nhất" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <VBox styleClass="rx-table-frame">
+                <TableView fx:id="tblTodayAppointments" editable="false" fixedCellSize="72" minHeight="404" prefHeight="404" maxHeight="404" styleClass="rx-table">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                    </columnResizePolicy>
+                    <placeholder>
+                        <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="tblTodayAppointmentsColTime" text="Giờ" minWidth="60" prefWidth="80" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v0"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tblTodayAppointmentsColPatient" text="Bệnh nhân" minWidth="150" prefWidth="200" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v1"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tblTodayAppointmentsColDentist" text="Nha sĩ" minWidth="115" prefWidth="150" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v2"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tblTodayAppointmentsColReason" text="Lý do khám" minWidth="125" prefWidth="170" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v3"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tblTodayAppointmentsColStatus" text="Trạng thái" minWidth="120" prefWidth="150" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v4"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <HashMap v0="09:00" v1="BN001 · Nguyễn Văn A" v2="Trần Minh Đức" v3="Đau răng hàm dưới">
+                                <v4>
+                                    <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                                </v4>
+                            </HashMap>
+                            <HashMap v0="09:30" v1="BN002 · Trần Thị B" v2="Trần Minh Đức" v3="Chưa ghi nhận">
+                                <v4>
+                                    <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                                </v4>
+                            </HashMap>
+                            <HashMap v0="10:00" v1="BN003 · Lê Văn C" v2="Nguyễn Lan Anh" v3="Chưa ghi nhận">
+                                <v4>
+                                    <Label text="Đã tiếp nhận" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+                                </v4>
+                            </HashMap>
+                            <HashMap v0="10:30" v1="BN004 · Phạm Thị D" v2="Trần Minh Đức" v3="Chưa ghi nhận">
+                                <v4>
+                                    <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                                </v4>
+                            </HashMap>
+                            <HashMap v0="11:00" v1="BN005 · Hoàng Văn E" v2="Nguyễn Lan Anh" v3="Chưa ghi nhận">
+                                <v4>
+                                    <Label text="Đã hủy" styleClass="rx-status-danger" wrapText="true" minHeight="-Infinity"/>
+                                </v4>
+                            </HashMap>
+                        </FXCollections>
+                    </items>
+                </TableView>
+                <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                    <Label fx:id="tblTodayAppointmentsCount" text="Hiển thị 5 / 5 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="tblTodayAppointmentsPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                    <Label fx:id="tblTodayAppointmentsPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Button fx:id="tblTodayAppointmentsNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                </HBox>
+            </VBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                <Label text="Đã tiếp nhận" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+                <Label text="Đã hủy" styleClass="rx-status-danger" wrapText="true" minHeight="-Infinity"/>
+            </HBox>
+        </VBox>
+        <VBox spacing="16" minWidth="350" prefWidth="350" maxWidth="350">
+            <VBox spacing="16" minWidth="0" styleClass="rx-card" visible="false" managed="false">
+                <Label text="Chi tiết lịch hẹn" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+                <Label fx:id="lblAppointmentSelectionHint" text="Chọn một lịch hẹn để xem chi tiết" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <VBox spacing="16" minWidth="0" fx:id="selectedAppointmentPane" visible="true" managed="true">
+                <fx:include fx:id="selectedAppointmentDetail" source="appointment-detail.fxml"/>
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox>

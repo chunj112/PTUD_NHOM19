@@ -1,0 +1,6 @@
+.receptionist-cashier .rx-payment-method { -fx-min-width: 100; }
+.receptionist-cashier .rx-error-field { -fx-border-color: #C33D42; -fx-min-height: 112; -fx-pref-height: 112; -fx-max-height: 112; }
+.receptionist-cashier .rx-error-text { -fx-font-size: 12px; -fx-text-fill: #C33D42; }
+.receptionist-cashier.rx-state-card { -fx-padding: 19; }
+.receptionist-cashier.rx-state-card .rx-modal-title { -fx-font-size: 18px; }
+.receptionist-cashier .rx-success-mark { -fx-background-color: #EDF7F1; -fx-background-radius: 100; -fx-text-fill: #21764F; -fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 8 12; }

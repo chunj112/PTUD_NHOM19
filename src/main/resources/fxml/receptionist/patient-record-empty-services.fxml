@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · patients · Figma 59:31447.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="emptyPatientRecord1" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-patients.css" styleClass="receptionist-page, receptionist-patients" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="TRA CỨU BỆNH NHÂN" styleClass="rx-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Tìm hồ sơ theo mã bệnh nhân, họ tên hoặc số điện thoại" styleClass="rx-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label text="TB" styleClass="rx-patient-avatar" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblSelectedPatientName" text="Trần Thị B · BN002" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="btnChangePatient" text="Đổi bệnh nhân" minWidth="-Infinity" styleClass="secondary-button"/>
+        </HBox>
+        <Label fx:id="lblSelectedPatientSummary" text="SĐT: 0903 222 456 · Ngày sinh: 12/03/1996 · Giới tính: Nữ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <fx:define>
+        <ToggleGroup fx:id="emptyRecordTabGroup"/>
+    </fx:define>
+    <HBox spacing="0" styleClass="rx-preview-tabs">
+        <ToggleButton fx:id="btnEmptyRecordTab0" text="Thông tin" toggleGroup="$emptyRecordTabGroup" selected="false" styleClass="rx-preview-tab"/>
+        <ToggleButton fx:id="btnEmptyRecordTab1" text="Lịch sử khám" toggleGroup="$emptyRecordTabGroup" selected="false" styleClass="rx-preview-tab"/>
+        <ToggleButton fx:id="btnEmptyRecordTab2" text="Dịch vụ" toggleGroup="$emptyRecordTabGroup" selected="true" styleClass="rx-preview-tab"/>
+        <ToggleButton fx:id="btnEmptyRecordTab3" text="Đơn thuốc" toggleGroup="$emptyRecordTabGroup" selected="false" styleClass="rx-preview-tab"/>
+        <ToggleButton fx:id="btnEmptyRecordTab4" text="Hoá đơn" toggleGroup="$emptyRecordTabGroup" selected="false" styleClass="rx-preview-tab"/>
+    </HBox>
+    <fx:include fx:id="emptyRecordContent" source="patient-empty-services.fxml"/>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

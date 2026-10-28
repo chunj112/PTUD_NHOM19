@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · dashboard · Figma 15:808.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="receptionistDashboard" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-dashboard.css" styleClass="receptionist-page, receptionist-dashboard" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="Tiếp nhận hôm nay" styleClass="rx-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Thứ Sáu, 09/10/2026 · Ca sáng 08:00–12:00" styleClass="rx-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <GridPane fx:id="dashboardMetrics" hgap="16">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        <VBox spacing="8" minWidth="0" styleClass="rx-card" GridPane.columnIndex="0">
+            <Label text="Lịch hẹn hôm nay" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblAppointmentsToday" text="24" styleClass="rx-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblAppointmentsTodayNote" text="6 chưa đến" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="rx-card" GridPane.columnIndex="1">
+            <Label text="Đã đến" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblArrived" text="18" styleClass="rx-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblArrivedNote" text="Theo lịch và khách không hẹn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="rx-card" GridPane.columnIndex="2">
+            <Label text="Đang chờ khám" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblWaitingExams" text="4" styleClass="rx-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblWaitingExamsNote" text="Đã có phiếu khám" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="rx-card" GridPane.columnIndex="3">
+            <Label text="Chờ thanh toán" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPendingInvoices" text="3" styleClass="rx-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPendingInvoicesNote" text="Hóa đơn đã lập" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </GridPane>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+            <VBox spacing="16" minWidth="0" styleClass="rx-card">
+                <Label text="Lịch sắp tới" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <Label text="Lịch hẹn trong ca sáng · Không phải danh bạ bệnh nhân" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <VBox styleClass="rx-table-frame">
+                    <TableView fx:id="tblUpcomingAppointments" editable="false" fixedCellSize="72" minHeight="404" prefHeight="404" maxHeight="404" styleClass="rx-table">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                        </columnResizePolicy>
+                        <placeholder>
+                            <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </placeholder>
+                        <columns>
+                            <TableColumn fx:id="tblUpcomingAppointmentsColTime" text="Giờ" minWidth="60" prefWidth="80" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v0"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblUpcomingAppointmentsColPatient" text="Bệnh nhân" minWidth="150" prefWidth="200" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v1"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblUpcomingAppointmentsColDentist" text="Nha sĩ" minWidth="115" prefWidth="150" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v2"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblUpcomingAppointmentsColReason" text="Lý do khám" minWidth="125" prefWidth="170" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v3"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblUpcomingAppointmentsColStatus" text="Trạng thái" minWidth="120" prefWidth="150" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v4"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <HashMap v0="09:00" v1="BN001 · Nguyễn Văn A" v2="Trần Minh Đức" v3="Đau răng hàm dưới">
+                                    <v4>
+                                        <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                                    </v4>
+                                </HashMap>
+                                <HashMap v0="09:30" v1="BN002 · Trần Thị B" v2="Trần Minh Đức" v3="Chưa ghi nhận">
+                                    <v4>
+                                        <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                                    </v4>
+                                </HashMap>
+                                <HashMap v0="10:00" v1="BN003 · Lê Văn C" v2="Nguyễn Lan Anh" v3="Chưa ghi nhận">
+                                    <v4>
+                                        <Label text="Đã tiếp nhận" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+                                    </v4>
+                                </HashMap>
+                                <HashMap v0="10:30" v1="BN004 · Phạm Thị D" v2="Trần Minh Đức" v3="Chưa ghi nhận">
+                                    <v4>
+                                        <Label text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+                                    </v4>
+                                </HashMap>
+                                <HashMap v0="11:00" v1="BN005 · Hoàng Văn E" v2="Nguyễn Lan Anh" v3="Chưa ghi nhận">
+                                    <v4>
+                                        <Label text="Đã hủy" styleClass="rx-status-danger" wrapText="true" minHeight="-Infinity"/>
+                                    </v4>
+                                </HashMap>
+                            </FXCollections>
+                        </items>
+                    </TableView>
+                    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                        <Label fx:id="tblUpcomingAppointmentsCount" text="Hiển thị 5 / 5 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="tblUpcomingAppointmentsPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                        <Label fx:id="tblUpcomingAppointmentsPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Button fx:id="tblUpcomingAppointmentsNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" styleClass="rx-card">
+                <Label text="Tiến độ tiếp nhận" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+                        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                            <Label text="Lịch hẹn tiếp theo" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblNextAppointment" text="09:00 · Nguyễn Văn A" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+                        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                            <Label text="Nha sĩ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblNextDentist" text="Trần Minh Đức · P01" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <Button fx:id="btnViewAppointments" text="Xem lịch hẹn" minWidth="-Infinity" styleClass="secondary-button"/>
+                </HBox>
+            </VBox>
+        </VBox>
+        <VBox spacing="16" minWidth="310" prefWidth="310" maxWidth="310">
+            <VBox spacing="16" minWidth="0" styleClass="rx-card">
+                <Label text="Công việc cần xử lý" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Chờ tiếp nhận" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblPendingIntake" text="6 lịch hẹn" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Chờ lập hóa đơn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblReadyToInvoice" text="2 ca khám hoàn tất" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Chờ thu tiền" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblAwaitingPayment" text="3 hóa đơn" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <Button fx:id="btnOpenCashier" text="Mở Thu ngân" minWidth="-Infinity" styleClass="secondary-button"/>
+            </VBox>
+            <VBox spacing="16" minWidth="0" styleClass="rx-card">
+                <Label text="Lưu ý nghiệp vụ" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblIntakeRule" text="Tiếp nhận sẽ cập nhật lịch hẹn, tạo phiếu khám và đưa bệnh nhân vào hàng chờ." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+                <Label text="Chỉ lập hóa đơn sau khi nha sĩ hoàn tất khám. Thu tiền chỉ khả dụng khi đã có hóa đơn." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+        </VBox>
+    </HBox>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

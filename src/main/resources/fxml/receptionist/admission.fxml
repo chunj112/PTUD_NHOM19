@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · intake · Figma 117:5402.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="admissionForm" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-modal, receptionist-intake" spacing="16" minWidth="680" prefWidth="680" maxWidth="680" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblDialogTitle" text="Tiếp nhận" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnClose" text="" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" graphicTextGap="8">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/receptionist/close-circle.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-readonly">
+        <Label text="Bệnh nhân · Chỉ đọc" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtAdmissionPatient" text="BN001 · Nguyễn Văn A" styleClass="rx-field-input" editable="false" focusTraversable="false"/>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-readonly">
+        <Label text="Lịch hẹn · Chỉ đọc" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtAdmissionAppointment" text="LH001 · 09/10/2026 · 09:00" styleClass="rx-field-input" editable="false" focusTraversable="false"/>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+        <Label text="Nha sĩ *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <ComboBox fx:id="cboAdmissionDentist" value="Trần Minh Đức" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Trần Minh Đức"/>
+                    <String fx:value="Nguyễn Lan Anh"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+        <Label text="Phòng *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <ComboBox fx:id="cboAdmissionRoom" value="P01 · Ghế nha khoa 01" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="P01 · Ghế nha khoa 01"/>
+                    <String fx:value="P02"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-tall">
+        <Label text="Lý do khám *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <TextArea fx:id="txtAdmissionReason" text="Đau răng hàm dưới, răng 36" wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="rx-field-area"/>
+    </VBox>
+    <Label fx:id="lblAdmissionAllergy" text="Dị ứng Penicillin · Thông tin được chuyển vào phiếu khám." styleClass="rx-alert, rx-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <Label fx:id="lblAdmissionResult" text="Xác nhận sẽ cập nhật lịch thành Đã tiếp nhận, tự tạo Phiếu khám PK001 và đưa BN001 vào hàng chờ của nha sĩ." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnCancel" text="Hủy" minWidth="-Infinity" styleClass="secondary-button" cancelButton="true"/>
+        <Button fx:id="btnConfirmAdmission" text="Xác nhận tiếp nhận" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+</VBox>

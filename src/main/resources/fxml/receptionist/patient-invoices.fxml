@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · patients · Figma 59:32192.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="patientInvoices" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-patients.css" styleClass="receptionist-page, receptionist-patients" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="900">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Từ ngày" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpPatientInvoiceFrom" maxWidth="Infinity" minWidth="0" editable="false" styleClass="rx-field-date">
+                <editor text="01/01/2025"/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Đến ngày" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpPatientInvoiceTo" maxWidth="Infinity" minWidth="0" editable="false" styleClass="rx-field-date">
+                <editor text="09/10/2026"/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Trạng thái" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <ComboBox fx:id="cboPatientInvoiceStatus" value="Tất cả" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Đã thanh toán"/>
+                        <String fx:value="Chưa thanh toán"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+            <Label text="Phương thức" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <ComboBox fx:id="cboPatientInvoiceMethod" value="Tất cả" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Tiền mặt"/>
+                        <String fx:value="Chuyển khoản"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+        <Button fx:id="btnApplyPatientInvoiceFilter" text="Áp dụng" minWidth="-Infinity" styleClass="secondary-button"/>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label text="Hóa đơn của bệnh nhân" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="rx-table-frame">
+            <TableView fx:id="tblPatientInvoices" editable="false" fixedCellSize="72" minHeight="188" prefHeight="188" maxHeight="188" styleClass="rx-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblPatientInvoicesColId" text="Mã hóa đơn" minWidth="110" prefWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoicesColDate" text="Ngày" minWidth="130" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoicesColAmount" text="Tổng tiền" minWidth="130" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoicesColMethod" text="Phương thức" minWidth="135" prefWidth="190" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoicesColStatus" text="Trạng thái" minWidth="135" prefWidth="170" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoicesColCollector" text="Nhân viên thu" minWidth="150" prefWidth="180" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v5"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="HD015" v1="15/04/2026" v2="300.000 ₫" v3="Tiền mặt" v4="Đã thanh toán" v5="Phạm Thu Hà"/>
+                        <HashMap v0="HD094" v1="15/10/2025" v2="500.000 ₫" v3="Chuyển khoản" v4="Đã thanh toán" v5="Phạm Thu Hà"/>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                <Label fx:id="tblPatientInvoicesCount" text="Hiển thị 2 / 2 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblPatientInvoicesPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                <Label fx:id="tblPatientInvoicesPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblPatientInvoicesNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label fx:id="lblPatientInvoiceTitle" text="Thông tin hóa đơn · HD015" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Bệnh nhân / phiếu khám" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblPatientInvoiceExam" text="BN001 · Nguyễn Văn A · PK015" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Ngày lập" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblPatientInvoiceCreated" text="15/04/2026 · 09:35" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <Label text="Đã thanh toán" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="rx-table-frame">
+            <TableView fx:id="tblPatientInvoiceServices" editable="false" fixedCellSize="72" minHeight="188" prefHeight="188" maxHeight="188" styleClass="rx-table, rx-readonly-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblPatientInvoiceServicesColService" text="Danh sách dịch vụ" minWidth="200" prefWidth="300" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoiceServicesColPosition" text="Vị trí răng" minWidth="130" prefWidth="170" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoiceServicesColQuantity" text="Số lượng" minWidth="80" prefWidth="120" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoiceServicesColPrice" text="Đơn giá" minWidth="140" prefWidth="180" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientInvoiceServicesColAmount" text="Thành tiền" minWidth="150" prefWidth="200" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="Cạo vôi răng" v1="Toàn hàm" v2="1" v3="300.000" v4="300.000"/>
+                    </FXCollections>
+                </items>
+            </TableView>
+        </VBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Tổng tiền" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblPatientInvoiceTotal" text="300.000 ₫" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Phương thức thanh toán" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblPatientInvoiceMethod" text="Tiền mặt" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Thời gian thanh toán" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblPatientInvoicePaidAt" text="15/04/2026 · 09:40" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Người xác nhận" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblPatientInvoiceConfirmer" text="Phạm Thu Hà" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <Label fx:id="lblPatientInvoiceReadonly" text="Hóa đơn đã thanh toán chỉ đọc; không thay đổi dịch vụ, số tiền hoặc trạng thái." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    </VBox>
+</VBox>

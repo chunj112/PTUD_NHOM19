@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · cashier · Figma 104:2674.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="transferSuccessPreview" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-cashier.css" styleClass="receptionist-modal, receptionist-cashier, rx-state-card" spacing="16" minWidth="640" prefWidth="640" maxWidth="640" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label text="✓" styleClass="rx-success-mark" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblDialogTitle" text="Thanh toán thành công" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+    </HBox>
+    <Label fx:id="lblTransferSuccessMessage" text="HD001 đã thanh toán 800.000 ₫ qua chuyển khoản." styleClass="rx-alert, rx-alert-success" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Mã hóa đơn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblTransferSuccessInvoice" text="HD001" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Số tiền" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblTransferSuccessAmount" text="800.000 ₫" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Phương thức" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblTransferSuccessMethod" text="Chuyển khoản" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Thời gian thanh toán" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblTransferSuccessTime" text="09/10/2026, 10:15" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+        <Label text="Nhân viên xác nhận" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblTransferSuccessEmployee" text="Phạm Thu Hà" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnFinishTransfer" text="Hoàn tất" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+</VBox>

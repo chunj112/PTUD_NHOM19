@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · cashier · Figma 15:1048, 117:5472.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="cashierReady" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-cashier.css" styleClass="receptionist-page, receptionist-cashier" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="810">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtCashierSearch" promptText="Tìm bệnh nhân / phiếu khám / hóa đơn" minWidth="0" HBox.hgrow="ALWAYS" styleClass="rx-search"/>
+        <DatePicker fx:id="dpCashierDate" prefWidth="190" minWidth="190" maxWidth="190" editable="false" styleClass="rx-filter">
+            <editor text="09/10/2026"/>
+        </DatePicker>
+    </HBox>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="334" styleClass="rx-card" prefWidth="334" maxWidth="334">
+            <Label text="Ca khám hoàn tất" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <Label text="2 phiếu đủ điều kiện lập hóa đơn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <VBox styleClass="rx-table-frame">
+                <TableView fx:id="tblReadyExams" editable="false" fixedCellSize="72" minHeight="188" prefHeight="188" maxHeight="188" styleClass="rx-table">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                    </columnResizePolicy>
+                    <placeholder>
+                        <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="tblReadyExamsColExam" text="Phiếu khám" minWidth="80" prefWidth="95" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v0"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tblReadyExamsColPatient" text="Bệnh nhân" minWidth="105" prefWidth="140" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v1"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tblReadyExamsColStatus" text="Trạng thái" minWidth="85" prefWidth="100" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="v2"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <HashMap v0="PK001" v1="BN001 · Nguyễn Văn A">
+                                <v2>
+                                    <Label text="Đã khám" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                                </v2>
+                            </HashMap>
+                            <HashMap v0="PK006" v1="BN006 · Đỗ Thị F">
+                                <v2>
+                                    <Label text="Đã khám" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                                </v2>
+                            </HashMap>
+                        </FXCollections>
+                    </items>
+                </TableView>
+                <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                    <Label fx:id="tblReadyExamsCount" text="Hiển thị 2 / 2 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="tblReadyExamsPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                    <Label fx:id="tblReadyExamsPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Button fx:id="tblReadyExamsNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                </HBox>
+            </VBox>
+            <Label fx:id="lblReadyInvoiceRule" text="Chỉ hiển thị phiếu đã hoàn tất khám. Phiếu chưa hoàn tất không thể lập hóa đơn." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+            <fx:include fx:id="draftInvoiceDetails" source="invoice-draft-detail.fxml"/>
+        </VBox>
+    </HBox>
+</VBox>

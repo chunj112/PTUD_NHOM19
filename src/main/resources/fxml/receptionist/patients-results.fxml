@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · patients · Figma 59:30960.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="patientsresultsPreview" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-patients.css" styleClass="receptionist-page, receptionist-patients" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="TRA CỨU BỆNH NHÂN" styleClass="rx-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Tìm hồ sơ theo mã bệnh nhân, họ tên hoặc số điện thoại" styleClass="rx-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card" prefHeight="580">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
+                <Label text="Điều kiện tìm kiếm" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <TextField fx:id="txtPatientSearch" text="Nguyễn" styleClass="rx-field-input"/>
+            </VBox>
+            <Button fx:id="btnSearchPatient" text="Tìm kiếm" minWidth="-Infinity" styleClass="primary-button" disable="false" graphicTextGap="8">
+                <graphic>
+                    <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/receptionist/search-button.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+        <Label text="Kết quả tìm kiếm" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <Label text="3 bệnh nhân phù hợp · Chọn một bệnh nhân để xem hồ sơ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="rx-table-frame">
+            <TableView fx:id="tblPatientResults" editable="false" fixedCellSize="72" minHeight="260" prefHeight="260" maxHeight="260" styleClass="rx-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblPatientResultsColId" text="Mã BN" minWidth="90" prefWidth="120" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientResultsColName" text="Họ tên" minWidth="150" prefWidth="200" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientResultsColBirthDate" text="Ngày sinh" minWidth="120" prefWidth="170" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientResultsColPhone" text="SĐT" minWidth="140" prefWidth="170" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientResultsColGender" text="Giới tính" minWidth="90" prefWidth="130" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPatientResultsColLastVisit" text="Lần khám gần nhất" minWidth="160" prefWidth="190" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v5"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="BN001" v1="Nguyễn Văn A" v2="15/06/1992" v3="0912 345 678" v4="Nam" v5="15/04/2026"/>
+                        <HashMap v0="BN008" v1="Nguyễn Văn An" v2="23/08/1985" v3="0908 765 432" v4="Nam" v5="20/08/2026"/>
+                        <HashMap v0="BN012" v1="Nguyễn Thị Ánh" v2="04/12/1990" v3="0935 456 789" v4="Nữ" v5="28/09/2026"/>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                <Label fx:id="tblPatientResultsCount" text="Hiển thị 3 / 3 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblPatientResultsPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                <Label fx:id="tblPatientResultsPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblPatientResultsNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+            </HBox>
+        </VBox>
+        <Label text="Chưa chọn bệnh nhân. Dòng dưới con trỏ được tô nhẹ; không tự chọn bản ghi đầu tiên." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblPatientLookupPrivacy" text="Lễ tân chỉ xem thông tin phục vụ tiếp nhận và thu ngân. Nội dung lâm sàng chỉ đọc." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    </VBox>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

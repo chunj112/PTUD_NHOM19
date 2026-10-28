@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · intake · Figma 15:924, 104:16073.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="appointmentDetail" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-page, receptionist-intake" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label fx:id="lblAppointmentTitle" text="Chi tiết lịch hẹn · LH001" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+        <Label fx:id="lblAppointmentStatus" text="Chờ tiếp nhận" styleClass="rx-status-warning" wrapText="true" minHeight="-Infinity"/>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Bệnh nhân" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblAppointmentPatient" text="BN001 · Nguyễn Văn A" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Điện thoại" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblAppointmentPhone" text="0912 345 678" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                    <Label text="Tuổi / giới tính" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblAppointmentAgeGender" text="34 tuổi · Nam" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Ngày / giờ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblAppointmentDateTime" text="09/10/2026 · 09:00–09:30" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Nha sĩ / phòng" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblAppointmentDentistRoom" text="Trần Minh Đức · P01" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+            <Label text="Lý do khám" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblAppointmentReason" text="Đau răng hàm dưới, kiểm tra răng 36." styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <Label fx:id="lblAppointmentAllergy" text="Dị ứng Penicillin. Chuyển thông tin cho nha sĩ khi tiếp nhận." styleClass="rx-alert, rx-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Button fx:id="btnEditAppointment" text="Sửa lịch" minWidth="-Infinity" styleClass="secondary-button"/>
+            <Button fx:id="btnCancelAppointment" text="Hủy lịch" minWidth="-Infinity" styleClass="secondary-button, rx-danger-button"/>
+        </HBox>
+        <Button fx:id="btnAdmitAppointment" text="Tiếp nhận" minWidth="-Infinity" styleClass="primary-button" maxWidth="Infinity"/>
+    </VBox>
+</VBox>

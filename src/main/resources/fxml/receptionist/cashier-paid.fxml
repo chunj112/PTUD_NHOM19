@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · cashier · Figma 104:16977.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="cashierPaid" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-cashier.css" styleClass="receptionist-page, receptionist-cashier" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="770">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtCashierSearch" promptText="Tìm bệnh nhân / phiếu khám / hóa đơn" minWidth="0" HBox.hgrow="ALWAYS" styleClass="rx-search"/>
+        <DatePicker fx:id="dpCashierDate" prefWidth="190" minWidth="190" maxWidth="190" editable="false" styleClass="rx-filter">
+            <editor text="09/10/2026"/>
+        </DatePicker>
+        <ComboBox fx:id="cboCashierPaymentMethod" value="Tất cả phương thức" prefWidth="210" minWidth="210" maxWidth="210" styleClass="rx-filter">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả phương thức"/>
+                    <String fx:value="Tiền mặt"/>
+                    <String fx:value="Chuyển khoản"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <Label text="Hóa đơn đã hoàn tất" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+        <Label text="3 hóa đơn đã thanh toán · Chọn một hóa đơn để xem hoặc in" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="rx-table-frame">
+            <TableView fx:id="tblPaidInvoices" editable="false" fixedCellSize="72" minHeight="260" prefHeight="260" maxHeight="260" styleClass="rx-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblPaidInvoicesColId" text="Mã hóa đơn" minWidth="90" prefWidth="130" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPaidInvoicesColPatient" text="Bệnh nhân" minWidth="150" prefWidth="200" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPaidInvoicesColDate" text="Ngày thanh toán" minWidth="160" prefWidth="210" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPaidInvoicesColAmount" text="Tổng tiền" minWidth="120" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPaidInvoicesColMethod" text="Phương thức" minWidth="115" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblPaidInvoicesColStatus" text="Trạng thái" minWidth="115" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v5"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="HD001" v1="BN001 · Nguyễn Văn A" v2="09/10/2026 · 10:15" v3="800.000 ₫" v4="Chuyển khoản">
+                            <v5>
+                                <Label text="Đã thanh toán" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                            </v5>
+                        </HashMap>
+                        <HashMap v0="HD004" v1="BN002 · Trần Thị B" v2="09/10/2026 · 09:45" v3="200.000 ₫" v4="Tiền mặt">
+                            <v5>
+                                <Label text="Đã thanh toán" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                            </v5>
+                        </HashMap>
+                        <HashMap v0="HD005" v1="BN004 · Phạm Thị D" v2="09/10/2026 · 09:30" v3="300.000 ₫" v4="Tiền mặt">
+                            <v5>
+                                <Label text="Đã thanh toán" styleClass="rx-status-success" wrapText="true" minHeight="-Infinity"/>
+                            </v5>
+                        </HashMap>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="rx-table-footer">
+                <Label fx:id="tblPaidInvoicesCount" text="Hiển thị 3 / 3 bản ghi" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblPaidInvoicesPrevious" text="‹" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+                <Label fx:id="tblPaidInvoicesPage" text="1" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblPaidInvoicesNext" text="›" minWidth="-Infinity" styleClass="rx-page-button" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="334" styleClass="rx-card" prefWidth="334" maxWidth="334">
+            <Label text="Đối soát trong ngày" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Tổng đã thu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblCashierSummaryAmount" text="1.300.000 ₫" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Số hóa đơn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblCashierSummaryCount" text="3 hóa đơn" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+            <Label fx:id="lblCashierSummaryRule" text="Hóa đơn đã thanh toán chỉ được xem và in." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+            <VBox spacing="16" minWidth="0" styleClass="rx-card" fx:id="invoiceSelectionHint" visible="true" managed="true">
+                <Label text="Chi tiết hóa đơn" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+                <VBox spacing="16" minWidth="0" alignment="CENTER" minHeight="148">
+                    <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/receptionist/select-record.png"/>
+                        </image>
+                    </ImageView>
+                    <Label fx:id="lblSelectInvoiceHint" text="Chọn một hóa đơn đã thanh toán để xem thông tin và in hóa đơn." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+            </VBox>
+            <VBox spacing="16" minWidth="0" fx:id="selectedInvoicePane" visible="false" managed="false">
+                <fx:include fx:id="selectedInvoiceDetails" source="invoice-paid-detail.fxml"/>
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox>

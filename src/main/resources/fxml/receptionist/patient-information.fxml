@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · patients · Figma 59:31712.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
+<VBox fx:id="patientInformation" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-patients.css" styleClass="receptionist-page, receptionist-patients" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="530">
+    <HBox spacing="12" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" styleClass="rx-card" HBox.hgrow="ALWAYS" prefWidth="0">
+            <Label text="THÔNG TIN CÁ NHÂN" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                        <Label text="Mã bệnh nhân" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblPatientId" text="BN001" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                        <Label text="Họ tên" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblPatientFullName" text="Nguyễn Văn A" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                        <Label text="Ngày sinh" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblPatientBirthDate" text="15/06/1992" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                        <Label text="Giới tính" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblPatientGender" text="Nam" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                        <Label text="SĐT" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblPatientPhone" text="0912 345 678" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+                <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                    <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                        <Label text="Email" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblPatientEmail" text="nguyenvana@example.com" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Địa chỉ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientAddress" text="25 Nguyễn Trãi, Phường Bến Thành, TP. Hồ Chí Minh" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="rx-divider"/>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Ngày tạo hồ sơ" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientCreated" text="15/10/2025 · 08:30" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Button fx:id="btnEditPatient" text="Sửa thông tin" minWidth="-Infinity" styleClass="secondary-button"/>
+        </VBox>
+        <VBox spacing="16" minWidth="0" styleClass="rx-card" HBox.hgrow="ALWAYS" prefWidth="0">
+            <Label text="THÔNG TIN GẦN ĐÂY" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Lần khám gần nhất" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientRecentExam" text="15/04/2026 · PK015 · Kiểm tra định kỳ" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Nha sĩ gần nhất" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientRecentDentist" text="Trần Minh Đức" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Lịch hẹn sắp tới" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientNextAppointment" text="LH011 · 09/04/2027 · 09:00–09:30" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <VBox spacing="4" minWidth="0" styleClass="rx-detail">
+                <Label text="Trạng thái hiện tại" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientCurrentStatus" text="Đã tiếp nhận lúc 08:55 · PK001 · P01" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Label text="Đang khám" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPatientAllergy" text="Dị ứng Penicillin. Thông tin đã chuyển cho nha sĩ khi tiếp nhận." styleClass="rx-alert, rx-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+            <Label text="Chỉ chỉnh sửa thông tin cá nhân. Hồ sơ khám và điều trị chỉ đọc." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+</VBox>

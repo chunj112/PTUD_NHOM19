@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- RECEPTIONIST · UC003 · Chỉ FXML/CSS, không Controller/SQL.
+     Bố cục Ngày/Tuần theo hai ảnh người dùng cung cấp ngày 28/10/2026.
+     Lịch tuần kế thừa 15:1763; dữ liệu NV004/ca sáng/LT tham chiếu 39:5720.
+     Công việc là nội dung minh họa phù hợp Lễ tân, không phải nhiệm vụ khám.
+     Tab chuyển bằng JavaFX; chọn ca/đổi ngày-tuần sẽ do Controller triển khai. -->
+<VBox fx:id="receptionistScheduleWeek" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-schedule.css" styleClass="receptionist-page, receptionist-schedule" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="780">
+    <VBox spacing="16" minWidth="0" styleClass="rx-card">
+        <HBox spacing="20" alignment="TOP_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button fx:id="btnPreviousScheduleWeek" text="‹" minWidth="-Infinity" styleClass="secondary-button" accessibleText="Tuần trước"/>
+                    <Button fx:id="btnScheduleToday" text="Hôm nay" minWidth="-Infinity" styleClass="secondary-button"/>
+                    <Label fx:id="lblScheduleWeek" text="05 – 11/10/2026" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity" alignment="CENTER"/>
+                    <Button fx:id="btnNextScheduleWeek" text="›" minWidth="-Infinity" styleClass="secondary-button" accessibleText="Tuần tiếp theo"/>
+                </HBox>
+                <GridPane fx:id="receptionistScheduleGrid" hgap="8" minHeight="360" prefHeight="360">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                    </columnConstraints>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-schedule-day" GridPane.columnIndex="0" minHeight="360">
+                        <Label fx:id="lblScheduleDay0" text="T2 · 05/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="scheduleShiftCard0" styleClass="rx-shift-card">
+                            <Label fx:id="lblScheduleShiftTime0" text="08:00–&#10;12:00" styleClass="rx-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftName0" text="Ca sáng" styleClass="rx-body" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftRoom0" text="LT · Phạm Thu Hà" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-schedule-day" GridPane.columnIndex="1" minHeight="360">
+                        <Label fx:id="lblScheduleDay1" text="T3 · 06/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="scheduleShiftCard1" styleClass="rx-shift-card">
+                            <Label fx:id="lblScheduleShiftTime1" text="08:00–&#10;12:00" styleClass="rx-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftName1" text="Ca sáng" styleClass="rx-body" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftRoom1" text="LT · Phạm Thu Hà" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-schedule-day" GridPane.columnIndex="2" minHeight="360">
+                        <Label fx:id="lblScheduleDay2" text="T4 · 07/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="scheduleShiftCard2" styleClass="rx-shift-card">
+                            <Label fx:id="lblScheduleShiftTime2" text="08:00–&#10;12:00" styleClass="rx-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftName2" text="Ca sáng" styleClass="rx-body" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftRoom2" text="LT · Phạm Thu Hà" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-schedule-day" GridPane.columnIndex="3" minHeight="360">
+                        <Label fx:id="lblScheduleDay3" text="T5 · 08/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="scheduleShiftCard3" styleClass="rx-shift-card">
+                            <Label fx:id="lblScheduleShiftTime3" text="08:00–&#10;12:00" styleClass="rx-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftName3" text="Ca sáng" styleClass="rx-body" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftRoom3" text="LT · Phạm Thu Hà" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-schedule-day, rx-schedule-today" GridPane.columnIndex="4" minHeight="360">
+                        <Label fx:id="lblScheduleDay4" text="T6 · 09/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="scheduleShiftCard4" styleClass="rx-shift-card">
+                            <Label fx:id="lblScheduleShiftTime4" text="08:00–&#10;12:00" styleClass="rx-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftName4" text="Ca sáng" styleClass="rx-body" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftRoom4" text="LT · Phạm Thu Hà" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-schedule-day" GridPane.columnIndex="5" minHeight="360">
+                        <Label fx:id="lblScheduleDay5" text="T7 · 10/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="scheduleShiftCard5" styleClass="rx-shift-card">
+                            <Label fx:id="lblScheduleShiftTime5" text="08:00–&#10;12:00" styleClass="rx-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftName5" text="Ca sáng" styleClass="rx-body" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblScheduleShiftRoom5" text="LT · Phạm Thu Hà" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="rx-schedule-day" GridPane.columnIndex="6" minHeight="360">
+                        <Label fx:id="lblScheduleDay6" text="CN · 11/10" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label text="Không có ca" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+            <VBox spacing="16" minWidth="280" prefWidth="280" maxWidth="280">
+                <fx:include fx:id="selectedScheduleDetail" source="schedule-detail.fxml"/>
+            </VBox>
+        </HBox>
+    </VBox>
+    <fx:include fx:id="upcomingSchedule" source="schedule-upcoming.fxml"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label text="Ca sáng 08:00–12:00" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label text="Ca chiều 13:30–17:00" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+    </HBox>
+</VBox>
