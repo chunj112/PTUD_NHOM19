@@ -1,0 +1,64 @@
+/* UC005: chi tiết bên phải 1:3932, Thêm 1:4237, Sửa 1:5579, Hủy 1:10709.
+   Dựa trên ảnh đầy đủ người dùng cung cấp khi Figma MCP hết quota.
+   Chỉ áp dụng trong .assignment-form, .assignment-detail, .assignment-cancel-dialog. */
+.assignment-form, .assignment-cancel-dialog {
+    -fx-padding: 23;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+.assignment-form .assignment-form-title, .assignment-cancel-dialog .assignment-form-title {
+    -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.assignment-form .assignment-form-field {
+    -fx-padding: 8 11;
+    -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62;
+    -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+}
+.assignment-form .assignment-field-caption, .assignment-detail .assignment-field-caption {
+    -fx-font-size: 12px; -fx-text-fill: #617584;
+}
+.assignment-form .assignment-form-input, .assignment-form .assignment-form-choice,
+.assignment-form .assignment-form-date, .assignment-form .assignment-form-date > .text-field {
+    -fx-min-height: 23; -fx-pref-height: 23; -fx-max-height: 23;
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0;
+    -fx-border-width: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A;
+    -fx-prompt-text-fill: #617584;
+}
+.assignment-form .assignment-form-input:focused,
+.assignment-form .assignment-form-date > .text-field:focused,
+.assignment-form .assignment-form-choice:focused { -fx-background-color: #E8F5F6; -fx-background-radius: 2; }
+.assignment-form .assignment-form-choice > .list-cell {
+    -fx-padding: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-background-color: transparent;
+}
+.assignment-form .assignment-form-choice > .arrow-button,
+.assignment-form .assignment-form-date > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 3; }
+.assignment-form .assignment-form-choice > .arrow-button > .arrow { -fx-background-color: #172B3A; }
+.assignment-form .assignment-form-date > .arrow-button > .arrow { -fx-background-color: #617584; }
+.assignment-detail {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.assignment-detail .assignment-detail-title { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.assignment-detail .assignment-detail-summary { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.assignment-detail .assignment-detail-value { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.assignment-detail .separator .line { -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0; }
+.assignment-detail .assignment-status-badge {
+    -fx-padding: 4 8; -fx-background-color: #EDF7F1; -fx-background-radius: 6;
+    -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #21764F;
+}
+.assignment-detail .assignment-status-badge.inactive { -fx-background-color: #FDECEC; -fx-text-fill: #C33D42; }
+.assignment-detail .assignment-danger-button, .assignment-cancel-dialog .assignment-danger-button {
+    -fx-background-color: white; -fx-border-color: #C33D42; -fx-text-fill: #C33D42;
+}
+.assignment-detail .assignment-danger-button:hover, .assignment-cancel-dialog .assignment-danger-button:hover {
+    -fx-background-color: #FDECEC;
+}
+.assignment-cancel-dialog .assignment-cancel-summary { -fx-padding: 12; -fx-background-color: #F4F7FA; -fx-background-radius: 8; }
+.assignment-cancel-dialog .assignment-cancel-caption { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.assignment-cancel-dialog .assignment-cancel-value { -fx-font-size: 13px; -fx-text-fill: #172B3A; }
+.assignment-cancel-dialog .assignment-cancel-name { -fx-font-weight: bold; }
+.assignment-cancel-dialog .assignment-cancel-question { -fx-font-size: 14px; -fx-text-fill: #172B3A; }

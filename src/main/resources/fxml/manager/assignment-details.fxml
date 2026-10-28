@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC005, panel bên phải Figma 1:3932 trong 1:3713; ảnh người dùng cung cấp.
+     Dữ liệu NV002 chỉ để xem trước, không phải ca được chọn tự động.
+     Root có cả viền/padding; assignmentDetailsSlot bên ngoài không lặp viền/padding.
+     Controller sẽ điền dữ liệu thật trước khi hiện panel; không có handler Java. -->
+<VBox fx:id="assignmentSelectedDetails" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/theme.css, @/css/assignment-forms.css" styleClass="assignment-detail"
+      spacing="16" minWidth="222" prefWidth="222" maxWidth="222" maxHeight="-Infinity">
+    <Label fx:id="lblSelectedAssignmentEmployee" text="Trần Minh Đức" wrapText="true" styleClass="assignment-detail-title"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label fx:id="lblSelectedAssignmentEmployeeSummary" text="NV002 · NHASI" wrapText="true"
+               minWidth="0" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="assignment-detail-summary"/>
+        <Label fx:id="lblSelectedEmployeeStatus" text="Hoạt động" styleClass="assignment-status-badge"/>
+    </HBox>
+    <Separator/>
+    <HBox spacing="12" alignment="TOP_LEFT">
+        <VBox spacing="3" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label text="Ngày" styleClass="assignment-field-caption"/>
+            <Label fx:id="lblAssignmentDate" text="Thứ Sáu, 09/10/2026" wrapText="true" minHeight="-Infinity" styleClass="assignment-detail-value"/>
+        </VBox>
+        <VBox spacing="3" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label text="Ca làm việc" styleClass="assignment-field-caption"/>
+            <Label fx:id="lblAssignmentShift" text="Sáng" styleClass="assignment-detail-value"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="3">
+        <Label text="Thời gian" styleClass="assignment-field-caption"/>
+        <Label fx:id="lblAssignmentTime" text="08:00 - 12:00" styleClass="assignment-detail-value"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="Phòng" styleClass="assignment-field-caption"/>
+        <Label fx:id="lblAssignmentRoom" text="P01" styleClass="assignment-detail-value"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="Công việc" styleClass="assignment-field-caption"/>
+        <Label fx:id="lblAssignmentWork" text="Khám tổng quát và điều trị" wrapText="true" minHeight="-Infinity" styleClass="assignment-detail-value"/>
+    </VBox>
+    <Separator/>
+    <Label text="Trạng thái" styleClass="assignment-field-caption"/>
+    <Label fx:id="lblAssignmentStatus" text="Đã phân công" styleClass="assignment-status-badge"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnEditAssignment" text="Sửa" graphicTextGap="8" styleClass="secondary-button">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/staff/edit-staff.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnRequestCancelAssignment" text="Hủy" styleClass="secondary-button, assignment-danger-button"/>
+    </HBox>
+</VBox>

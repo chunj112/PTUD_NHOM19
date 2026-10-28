@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC007 · MANAGER · Controller sau này do Nhi viết.
+     Figma ROPzygiAnJyl1VudYGf0sm: 15:683, 15:2417, 15:2435.
+     Chỉ content; AppShell giữ Sidebar, Topbar, ScrollPane và padding ngoài.
+     Ba tab chuyển bằng TabPane chuẩn JavaFX, không cần handler Java.
+     Các fragment chỉ chứa bộ lọc, KPI, biểu đồ và bảng dữ liệu MINH HỌA.
+     Theo quyết định mới: không Loading, không In, không tab Thuốc được kê.
+     Nút Xuất chỉ là UI; chưa chọn định dạng, tạo file hoặc báo xuất thành công. -->
+<VBox fx:id="reportsPage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/manager-reports.css" styleClass="reports-page" spacing="20"
+      minWidth="960" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblReportsTitle" text="Báo cáo" styleClass="reports-title"/>
+            <Label fx:id="lblReportsSubtitle" text="Tổng hợp hoạt động trong kỳ · Đơn vị tiền tệ: VNĐ"
+                   wrapText="true" minHeight="-Infinity" styleClass="reports-subtitle"/>
+        </VBox>
+        <Button fx:id="btnExportReport" text="Xuất" graphicTextGap="8" styleClass="secondary-button"
+                accessibleText="Xuất file báo cáo, chưa có xử lý">
+            <graphic>
+                <ImageView fx:id="imgExportReport" fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/reports/export-report.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <!-- 70px: thanh tab và khoảng đệm/viền theo skin JavaFX hiện tại.
+         Chiều cao đổi theo tab để tab Dịch vụ không giữ khoảng trống của bảng 4 dòng. -->
+    <TabPane fx:id="reportsTabs" tabClosingPolicy="UNAVAILABLE" styleClass="reports-tabs" minWidth="0"
+             prefHeight="${reportsTabs.selectionModel.selectedItem.content.prefHeight + 70}"
+             minHeight="-Infinity" maxHeight="-Infinity">
+        <tabs>
+            <Tab fx:id="tabRevenue" text="Doanh thu">
+                <content><fx:include fx:id="revenueContent" source="reports-revenue.fxml"/></content>
+            </Tab>
+            <Tab fx:id="tabVisits" text="Lượt khám">
+                <content><fx:include fx:id="visitsContent" source="reports-visits.fxml"/></content>
+            </Tab>
+            <Tab fx:id="tabServiceUsage" text="Dịch vụ">
+                <content><fx:include fx:id="serviceUsageContent" source="reports-services.fxml"/></content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

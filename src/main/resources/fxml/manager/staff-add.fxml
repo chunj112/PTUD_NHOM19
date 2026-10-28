@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC004, Figma 1:5204. Form nhập dữ liệu xem trước, không nối sự kiện/lưu.
+     Mã NV chỉ đọc; NV002 và các giá trị được điền theo frame mẫu.
+     Email example.com là dữ liệu minh họa. Không đọc SQL hoặc tạo tài khoản.
+     Controller sau này phải xóa giá trị mẫu khi mở form Thêm và lấy mã NV theo nghiệp vụ.
+     DatePicker.editor chứa chữ xem trước; value vẫn null. Tường đặt converter
+     dd/MM/yyyy và setValue từ dữ liệu nhân viên khi triển khai Controller.
+     Figma không có trạng thái lỗi riêng cho form này; không tự thêm hoặc báo thành công. -->
+<VBox fx:id="addStaffForm" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/theme.css, @/css/staff-form.css" styleClass="staff-form"
+      spacing="16" minWidth="680" prefWidth="680" maxWidth="680" maxHeight="-Infinity">
+    <HBox alignment="CENTER_LEFT" minHeight="32" prefHeight="32" maxHeight="32">
+        <Label fx:id="lblStaffFormTitle" text="Thêm nhân viên" styleClass="staff-form-title"
+               maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnCloseStaffForm" minWidth="32" prefWidth="32" maxWidth="32"
+                minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng thêm nhân viên"
+                styleClass="staff-form-close">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/staff/close-staff.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <HBox spacing="12">
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="staff-form-field, staff-form-readonly">
+            <Label text="Mã nhân viên · Chỉ đọc" styleClass="staff-form-field-label"/>
+            <TextField fx:id="txtStaffId" text="NV002" editable="false" focusTraversable="false"
+                       accessibleText="Mã nhân viên chỉ đọc" styleClass="staff-form-input"/>
+        </VBox>
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="staff-form-field">
+            <Label text="Chức vụ *" styleClass="staff-form-field-label"/>
+            <ComboBox fx:id="cboStaffPosition" value="NHASI · Nha sĩ" maxWidth="Infinity" styleClass="staff-form-choice">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Quản lý"/><String fx:value="NHASI · Nha sĩ"/>
+                        <String fx:value="Lễ tân"/><String fx:value="Y tá"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+    </HBox>
+    <VBox spacing="0" styleClass="staff-form-field">
+            <Label text="Họ tên *" styleClass="staff-form-field-label"/>
+        <TextField fx:id="txtStaffFullName" text="Trần Minh Đức" styleClass="staff-form-input"/>
+    </VBox>
+    <HBox spacing="12">
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="staff-form-field">
+            <Label text="Ngày sinh" styleClass="staff-form-field-label"/>
+            <DatePicker fx:id="dpStaffBirthDate" promptText="dd/MM/yyyy" maxWidth="Infinity" styleClass="staff-form-date">
+                <editor text="12/03/1988"/>
+            </DatePicker>
+        </VBox>
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="staff-form-field">
+            <Label text="Giới tính" styleClass="staff-form-field-label"/>
+            <ComboBox fx:id="cboStaffGender" value="Nam" maxWidth="Infinity" styleClass="staff-form-choice">
+                <items><FXCollections fx:factory="observableArrayList"><String fx:value="Nam"/><String fx:value="Nữ"/></FXCollections></items>
+            </ComboBox>
+        </VBox>
+    </HBox>
+    <VBox spacing="0" styleClass="staff-form-field">
+            <Label text="Điện thoại *" styleClass="staff-form-field-label"/>
+        <TextField fx:id="txtStaffPhone" text="0902 123 456" styleClass="staff-form-input"/>
+    </VBox>
+    <VBox spacing="0" styleClass="staff-form-field">
+            <Label text="Email" styleClass="staff-form-field-label"/>
+        <TextField fx:id="txtStaffEmail" text="minhduc@example.com" styleClass="staff-form-input"/>
+    </VBox>
+    <VBox spacing="0" styleClass="staff-form-field">
+            <Label text="Địa chỉ" styleClass="staff-form-field-label"/>
+        <TextField fx:id="txtStaffAddress" text="28 Nguyễn Trãi, TP. Hồ Chí Minh" styleClass="staff-form-input"/>
+    </VBox>
+    <VBox spacing="0" styleClass="staff-form-field">
+            <Label text="Trạng thái *" styleClass="staff-form-field-label"/>
+        <ComboBox fx:id="cboStaffStatus" value="Hoạt động" maxWidth="Infinity" styleClass="staff-form-choice">
+            <items><FXCollections fx:factory="observableArrayList"><String fx:value="Hoạt động"/><String fx:value="Ngừng hoạt động"/></FXCollections></items>
+        </ComboBox>
+    </VBox>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnCancelStaffForm" text="Hủy" cancelButton="true" styleClass="secondary-button"/>
+        <Button fx:id="btnSaveStaff" text="Lưu nhân viên" styleClass="primary-button"/>
+    </HBox>
+</VBox>
+

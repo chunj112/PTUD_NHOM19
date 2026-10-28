@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC005 MANAGER: lịch tuần 1:3268, bảng Phân công 1:3478.
+     Chỉ content, dùng Sidebar/Topbar/padding có sẵn của AppShell.
+     Hai tab chuyển bằng TabPane chuẩn JavaFX; chưa có Controller hoặc handler.
+     Tên, ngày, phòng và tất cả các ca là DỮ LIỆU MẪU 05–11/10/2026.
+     Không lấy ngày hiện tại hoặc dữ liệu SQL, không giả lập lưu thành công.
+     GridPane trình bày lịch/ma trận để giữ đúng card ca, không cần Entity/cellFactory.
+     Panel đã chọn theo 1:3932 được include, vẫn ẩn mặc định để bảng dùng đủ chiều ngang.
+     Modal Thêm/Sửa/Hủy độc lập; Controller của Tường sẽ tự nối các sự kiện.
+     Nha sĩ và Y tá được cùng phòng/cùng ca; không cho cùng nhân viên trùng ca. -->
+<VBox fx:id="assignmentsPage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/manager-assignments.css" styleClass="assignments-page" spacing="20" minWidth="960"
+      minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblAssignmentsTitle" text="Lịch &amp; Phân công" styleClass="assignment-title"/>
+            <Label fx:id="lblAssignmentsSubtitle" text="Sắp xếp ca làm việc theo nhân viên, ngày và phòng khám"
+                   wrapText="true" minHeight="-Infinity" styleClass="assignment-subtitle"/>
+        </VBox>
+        <Button fx:id="btnCreateAssignment" text="Phân công ca" graphicTextGap="8" styleClass="primary-button">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/staff/add-staff.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <VBox styleClass="assignment-card" minWidth="0">
+        <!-- Binding FXML theo tab đang chọn: tránh TabPane lấy chiều cao lớn nhất
+             của cả hai tab và chừa khoảng trắng thừa dưới lịch tuần.
+             66px gồm thanh tab 50px và padding nội dung 16px của CSS. -->
+        <TabPane fx:id="assignmentTabs" tabClosingPolicy="UNAVAILABLE" minWidth="0" styleClass="assignment-tabs"
+                 prefHeight="${assignmentTabs.selectionModel.selectedItem.content.prefHeight + 66}"
+                 minHeight="-Infinity" maxHeight="-Infinity">
+            <tabs>
+                <Tab fx:id="tabSchedule" text="Lịch làm việc">
+                    <content>
+                        <VBox spacing="16" minWidth="0" prefHeight="526">
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <ComboBox fx:id="cboScheduleEmployee" value="Tất cả nhân viên" minWidth="0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="assignment-filter" accessibleText="Tất cả nhân viên">
+    <items><FXCollections fx:factory="observableArrayList"><String fx:value="Tất cả nhân viên"/><String fx:value="NV002 · Trần Minh Đức"/><String fx:value="NV003 · Nguyễn Lan Anh"/><String fx:value="NV004 · Phạm Thu Hà"/><String fx:value="NV005 · Võ Ngọc Mai"/></FXCollections></items>
+</ComboBox>
+                                <ComboBox fx:id="cboSchedulePosition" value="Tất cả chức vụ" minWidth="220" prefWidth="220" maxWidth="220" styleClass="assignment-filter" accessibleText="Tất cả chức vụ">
+    <items><FXCollections fx:factory="observableArrayList"><String fx:value="Tất cả chức vụ"/><String fx:value="Quản lý"/><String fx:value="Nha sĩ"/><String fx:value="Lễ tân"/><String fx:value="Y tá"/></FXCollections></items>
+</ComboBox>
+                                <ComboBox fx:id="cboScheduleRoom" value="Tất cả phòng" minWidth="220" prefWidth="220" maxWidth="220" styleClass="assignment-filter" accessibleText="Tất cả phòng">
+    <items><FXCollections fx:factory="observableArrayList"><String fx:value="Tất cả phòng"/><String fx:value="P01"/><String fx:value="P02"/><String fx:value="LT"/></FXCollections></items>
+</ComboBox>
+                            </HBox>
+                            <VBox spacing="12">
+                                <HBox spacing="12" alignment="CENTER_LEFT">
+    <Button fx:id="btnSchedulePreviousWeek" text="‹" accessibleText="Tuần trước" styleClass="secondary-button"/>
+    <Label fx:id="lblScheduleWeekRange" text="05 – 11/10/2026" alignment="CENTER_LEFT" styleClass="assignment-week-range"/>
+    <Button fx:id="btnScheduleNextWeek" text="›" accessibleText="Tuần tiếp theo" styleClass="secondary-button"/>
+    <Button fx:id="btnScheduleToday" text="Hôm nay" styleClass="secondary-button"/>
+</HBox>
+                                <GridPane fx:id="weekCalendar" hgap="8" minHeight="360" prefHeight="360" maxHeight="360">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+<ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+<ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+<ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+<ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+<ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+<ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                    </columnConstraints>
+                                    <VBox fx:id="dayMon" GridPane.columnIndex="0" spacing="18" minWidth="0" minHeight="360" styleClass="calendar-day">
+    <Label fx:id="lblMonDate" text="T2 · 05/10" styleClass="calendar-day-title"/>
+<Button fx:id="btnMonMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Mon · 08:00–12:00 · Khám tổng quát · P01 · Trần Minh Đức"
+        styleClass="calendar-shift, morning-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="08:00–12:00" styleClass="calendar-shift-time"/>
+            <Label text="Khám tổng quát" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01 · Trần Minh Đức" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnMonAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Mon · 13:30–17:00 · Điều trị · P01"
+        styleClass="calendar-shift, afternoon-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="13:30–17:00" styleClass="calendar-shift-time"/>
+            <Label text="Điều trị" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox fx:id="dayTue" GridPane.columnIndex="1" spacing="18" minWidth="0" minHeight="360" styleClass="calendar-day">
+    <Label fx:id="lblTueDate" text="T3 · 06/10" styleClass="calendar-day-title"/>
+<Button fx:id="btnTueMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Tue · 08:00–12:00 · Khám tổng quát · P01 · Trần Minh Đức"
+        styleClass="calendar-shift, morning-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="08:00–12:00" styleClass="calendar-shift-time"/>
+            <Label text="Khám tổng quát" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01 · Trần Minh Đức" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnTueAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Tue · 13:30–17:00 · Điều trị · P01"
+        styleClass="calendar-shift, afternoon-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="13:30–17:00" styleClass="calendar-shift-time"/>
+            <Label text="Điều trị" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox fx:id="dayWed" GridPane.columnIndex="2" spacing="18" minWidth="0" minHeight="360" styleClass="calendar-day">
+    <Label fx:id="lblWedDate" text="T4 · 07/10" styleClass="calendar-day-title"/>
+<Button fx:id="btnWedMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Wed · 08:00–12:00 · Khám tổng quát · P01 · Trần Minh Đức"
+        styleClass="calendar-shift, morning-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="08:00–12:00" styleClass="calendar-shift-time"/>
+            <Label text="Khám tổng quát" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01 · Trần Minh Đức" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox fx:id="dayThu" GridPane.columnIndex="3" spacing="18" minWidth="0" minHeight="360" styleClass="calendar-day">
+    <Label fx:id="lblThuDate" text="T5 · 08/10" styleClass="calendar-day-title"/>
+<Button fx:id="btnThuMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Thu · 08:00–12:00 · Khám tổng quát · P01 · Trần Minh Đức"
+        styleClass="calendar-shift, morning-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="08:00–12:00" styleClass="calendar-shift-time"/>
+            <Label text="Khám tổng quát" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01 · Trần Minh Đức" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnThuAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Thu · 13:30–17:00 · Điều trị · P01"
+        styleClass="calendar-shift, afternoon-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="13:30–17:00" styleClass="calendar-shift-time"/>
+            <Label text="Điều trị" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox fx:id="dayFri" GridPane.columnIndex="4" spacing="18" minWidth="0" minHeight="360" styleClass="calendar-day, calendar-demo-today">
+    <Label fx:id="lblFriDate" text="T6 · 09/10" styleClass="calendar-day-title"/>
+<Button fx:id="btnFriMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Fri · 08:00–12:00 · Khám tổng quát · P01 · Trần Minh Đức"
+        styleClass="calendar-shift, morning-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="08:00–12:00" styleClass="calendar-shift-time"/>
+            <Label text="Khám tổng quát" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01 · Trần Minh Đức" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnFriAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Fri · 13:30–17:00 · Điều trị · P01"
+        styleClass="calendar-shift, afternoon-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="13:30–17:00" styleClass="calendar-shift-time"/>
+            <Label text="Điều trị" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox fx:id="daySat" GridPane.columnIndex="5" spacing="18" minWidth="0" minHeight="360" styleClass="calendar-day">
+    <Label fx:id="lblSatDate" text="T7 · 10/10" styleClass="calendar-day-title"/>
+<Button fx:id="btnSatMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Sat · 08:00–12:00 · Khám tổng quát · P01 · Trần Minh Đức"
+        styleClass="calendar-shift, morning-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="08:00–12:00" styleClass="calendar-shift-time"/>
+            <Label text="Khám tổng quát" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01 · Trần Minh Đức" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnSatAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false"
+        accessibleText="Sat · 13:30–17:00 · Điều trị · P01"
+        styleClass="calendar-shift, afternoon-shift">
+    <graphic>
+        <VBox spacing="6" minWidth="0" prefWidth="160">
+            <Label text="13:30–17:00" styleClass="calendar-shift-time"/>
+            <Label text="Điều trị" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-work"/>
+            <Label text="P01" wrapText="true" minHeight="-Infinity" styleClass="calendar-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox fx:id="daySun" GridPane.columnIndex="6" spacing="18" minWidth="0" minHeight="360" styleClass="calendar-day">
+    <Label fx:id="lblSunDate" text="CN · 11/10" styleClass="calendar-day-title"/>
+    <Label text="Không có ca" styleClass="assignment-caption"/>
+</VBox>
+                                </GridPane>
+                            </VBox>
+                            <Label fx:id="lblAssignmentRules"
+                                   text="Ca sáng 08:00–12:00 · Ca chiều 13:30–17:00. Không phân công một nhân viên trùng ca; nha sĩ và y tá có thể cùng phòng, cùng ca."
+                                   wrapText="true" minHeight="-Infinity" maxWidth="Infinity" styleClass="assignment-rule-note"/>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabAssignments" text="Phân công">
+                    <content>
+                        <VBox spacing="16" minWidth="0" prefHeight="655">
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <TextField fx:id="txtAssignmentSearch" promptText="Tìm mã NV / họ tên / SĐT"
+                                           accessibleText="Tìm phân công theo mã nhân viên, họ tên hoặc số điện thoại"
+                                           HBox.hgrow="ALWAYS" minWidth="0" styleClass="assignment-search"/>
+                                <ComboBox fx:id="cboAssignmentPosition" value="Tất cả chức vụ" minWidth="220" prefWidth="220" maxWidth="220" styleClass="assignment-filter" accessibleText="Tất cả chức vụ">
+    <items><FXCollections fx:factory="observableArrayList"><String fx:value="Tất cả chức vụ"/><String fx:value="Quản lý"/><String fx:value="Nha sĩ"/><String fx:value="Lễ tân"/><String fx:value="Y tá"/></FXCollections></items>
+</ComboBox>
+                                <ComboBox fx:id="cboAssignmentRoom" value="Tất cả phòng" minWidth="220" prefWidth="220" maxWidth="220" styleClass="assignment-filter" accessibleText="Tất cả phòng">
+    <items><FXCollections fx:factory="observableArrayList"><String fx:value="Tất cả phòng"/><String fx:value="P01"/><String fx:value="P02"/><String fx:value="LT"/></FXCollections></items>
+</ComboBox>
+                            </HBox>
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+    <Button fx:id="btnMatrixPreviousWeek" text="‹" accessibleText="Tuần trước" styleClass="secondary-button"/>
+    <Label fx:id="lblMatrixWeekRange" text="05 – 11/10/2026" alignment="CENTER_LEFT" styleClass="assignment-week-range"/>
+    <Button fx:id="btnMatrixNextWeek" text="›" accessibleText="Tuần tiếp theo" styleClass="secondary-button"/>
+    <Button fx:id="btnMatrixToday" text="Hôm nay" styleClass="secondary-button"/>
+</HBox>
+                            <HBox fx:id="assignmentMatrixLayout" spacing="15" alignment="TOP_LEFT">
+                                <!-- Ma trận cuộn ngang riêng khi cửa sổ hẹp; không thu nhỏ card/nhãn. -->
+                                <ScrollPane fx:id="matrixScroll" fitToWidth="true" fitToHeight="false" hbarPolicy="AS_NEEDED" vbarPolicy="NEVER" hvalue="0"
+                                            HBox.hgrow="ALWAYS" minWidth="0" prefWidth="0" minHeight="510" prefHeight="510" maxHeight="510"
+                                            styleClass="assignment-matrix-scroll">
+                                    <content>
+                                        <GridPane fx:id="assignmentMatrix" minWidth="917" styleClass="assignment-matrix">
+                                            <columnConstraints>
+                                                <ColumnConstraints minWidth="160" prefWidth="160" maxWidth="160"/>
+                                                <ColumnConstraints minWidth="90" prefWidth="90" maxWidth="90"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+<ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+<ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+<ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+<ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+<ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+<ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="42" prefHeight="42"/>
+                                                <!-- Hai card 44px + gap 4px + padding/viền cần 109px.
+                                                     Hàng 112px đồng đều để mọi ô nằm đúng trong hàng. -->
+                                                <RowConstraints minHeight="112" prefHeight="112" maxHeight="112" valignment="TOP" fillHeight="true"/>
+                                                <RowConstraints minHeight="112" prefHeight="112" maxHeight="112" valignment="TOP" fillHeight="true"/>
+                                                <RowConstraints minHeight="112" prefHeight="112" maxHeight="112" valignment="TOP" fillHeight="true"/>
+                                                <RowConstraints minHeight="112" prefHeight="112" maxHeight="112" valignment="TOP" fillHeight="true"/>
+                                            </rowConstraints>
+                                            <Label fx:id="lblMatrixEmployeeHeader" text="Nhân viên" GridPane.columnIndex="0"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER_LEFT" styleClass="matrix-header"/>
+<Label fx:id="lblMatrixPositionHeader" text="Chức vụ" GridPane.columnIndex="1"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER_LEFT" styleClass="matrix-header"/>
+<Label fx:id="lblMatrixMonHeader" text="T2 · 05" GridPane.columnIndex="2"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="matrix-header"/>
+<Label fx:id="lblMatrixTueHeader" text="T3 · 06" GridPane.columnIndex="3"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="matrix-header"/>
+<Label fx:id="lblMatrixWedHeader" text="T4 · 07" GridPane.columnIndex="4"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="matrix-header"/>
+<Label fx:id="lblMatrixThuHeader" text="T5 · 08" GridPane.columnIndex="5"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="matrix-header"/>
+<Label fx:id="lblMatrixFriHeader" text="T6 · 09" GridPane.columnIndex="6"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="matrix-header, matrix-friday-header"/>
+<Label fx:id="lblMatrixSatHeader" text="T7 · 10" GridPane.columnIndex="7"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="matrix-header"/>
+<Label fx:id="lblMatrixSunHeader" text="CN · 11" GridPane.columnIndex="8"
+    minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="matrix-header"/>
+                                            <!-- NV002: Nha sĩ; dữ liệu minh họa, không có phân công trùng ca cho cùng nhân viên. -->
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="matrix-employee-cell">
+    <Label fx:id="lblNv002Name" text="Trần Minh Đức" wrapText="true" styleClass="matrix-employee-name"/>
+    <Label text="NV002" styleClass="assignment-caption"/>
+</VBox>
+<StackPane GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="matrix-position-cell">
+    <Label text="Nha sĩ" styleClass="assignment-caption"/>
+</StackPane>
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv002MonMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Mon · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv002MonAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Mon · Ca chiều · P01"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv002TueMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Tue · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv002TueAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Tue · Ca chiều · P01"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv002WedMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Wed · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv002ThuMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Thu · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv002ThuAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Thu · Ca chiều · P01"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell, matrix-friday-cell">
+    <Button fx:id="btnNv002FriMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Fri · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv002FriAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Fri · Ca chiều · P01"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv002SatMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Sat · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv002SatAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV002 · Trần Minh Đức · Sat · Ca chiều · P01"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="1" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Label text="—" styleClass="assignment-caption"/>
+</VBox>
+<!-- NV003: Nha sĩ; dữ liệu minh họa, không có phân công trùng ca cho cùng nhân viên. -->
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="matrix-employee-cell">
+    <Label fx:id="lblNv003Name" text="Nguyễn Lan Anh" wrapText="true" styleClass="matrix-employee-name"/>
+    <Label text="NV003" styleClass="assignment-caption"/>
+</VBox>
+<StackPane GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="matrix-position-cell">
+    <Label text="Nha sĩ" styleClass="assignment-caption"/>
+</StackPane>
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv003MonMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV003 · Nguyễn Lan Anh · Mon · Ca sáng · P02"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P02" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv003TueMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV003 · Nguyễn Lan Anh · Tue · Ca sáng · P02"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P02" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv003TueAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV003 · Nguyễn Lan Anh · Tue · Ca chiều · P02"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P02" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv003WedMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV003 · Nguyễn Lan Anh · Wed · Ca sáng · P02"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P02" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <!-- Không có ca sáng: giữ ô trống 44px để ca chiều cùng hàng với các ca chiều khác. -->
+    <Region minHeight="44" prefHeight="44" maxHeight="44"/>
+    <Button fx:id="btnNv003ThuAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV003 · Nguyễn Lan Anh · Thu · Ca chiều · P02"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P02" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell, matrix-friday-cell">
+    <Button fx:id="btnNv003FriMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV003 · Nguyễn Lan Anh · Fri · Ca sáng · P02"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P02" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv003SatMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV003 · Nguyễn Lan Anh · Sat · Ca sáng · P02"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P02" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="2" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Label text="—" styleClass="assignment-caption"/>
+</VBox>
+<!-- NV004: Lễ tân; dữ liệu minh họa, không có phân công trùng ca cho cùng nhân viên. -->
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="matrix-employee-cell">
+    <Label fx:id="lblNv004Name" text="Phạm Thu Hà" wrapText="true" styleClass="matrix-employee-name"/>
+    <Label text="NV004" styleClass="assignment-caption"/>
+</VBox>
+<StackPane GridPane.rowIndex="3" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="matrix-position-cell">
+    <Label text="Lễ tân" styleClass="assignment-caption"/>
+</StackPane>
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv004MonMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV004 · Phạm Thu Hà · Mon · Ca sáng · LT"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="LT" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv004TueMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV004 · Phạm Thu Hà · Tue · Ca sáng · LT"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="LT" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv004WedMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV004 · Phạm Thu Hà · Wed · Ca sáng · LT"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="LT" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv004ThuMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV004 · Phạm Thu Hà · Thu · Ca sáng · LT"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="LT" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell, matrix-friday-cell">
+    <Button fx:id="btnNv004FriMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV004 · Phạm Thu Hà · Fri · Ca sáng · LT"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="LT" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv004SatMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV004 · Phạm Thu Hà · Sat · Ca sáng · LT"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="LT" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="3" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Label text="—" styleClass="assignment-caption"/>
+</VBox>
+<!-- NV005: Y tá; dữ liệu minh họa, không có phân công trùng ca cho cùng nhân viên. -->
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="matrix-employee-cell">
+    <Label fx:id="lblNv005Name" text="Võ Ngọc Mai" wrapText="true" styleClass="matrix-employee-name"/>
+    <Label text="NV005" styleClass="assignment-caption"/>
+</VBox>
+<StackPane GridPane.rowIndex="4" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="matrix-position-cell">
+    <Label text="Y tá" styleClass="assignment-caption"/>
+</StackPane>
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv005MonMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Mon · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv005MonAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Mon · Ca chiều · P01"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv005TueMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Tue · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv005WedMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Wed · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv005ThuMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Thu · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell, matrix-friday-cell">
+    <Button fx:id="btnNv005FriMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Fri · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+<Button fx:id="btnNv005FriAfternoon" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Fri · Ca chiều · P01"
+        styleClass="matrix-shift, matrix-afternoon">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☾ Ca chiều" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Button fx:id="btnNv005SatMorning" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY"
+        accessibleText="NV005 · Võ Ngọc Mai · Sat · Ca sáng · P01"
+        styleClass="matrix-shift, matrix-morning">
+    <graphic>
+        <VBox spacing="2" minWidth="0" prefWidth="92">
+            <Label text="☀ Ca sáng" styleClass="matrix-shift-title"/>
+            <Label text="P01" styleClass="matrix-shift-room"/>
+        </VBox>
+    </graphic>
+</Button>
+</VBox>
+<VBox GridPane.rowIndex="4" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0"
+        styleClass="matrix-day-cell">
+    <Label text="—" styleClass="assignment-caption"/>
+</VBox>
+                                        </GridPane>
+                                    </content>
+                                </ScrollPane>
+                                <!-- Ẩn cả visible/managed: bảng dùng hết chiều ngang khi chưa chọn.
+                                     Controller sau này điền thông tin ca rồi hiện cả hai thuộc tính;
+                                     bỏ chọn thì ẩn lại. Chưa gắn handler nhấn card bằng Java. -->
+                                <VBox fx:id="assignmentDetailsSlot" minWidth="222" prefWidth="222" maxWidth="222"
+                                      maxHeight="-Infinity" visible="false" managed="false">
+                                    <fx:include fx:id="assignmentSelectedDetails" source="assignment-details.fxml"/>
+                                </VBox>
+                            </HBox>
+                            <HBox spacing="16" alignment="CENTER_LEFT">
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Region minWidth="12" prefWidth="12" maxWidth="12" minHeight="12" prefHeight="12" maxHeight="12" styleClass="assignment-legend-morning"/>
+                                    <Label text="Ca sáng 08:00–12:00" styleClass="assignment-caption"/>
+                                </HBox>
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Region minWidth="12" prefWidth="12" maxWidth="12" minHeight="12" prefHeight="12" maxHeight="12" styleClass="assignment-legend-afternoon"/>
+                                    <Label text="Ca chiều 13:30–17:00" styleClass="assignment-caption"/>
+                                </HBox>
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Region minWidth="12" prefWidth="12" maxWidth="12" minHeight="12" prefHeight="12" maxHeight="12" styleClass="assignment-legend-selected"/>
+                                    <Label text="Đang chọn" styleClass="assignment-caption"/>
+                                </HBox>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </VBox>
+    <Label fx:id="lblAssignmentsDemoNotice"
+           text="DỮ LIỆU MINH HỌA · Tên, phòng và lịch giả lập · Không kết nối SQL Server · Tuần 05–11/10/2026"
+           wrapText="true" minHeight="-Infinity" styleClass="assignment-caption"/>
+</VBox>
+

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC007 · Tab Visits · Figma 15:2417, file ROPzygiAnJyl1VudYGf0sm.
+     Fragment của reports.fxml, không có Sidebar/Topbar hoặc Controller riêng.
+     Toàn bộ ngày, KPI, cột và dòng bảng là DỮ LIỆU MINH HỌA từ Figma.
+     HashMap/MapValueFactory là JavaFX/Java chuẩn để preview, không phải Entity.
+     Nhi tự thay bằng dữ liệu thống kê thật, không trộn mẫu với SQL.
+     Giá là chuỗi hiển thị; Backend dùng BigDecimal và thanh toán đã xác nhận. -->
+<VBox fx:id="visitsReport" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      spacing="20" minWidth="0" prefHeight="1177">
+    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="reports-filter-card">
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Từ ngày" styleClass="reports-field-label"/>
+                <DatePicker fx:id="dpVisitsFrom" editable="false" maxWidth="Infinity" minWidth="0"
+                            accessibleText="Từ ngày, ngày mẫu 01/10/2026" styleClass="reports-date">
+                    <!-- Chỉ chữ xem trước; Nhi tự setValue(LocalDate) và converter khi viết Controller. -->
+                    <editor text="01/10/2026"/>
+                </DatePicker>
+            </VBox>
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Đến ngày" styleClass="reports-field-label"/>
+                <DatePicker fx:id="dpVisitsTo" editable="false" maxWidth="Infinity" minWidth="0"
+                            accessibleText="Đến ngày, ngày mẫu 09/10/2026" styleClass="reports-date">
+                    <!-- Chỉ chữ xem trước; Nhi tự setValue(LocalDate) và converter khi viết Controller. -->
+                    <editor text="09/10/2026"/>
+                </DatePicker>
+            </VBox>
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Nha sĩ" styleClass="reports-field-label"/>
+                <ComboBox fx:id="cboVisitsDentist" value="Tất cả" maxWidth="Infinity" minWidth="0" styleClass="reports-filter"
+                          accessibleText="Lọc nha sĩ, dữ liệu mẫu">
+                    <items><FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Trần Minh Đức"/>
+                        <String fx:value="Nguyễn Lan Anh"/>
+                    </FXCollections></items>
+                </ComboBox>
+            </VBox>
+            <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="reports-field">
+                <Label text="Trạng thái" styleClass="reports-field-label"/>
+                <ComboBox fx:id="cboVisitsStatus" value="Tất cả" maxWidth="Infinity" minWidth="0" styleClass="reports-filter"
+                          accessibleText="Lọc trạng thái, dữ liệu mẫu">
+                    <items><FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Đã hoàn tất"/>
+                        <String fx:value="Đã hủy"/>
+                        <String fx:value="Không đến"/>
+                    </FXCollections></items>
+                </ComboBox>
+            </VBox>
+        <Button fx:id="btnApplyVisitsReport" text="Áp dụng" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+
+    <GridPane fx:id="VisitsMetrics" hgap="16" minHeight="132" prefHeight="132" maxHeight="132">
+        <rowConstraints><RowConstraints percentHeight="100" fillHeight="true"/></rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+        </columnConstraints>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="0">
+            <Label text="Tổng lượt khám" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblVisitsTotal" text="214" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblVisitsTotalNote" text="192 lượt đã hoàn tất" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="1">
+            <Label text="Lượt khám hôm nay" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblVisitsToday" text="12" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblVisitsTodayNote" text="10 hoàn tất · 09/10/2026" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="2">
+            <Label text="Trung bình lượt/ngày" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblVisitsAverage" text="23,8" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblVisitsAverageNote" text="214 lượt / 9 ngày" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="reports-card" GridPane.columnIndex="3">
+            <Label text="Tỷ lệ hoàn tất" styleClass="reports-metric-label" wrapText="true"/>
+            <Label fx:id="lblVisitsCompletionRate" text="89,7%" styleClass="reports-metric-value" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblVisitsCompletionRateNote" text="192 / 214 lượt trong kỳ" styleClass="reports-caption" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+    </GridPane>
+
+    <VBox spacing="16" minWidth="0" styleClass="reports-card">
+        <Label fx:id="lblVisitsChartTitle" text="Lượt khám theo ngày" styleClass="reports-card-title"/>
+        <Label fx:id="lblVisitsChartSubtitle" text="Tổng lượt khám theo ngày, gồm các trạng thái" styleClass="reports-caption" wrapText="true"/>
+        <!-- Cột JavaFX thật, không ảnh biểu đồ. Chiều cao mẫu giữ theo Figma.
+             Khi đổi kỳ, Nhi tự dựng lại các VBox/cột và nhãn từ số liệu thống kê. -->
+        <HBox fx:id="chartVisits" spacing="20" alignment="BOTTOM_CENTER" minHeight="222" prefHeight="222" maxHeight="222"
+              styleClass="reports-chart" accessibleText="Lượt khám theo ngày, dữ liệu minh họa">
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue1" text="24" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits1" minHeight="124.8" prefHeight="124.8" maxHeight="124.8"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="01/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue2" text="26" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits2" minHeight="135.2" prefHeight="135.2" maxHeight="135.2"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="02/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue3" text="30" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits3" minHeight="156" prefHeight="156" maxHeight="156"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="03/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue4" text="18" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits4" minHeight="93.6" prefHeight="93.6" maxHeight="93.6"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="04/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue5" text="24" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits5" minHeight="124.8" prefHeight="124.8" maxHeight="124.8"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="05/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue6" text="29" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits6" minHeight="150.8" prefHeight="150.8" maxHeight="150.8"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="06/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue7" text="23" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits7" minHeight="119.6" prefHeight="119.6" maxHeight="119.6"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="07/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue8" text="28" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits8" minHeight="145.6" prefHeight="145.6" maxHeight="145.6"
+                        maxWidth="Infinity" styleClass="reports-bar"/>
+                <Label text="08/10" styleClass="reports-axis-label"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblVisitsBarValue9" text="12" styleClass="reports-bar-value"/>
+                <Region fx:id="barVisits9" minHeight="62.4" prefHeight="62.4" maxHeight="62.4"
+                        maxWidth="Infinity" styleClass="reports-bar, reports-bar-accent"/>
+                <Label text="09/10" styleClass="reports-axis-label"/>
+            </VBox>
+        </HBox>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="reports-divider"/>
+        <Label fx:id="lblVisitsChartNote" text="Trục X: Ngày · Trục Y: Số lượt khám · Tổng 214 · Hoàn tất 192 · Hủy 12 · Không đến 10" styleClass="reports-caption" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+
+    <VBox spacing="16" minWidth="0" styleClass="reports-card">
+        <Label text="Dữ liệu chi tiết" styleClass="reports-card-title"/>
+        <VBox styleClass="reports-table-frame">
+            <!-- Chỉ đọc; không mở chi tiết, không hover/selected highlight.
+                 editable=false không tắt selection: Nhi tự setSelectionModel(null) khi nối Controller. -->
+            <TableView fx:id="tblVisits" editable="false" focusTraversable="false" fixedCellSize="72"
+                       minHeight="326" prefHeight="326" maxHeight="326" styleClass="reports-table">
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/></columnResizePolicy>
+                <placeholder><Label text="Chưa có dữ liệu" styleClass="reports-caption"/></placeholder>
+                <columns>
+                    <TableColumn fx:id="colVisitsDate" text="Ngày" prefWidth="185" minWidth="130" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="date"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colVisitsTotal" text="Tổng lượt khám" prefWidth="185" minWidth="135" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="total"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colVisitsCompleted" text="Đã hoàn tất" prefWidth="185" minWidth="120" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="completed"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colVisitsCancelled" text="Đã hủy" prefWidth="185" minWidth="100" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="cancelled"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colVisitsNoShow" text="Không đến" prefWidth="185" minWidth="110" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="noShow"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colVisitsCompletionRate" text="Tỷ lệ hoàn tất" prefWidth="185" minWidth="130" sortable="false" reorderable="false">
+                        <cellValueFactory><MapValueFactory key="rate"/></cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items><FXCollections fx:factory="observableArrayList">
+                    <HashMap date="09/10/2026" total="12" completed="10" cancelled="1" noShow="1" rate="83,3%"/>
+                    <HashMap date="08/10/2026" total="28" completed="24" cancelled="2" noShow="2" rate="85,7%"/>
+                    <HashMap date="07/10/2026" total="23" completed="21" cancelled="1" noShow="1" rate="91,3%"/>
+                    <HashMap date="06/10/2026" total="29" completed="26" cancelled="2" noShow="1" rate="89,7%"/>
+                </FXCollections></items>
+            </TableView>
+            <HBox spacing="6" alignment="CENTER_LEFT" minHeight="40" prefHeight="40" styleClass="reports-table-footer">
+                <Label fx:id="lblVisitsRecordCount" text="Hiển thị 4 / 9 bản ghi" styleClass="reports-caption"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnVisitsPreviousPage" text="‹" disable="true" accessibleText="Trang báo cáo trước" styleClass="reports-page-button"/>
+                <Label fx:id="lblVisitsCurrentPage" text="1" styleClass="reports-caption"/>
+                <Button fx:id="btnVisitsNextPage" text="›" disable="false" accessibleText="Trang báo cáo tiếp theo, chưa có xử lý" styleClass="reports-page-button"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <VBox spacing="2">
+        <Label fx:id="lblVisitsDemoNotice" text="DỮ LIỆU MINH HỌA · Phòng khám nha khoa · 09/10/2026 · Không kết nối SQL Server"
+               styleClass="reports-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblVisitsByDentist" text="Hoàn tất theo nha sĩ: Trần Minh Đức 104 (54,2%) · Nguyễn Lan Anh 88 (45,8%)" styleClass="reports-caption" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+</VBox>

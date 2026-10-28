@@ -1,0 +1,46 @@
+/* UC006: Thêm 7:2171 và Sửa 39:5486. Chỉ áp dụng trong .service-form.
+   Không sửa theme hoặc CSS của modal Nhân sự/Phân công. */
+.service-form {
+    /* 23px + viền 1px = khoảng cách 24px theo Figma. */
+    -fx-padding: 23; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.service-form .service-form-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.service-form .service-form-close {
+    -fx-padding: 0; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-text-fill: #617584; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;
+}
+.service-form .service-form-close:hover { -fx-background-color: #E8F5F6; }
+.service-form .service-form-close:focused { -fx-border-color: #087E91; }
+.service-form .service-form-field, .service-form .service-form-description-field {
+    -fx-padding: 8 11; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+}
+.service-form .service-form-field { -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62; }
+.service-form .service-form-description-field { -fx-min-height: 104; -fx-pref-height: 104; -fx-max-height: 104; }
+.service-form .service-form-readonly { -fx-background-color: #F4F7FA; }
+.service-form .service-form-field-label { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.service-form .service-form-input, .service-form .service-form-choice {
+    -fx-min-height: 23; -fx-pref-height: 23; -fx-max-height: 23;
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0;
+    -fx-border-width: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-prompt-text-fill: #617584;
+}
+.service-form .service-form-input:focused, .service-form .service-form-choice:focused {
+    -fx-background-color: #E8F5F6; -fx-background-radius: 2;
+}
+.service-form .service-form-readonly .service-form-input { -fx-text-fill: #617584; }
+.service-form .service-form-choice > .list-cell {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-text-fill: #172B3A; -fx-font-size: 14px;
+}
+.service-form .service-form-choice > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 3; }
+.service-form .service-form-choice > .arrow-button > .arrow { -fx-background-color: #172B3A; }
+.service-form .service-form-description {
+    -fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;
+    -fx-border-width: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-focus-color: transparent;
+}
+.service-form .service-form-description .scroll-pane,
+.service-form .service-form-description .scroll-pane > .viewport,
+.service-form .service-form-description .content {
+    -fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;
+}

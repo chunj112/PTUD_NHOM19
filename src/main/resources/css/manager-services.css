@@ -1,0 +1,64 @@
+/* UC006 list + detail, Figma ROPzygiAnJyl1VudYGf0sm, 15:511 / 33:5265 / 33:5326.
+   Mọi selector chỉ áp dụng trong .services-page. Không đổi theme/UI đã hoàn thiện. */
+.services-page { -fx-background-color: transparent; }
+.services-page .services-title { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.services-page .services-subtitle { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.services-page .services-caption { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.services-page .services-card {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.services-page .services-card-title { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.services-page .services-search, .services-page .services-filter {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-max-height: 42;
+    -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A;
+}
+.services-page .services-search { -fx-padding: 10 12; -fx-prompt-text-fill: #617584; }
+.services-page .services-search:focused, .services-page .services-filter:focused,
+.services-page .services-filter:showing { -fx-border-color: #087E91; }
+.services-page .services-filter > .list-cell { -fx-padding: 10 12; -fx-text-fill: #172B3A; -fx-background-color: transparent; }
+.services-page .services-filter > .arrow-button { -fx-padding: 0 12 0 0; -fx-background-color: transparent; }
+.services-page .services-filter > .arrow-button > .arrow { -fx-background-color: #617584; }
+.services-page .services-table-frame {
+    -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+}
+.services-page .services-table { -fx-background-color: white; -fx-background-insets: 0; -fx-border-width: 0; -fx-padding: 0; }
+.services-page .services-table .column-header-background,
+.services-page .services-table .column-header,
+.services-page .services-table .filler { -fx-background-color: #F4F7FA; }
+.services-page .services-table .column-header { -fx-min-height: 38; -fx-pref-height: 38; -fx-border-width: 0; }
+.services-page .services-table .column-header .label {
+    -fx-padding: 4 8; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584;
+    -fx-alignment: CENTER_LEFT; -fx-wrap-text: true;
+}
+.services-page .services-table .table-row-cell { -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0; }
+.services-page .services-table .table-row-cell:filled:hover { -fx-background-color: #F4FAFB; }
+.services-page .services-table .table-row-cell:filled:selected {
+    -fx-background-color: #087E91, #E8F5F6; -fx-background-insets: 0, 0 0 0 3;
+}
+.services-page .services-table .table-cell {
+    -fx-padding: 12; -fx-font-size: 13px; -fx-text-fill: #172B3A; -fx-alignment: TOP_LEFT; -fx-wrap-text: true;
+    -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.services-page .services-table .table-cell:empty { -fx-border-width: 0; }
+.services-page .services-status-active { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #21764F; }
+.services-page .services-table-footer { -fx-padding: 0 12; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0; }
+.services-page .services-page-button { -fx-padding: 2 6; -fx-background-color: transparent; -fx-background-radius: 4; -fx-text-fill: #172B3A; -fx-font-size: 14px; }
+.services-page .services-page-button:focused { -fx-border-color: #087E91; -fx-border-radius: 4; }
+
+/* Panel 356px bên phải; tự preview được khi nạp service-details.fxml riêng.
+   Không thay style của Nhân sự, Phân công, Báo cáo hoặc theme chung. */
+.service-details {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.service-details .service-detail-summary { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.service-details .service-detail-badge {
+    -fx-padding: 4 8; -fx-background-color: #EDF7F1; -fx-background-radius: 6;
+    -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #21764F;
+}
+.service-details .service-detail-value { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.service-details .service-detail-divider { -fx-background-color: #DCE4EA; }

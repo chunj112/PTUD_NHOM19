@@ -1,0 +1,108 @@
+/* UC007 · Figma chính thức: 15:683 / 15:2417 / 15:2435.
+   Mọi selector giới hạn trong .reports-page; không ảnh hưởng UI khác.
+   Dùng theme.css hiện có cho font và primary/secondary-button. */
+.reports-page { -fx-background-color: transparent; }
+.reports-page .reports-title { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.reports-page .reports-subtitle { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.reports-page .reports-caption, .reports-page .reports-field-label {
+    -fx-font-size: 12px; -fx-text-fill: #617584;
+}
+.reports-page .reports-card {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.reports-page .reports-card-title { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.reports-page .reports-metric-label { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.reports-page .reports-metric-value { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+
+/* Thanh tab và bộ lọc bên dưới ghép thành một card như Figma.
+   KPI, biểu đồ và bảng nằm ngoài card lọc, trong nội dung mỗi Tab. */
+.reports-page .reports-tabs { -fx-background-color: transparent; }
+.reports-page .reports-tabs > .tab-header-area {
+    -fx-padding: 19 19 0 19;
+    -fx-background-color: white; -fx-background-radius: 10 10 0 0;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1 1 0 1; -fx-border-radius: 10 10 0 0;
+}
+.reports-page .reports-tabs > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent; -fx-border-color: transparent transparent #DCE4EA transparent;
+    -fx-border-width: 0 0 1 0; -fx-border-insets: 0 19;
+}
+.reports-page .reports-tabs .tab {
+    -fx-padding: 12 16; -fx-background-color: white; -fx-background-insets: 0;
+    -fx-background-radius: 0; -fx-border-color: transparent; -fx-border-width: 0 0 2 0;
+}
+.reports-page .reports-tabs .tab .tab-label { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.reports-page .reports-tabs .tab:selected {
+    -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent;
+}
+.reports-page .reports-tabs .tab:selected .tab-label { -fx-font-weight: bold; -fx-text-fill: #087E91; }
+/* Không vẽ viền focus bên trong khi click tab; giữ nền và gạch chân đã chọn. */
+.reports-page .reports-tabs .tab .focus-indicator,
+.reports-page .reports-tabs:focused .tab:selected .focus-indicator {
+    -fx-border-color: transparent; -fx-border-width: 0; -fx-background-color: transparent;
+}
+.reports-page .reports-tabs > .tab-content-area { -fx-padding: 0; }
+.reports-page .reports-filter-card {
+    -fx-padding: 16 19 19 19; -fx-background-color: white; -fx-background-radius: 0 0 10 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 0 1 1 1; -fx-border-radius: 0 0 10 10;
+}
+.reports-page .reports-field {
+    -fx-padding: 8 11; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+    -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62;
+}
+.reports-page .reports-date, .reports-page .reports-filter {
+    -fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;
+    -fx-border-color: transparent; -fx-border-width: 0;
+    -fx-min-height: 24; -fx-pref-height: 24; -fx-max-height: 24; -fx-font-size: 14px;
+}
+.reports-page .reports-date > .text-field {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0;
+    -fx-border-width: 0; -fx-text-fill: #172B3A; -fx-font-size: 14px;
+}
+.reports-page .reports-date > .arrow-button, .reports-page .reports-filter > .arrow-button {
+    -fx-background-color: transparent; -fx-padding: 0 2 0 8;
+}
+.reports-page .reports-date > .arrow-button > .arrow,
+.reports-page .reports-filter > .arrow-button > .arrow { -fx-background-color: #617584; }
+.reports-page .reports-date:focused, .reports-page .reports-filter:focused { -fx-border-color: #087E91; -fx-border-width: 0 0 1 0; }
+.reports-page .reports-filter > .list-cell { -fx-padding: 0; -fx-background-color: transparent; -fx-text-fill: #172B3A; }
+.reports-page .reports-chart { -fx-padding: 20 16 0 16; }
+.reports-page .reports-bar { -fx-background-color: #9CCCD3; -fx-background-radius: 4 4 0 0; }
+.reports-page .reports-bar-accent { -fx-background-color: #087E91; }
+.reports-page .reports-bar-value { -fx-font-size: 12px; -fx-text-fill: #172B3A; }
+.reports-page .reports-axis-label { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.reports-page .reports-divider { -fx-background-color: #DCE4EA; }
+.reports-page .reports-table-frame {
+    -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+}
+.reports-page .reports-table { -fx-background-color: white; -fx-background-insets: 0; -fx-border-width: 0; -fx-padding: 0; }
+.reports-page .reports-table .column-header-background,
+.reports-page .reports-table .column-header,
+.reports-page .reports-table .filler { -fx-background-color: #F4F7FA; }
+.reports-page .reports-table .column-header { -fx-min-height: 38; -fx-pref-height: 38; -fx-border-width: 0; }
+.reports-page .reports-table .column-header .label {
+    -fx-padding: 10 12; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584; -fx-alignment: CENTER_LEFT;
+}
+/* Bảng chỉ xem: bỏ màu hover/chọn nhưng vẫn cuộn được.
+   Selection model thật do Nhi tắt khi viết Controller; không chặn sự kiện chuột. */
+.reports-page .reports-table .table-row-cell,
+.reports-page .reports-table .table-row-cell:filled:hover,
+.reports-page .reports-table .table-row-cell:filled:selected,
+.reports-page .reports-table .table-row-cell:filled:focused {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0; -fx-cursor: default;
+}
+.reports-page .reports-table .table-cell {
+    -fx-padding: 12; -fx-font-size: 13px; -fx-text-fill: #172B3A; -fx-alignment: TOP_LEFT;
+    -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+    -fx-cursor: default;
+}
+.reports-page .reports-table .table-cell:selected { -fx-text-fill: #172B3A; -fx-background-color: transparent; }
+.reports-page .reports-table .table-cell:empty { -fx-border-width: 0; }
+.reports-page .reports-table-footer { -fx-padding: 0 12; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0; }
+.reports-page .reports-page-button {
+    -fx-padding: 2 6; -fx-background-color: transparent; -fx-background-radius: 4;
+    -fx-text-fill: #172B3A; -fx-font-size: 14px; -fx-cursor: hand;
+}
+.reports-page .reports-page-button:focused { -fx-border-color: #087E91; -fx-border-radius: 4; }

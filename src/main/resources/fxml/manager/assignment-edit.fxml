@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- UC005, Figma 1:5579, ảnh đầy đủ do người dùng cung cấp.
+     Chỉ form nhập/xem trước; không Controller, JDBC, lưu hoặc thông báo thành công.
+     Không thêm ô Ca ngoài ảnh: Controller ánh xạ cặp 08:00–12:00 -> SANG,
+     13:30–17:00 -> CHIEU và kiểm tra cặp giờ khi người dùng thay đổi.
+     DatePicker.editor chứa ngày mẫu, value vẫn null; Controller đặt converter
+     dd/MM/yyyy rồi setValue khi mở form. Không đọc editor.text mẫu làm dữ liệu thật.
+     Không có nút X trong ảnh; Hủy/cửa sổ hệ thống là điểm đóng modal sau này. -->
+<VBox fx:id="editAssignmentForm" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/theme.css, @/css/assignment-forms.css" styleClass="assignment-form"
+      spacing="16" minWidth="480" prefWidth="480" maxWidth="480" maxHeight="-Infinity">
+    <Label fx:id="lblAssignmentFormTitle" text="Sửa phân công" styleClass="assignment-form-title"/>
+    <VBox styleClass="assignment-form-field">
+        <Label text="Nhân viên *" styleClass="assignment-field-caption"/>
+        <ComboBox fx:id="cboAssignmentEmployee" value="NV002 · Trần Minh Đức" maxWidth="Infinity" styleClass="assignment-form-choice"
+                  accessibleText="Nhân viên được phân công">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="NV002 · Trần Minh Đức"/><String fx:value="NV003 · Nguyễn Lan Anh"/>
+                    <String fx:value="NV004 · Phạm Thu Hà"/><String fx:value="NV005 · Võ Ngọc Mai"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </VBox>
+    <VBox styleClass="assignment-form-field">
+        <Label text="Ngày *" styleClass="assignment-field-caption"/>
+        <DatePicker fx:id="dpAssignmentDate" maxWidth="Infinity" promptText="dd/MM/yyyy" styleClass="assignment-form-date"
+                    accessibleText="Ngày phân công">
+            <editor text="09/10/2026"/>
+        </DatePicker>
+    </VBox>
+    <HBox spacing="12">
+        <VBox prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="assignment-form-field">
+            <Label text="Giờ bắt đầu *" styleClass="assignment-field-caption"/>
+            <ComboBox fx:id="cboAssignmentStartTime" value="08:00" maxWidth="Infinity" styleClass="assignment-form-choice"
+                      accessibleText="Giờ bắt đầu ca">
+                <items><FXCollections fx:factory="observableArrayList"><String fx:value="08:00"/><String fx:value="13:30"/></FXCollections></items>
+            </ComboBox>
+        </VBox>
+        <VBox prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="assignment-form-field">
+            <Label text="Giờ kết thúc *" styleClass="assignment-field-caption"/>
+            <ComboBox fx:id="cboAssignmentEndTime" value="12:00" maxWidth="Infinity" styleClass="assignment-form-choice"
+                      accessibleText="Giờ kết thúc ca">
+                <items><FXCollections fx:factory="observableArrayList"><String fx:value="12:00"/><String fx:value="17:00"/></FXCollections></items>
+            </ComboBox>
+        </VBox>
+    </HBox>
+    <VBox styleClass="assignment-form-field">
+        <Label text="Phòng / Khu vực *" styleClass="assignment-field-caption"/>
+        <ComboBox fx:id="cboAssignmentRoom" value="P01" maxWidth="Infinity" styleClass="assignment-form-choice"
+                  accessibleText="Phòng hoặc khu vực được phân công">
+            <items><FXCollections fx:factory="observableArrayList"><String fx:value="P01"/><String fx:value="P02"/><String fx:value="LT"/></FXCollections></items>
+        </ComboBox>
+    </VBox>
+    <VBox styleClass="assignment-form-field">
+        <Label text="Công việc" styleClass="assignment-field-caption"/>
+        <TextField fx:id="txtAssignmentWork" text="Khám tổng quát và điều trị" styleClass="assignment-form-input"/>
+    </VBox>
+    <HBox spacing="12">
+        <Button fx:id="btnCancelAssignmentForm" text="Hủy" cancelButton="true" styleClass="secondary-button"/>
+        <Button fx:id="btnSaveAssignment" text="Lưu thay đổi" styleClass="primary-button"/>
+    </HBox>
+</VBox>
+

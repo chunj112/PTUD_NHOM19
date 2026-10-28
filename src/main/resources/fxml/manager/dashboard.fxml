@@ -1,93 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<!-- Figma 1:2903 content only, inset 28px comes from AppShell.
-     No fabricated metrics: em dash + empty tables = CHUA CO BACKEND, not zero activity.
-     No Controller/backend for reports, patients or appointments is implemented here. -->
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" spacing="20" minWidth="0">
+
+<!-- Dashboard MANAGER, Figma 1:2903. Chỉ có content, không lặp Sidebar/Topbar/padding 28px.
+     Tất cả tên, số liệu và bảng dưới đây là DỮ LIỆU MẪU ngày 09/10/2026, không lấy từ SQL.
+     HashMap + MapValueFactory là control/factory JavaFX sẵn có, không phải Entity/Controller.
+     Giữ cột Lý do khám thay cho Dịch vụ trong frame cũ: đặt lịch không chọn dịch vụ dự kiến.
+     Khi nối Backend: bỏ items mẫu, thay label, cellValueFactory và phân trang; không trộn với dữ liệu thật.
+     Content có minWidth 980: cửa sổ hẹp dùng thanh cuộn ngang sẵn có của AppShell. -->
+<VBox fx:id="managerDashboard" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@/css/manager-dashboard.css" styleClass="manager-dashboard" spacing="20" minWidth="980">
     <HBox spacing="12" alignment="CENTER_LEFT">
         <VBox spacing="4" HBox.hgrow="ALWAYS" minWidth="0">
-            <Label text="Tổng quan phòng khám" wrapText="true" styleClass="page-title"/>
-            <Label text="Theo dõi hoạt động và chỉ số trong ngày" wrapText="true" styleClass="body-text"/>
+            <Label fx:id="lblDashboardTitle" text="Tổng quan phòng khám" wrapText="true" styleClass="dashboard-title"/>
+            <Label fx:id="lblDashboardSubtitle"
+                   text="Thứ Sáu, 09/10/2026 · Theo dõi hoạt động và chỉ số trong ngày · Dữ liệu minh họa"
+                   wrapText="true" minHeight="-Infinity" styleClass="dashboard-subtitle"/>
         </VBox>
         <Button fx:id="btnViewReports" id="btnViewReports" text="Xem báo cáo" graphicTextGap="8" styleClass="secondary-button">
-            <graphic><ImageView fitWidth="16" fitHeight="16" preserveRatio="true"><image><Image url="@/images/shell/dashboard-reports.png"/></image></ImageView></graphic>
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image><Image url="@/images/shell/dashboard-reports.png"/></image>
+                </ImageView>
+            </graphic>
         </Button>
     </HBox>
-    <Label text="CHƯA CÓ BACKEND · Các chỉ số và danh sách chưa được tải từ hệ thống."
-           maxWidth="Infinity" wrapText="true" styleClass="info-banner"/>
-    <GridPane hgap="16">
+
+    <!-- Bốn chỉ số ngang nhau, khoảng cách 16px như 1:2924. -->
+    <GridPane fx:id="metricsGrid" hgap="16">
         <columnConstraints>
             <ColumnConstraints percentWidth="25"/><ColumnConstraints percentWidth="25"/>
             <ColumnConstraints percentWidth="25"/><ColumnConstraints percentWidth="25"/>
         </columnConstraints>
-        <VBox GridPane.columnIndex="0" spacing="8" minWidth="0" styleClass="notice-card">
-            <Label text="Bệnh nhân hôm nay" wrapText="true" styleClass="muted"/>
-            <Label fx:id="lblPatientsToday" text="—" styleClass="metric-value"/>
-            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        <VBox GridPane.columnIndex="0" spacing="8" minWidth="0" styleClass="dashboard-card, dashboard-metric-card">
+            <Label text="Bệnh nhân hôm nay" styleClass="dashboard-metric-label"/>
+            <Label fx:id="lblPatientsToday" text="24" styleClass="dashboard-metric-value"/>
+            <Label fx:id="lblPatientsHint" text="18 đã đến · 6 chưa đến" styleClass="dashboard-caption"/>
         </VBox>
-        <VBox GridPane.columnIndex="1" spacing="8" minWidth="0" styleClass="notice-card">
-            <Label text="Lịch hẹn hôm nay" wrapText="true" styleClass="muted"/>
-            <Label fx:id="lblAppointmentsToday" text="—" styleClass="metric-value"/>
-            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        <VBox GridPane.columnIndex="1" spacing="8" minWidth="0" styleClass="dashboard-card, dashboard-metric-card">
+            <Label text="Lịch hẹn hôm nay" styleClass="dashboard-metric-label"/>
+            <Label fx:id="lblAppointmentsToday" text="24" styleClass="dashboard-metric-value"/>
+            <Label fx:id="lblAppointmentsHint" text="18 đã đến · 6 chưa đến" styleClass="dashboard-caption"/>
         </VBox>
-        <VBox GridPane.columnIndex="2" spacing="8" minWidth="0" styleClass="notice-card">
-            <Label text="Doanh thu hôm nay" wrapText="true" styleClass="muted"/>
-            <Label fx:id="lblRevenueToday" text="—" styleClass="metric-value"/>
-            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        <VBox GridPane.columnIndex="2" spacing="8" minWidth="0" styleClass="dashboard-card, dashboard-metric-card">
+            <Label text="Doanh thu hôm nay" styleClass="dashboard-metric-label"/>
+            <Label fx:id="lblRevenueToday" text="18.420.000 ₫" styleClass="dashboard-metric-value"/>
+            <Label fx:id="lblRevenueTrend" text="↑ 12% so với hôm qua" styleClass="dashboard-caption"/>
         </VBox>
-        <VBox GridPane.columnIndex="3" spacing="8" minWidth="0" styleClass="notice-card">
-            <Label text="Dịch vụ đã thực hiện hôm nay" wrapText="true" styleClass="muted"/>
-            <Label fx:id="lblServicesToday" text="—" styleClass="metric-value"/>
-            <Label text="Chưa có dữ liệu" styleClass="muted"/>
+        <VBox GridPane.columnIndex="3" spacing="8" minWidth="0" styleClass="dashboard-card, dashboard-metric-card">
+            <Label text="Dịch vụ đã thực hiện hôm nay" wrapText="true" minHeight="-Infinity" styleClass="dashboard-metric-label"/>
+            <Label fx:id="lblServicesToday" text="18" styleClass="dashboard-metric-value"/>
+            <Label fx:id="lblServicesTrend" text="— Không đổi so với hôm qua" styleClass="dashboard-caption"/>
         </VBox>
     </GridPane>
-    <HBox spacing="20" alignment="TOP_LEFT">
+
+    <!-- Cột trái co giãn, cột phải 320px. Không bọc ScrollPane thứ hai. -->
+    <HBox fx:id="dashboardColumns" spacing="20" alignment="TOP_LEFT">
         <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
-            <VBox spacing="16" styleClass="notice-card">
-                <Label text="Lịch khám gần nhất" styleClass="card-title"/>
-                <Label text="Các lịch hẹn trong ca" styleClass="muted"/>
-                <TableView fx:id="tblRecentAppointments" prefHeight="330" minHeight="330">
-                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
-                    <placeholder><Label text="Chưa kết nối dữ liệu lịch khám" styleClass="muted"/></placeholder>
-                    <columns>
-                        <TableColumn fx:id="colTime" text="Giờ"/><TableColumn fx:id="colPatient" text="Bệnh nhân"/>
-                        <TableColumn fx:id="colDentist" text="Nha sĩ"/>
-                        <TableColumn fx:id="colReason" text="Lý do khám"/>
-                        <TableColumn fx:id="colStatus" text="Trạng thái"/>
-                    </columns>
-                </TableView>
+            <VBox spacing="16" styleClass="dashboard-card">
+                <Label text="Lịch khám gần nhất" styleClass="dashboard-card-title"/>
+                <Label text="Các lịch hẹn trong ca sáng" styleClass="dashboard-caption"/>
+                <VBox styleClass="dashboard-table-frame">
+                    <!-- Chỉ xem: không gắn click/double-click mở chi tiết.
+                         CSS bỏ highlight; Controller sau này gọi
+                         tblRecentAppointments.setSelectionModel(null) nếu cần tắt chọn dòng thực sự.
+                         Không disable/mouseTransparent để vẫn cuộn bảng bình thường. -->
+                    <TableView fx:id="tblRecentAppointments" fixedCellSize="72" minHeight="330" prefHeight="330"
+                               maxHeight="330" editable="false" focusTraversable="false"
+                               styleClass="dashboard-table, readonly-table">
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                        <placeholder><Label text="Chưa có lịch khám" styleClass="dashboard-caption"/></placeholder>
+                        <columns>
+                            <TableColumn fx:id="colTime" text="Giờ" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="time"/></cellValueFactory></TableColumn>
+                            <TableColumn fx:id="colPatient" text="Bệnh nhân" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="patient"/></cellValueFactory></TableColumn>
+                            <TableColumn fx:id="colDentist" text="Nha sĩ" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="dentist"/></cellValueFactory></TableColumn>
+                            <TableColumn fx:id="colReason" text="Lý do khám" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="reason"/></cellValueFactory></TableColumn>
+                            <TableColumn fx:id="colStatus" text="Trạng thái" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="status"/></cellValueFactory></TableColumn>
+                        </columns>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <HashMap time="09:00" patient="BN001 · Nguyễn Văn A" dentist="Trần Minh Đức" reason="Đau răng hàm dưới">
+                                    <status><Label text="Chờ tiếp nhận" wrapText="true" styleClass="dashboard-status-waiting"/></status>
+                                </HashMap>
+                                <HashMap time="09:30" patient="BN002 · Trần Thị B" dentist="Trần Minh Đức" reason="Kiểm tra định kỳ">
+                                    <status><Label text="Chờ tiếp nhận" wrapText="true" styleClass="dashboard-status-waiting"/></status>
+                                </HashMap>
+                                <HashMap time="10:00" patient="BN003 · Lê Văn C" dentist="Nguyễn Lan Anh" reason="Ê buốt răng">
+                                    <status><Label text="Đã tiếp nhận" wrapText="true" styleClass="dashboard-status-received"/></status>
+                                </HashMap>
+                                <HashMap time="10:30" patient="BN004 · Phạm Thị D" dentist="Trần Minh Đức" reason="Tái khám">
+                                    <status><Label text="Chờ tiếp nhận" wrapText="true" styleClass="dashboard-status-waiting"/></status>
+                                </HashMap>
+                            </FXCollections>
+                        </items>
+                    </TableView>
+                    <HBox alignment="CENTER_LEFT" spacing="6" minHeight="38" prefHeight="38" styleClass="dashboard-table-footer">
+                        <Label fx:id="lblAppointmentsCount" text="Hiển thị 4 / 4 bản ghi" styleClass="dashboard-caption"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <!-- Chỉ một trang mẫu; thành viên sẽ nối phân trang khi có Backend. -->
+                        <Button fx:id="btnPreviousAppointments" text="‹" disable="true" accessibleText="Trang lịch khám trước" styleClass="dashboard-page-button"/>
+                        <Label fx:id="lblAppointmentsPage" text="1" styleClass="dashboard-caption"/>
+                        <Button fx:id="btnNextAppointments" text="›" disable="true" accessibleText="Trang lịch khám tiếp theo" styleClass="dashboard-page-button"/>
+                    </HBox>
+                </VBox>
             </VBox>
-            <VBox spacing="16" styleClass="notice-card">
-                <Label text="Hoạt động hôm nay" styleClass="card-title"/>
-                <TableView fx:id="tblTodayActivity" prefHeight="260" minHeight="260">
+
+            <VBox spacing="16" styleClass="dashboard-card">
+                <Label text="Hoạt động hôm nay" styleClass="dashboard-card-title"/>
+                <TableView fx:id="tblTodayActivity" fixedCellSize="72" minHeight="330" prefHeight="330" maxHeight="330"
+                           styleClass="dashboard-table, dashboard-activity-table">
                     <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
-                    <placeholder><Label text="Chưa kết nối dữ liệu hoạt động" styleClass="muted"/></placeholder>
+                    <placeholder><Label text="Chưa có hoạt động" styleClass="dashboard-caption"/></placeholder>
                     <columns>
-                        <TableColumn fx:id="colActivityTime" text="Thời gian"/>
-                        <TableColumn fx:id="colActivity" text="Hoạt động"/>
-                        <TableColumn fx:id="colActor" text="Người thực hiện"/>
+                        <TableColumn fx:id="colActivityTime" text="Thời gian" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="time"/></cellValueFactory></TableColumn>
+                        <TableColumn fx:id="colActivity" text="Hoạt động" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="activity"/></cellValueFactory></TableColumn>
+                        <TableColumn fx:id="colActor" text="Người thực hiện" sortable="false" reorderable="false"><cellValueFactory><MapValueFactory key="actor"/></cellValueFactory></TableColumn>
                     </columns>
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <HashMap time="08:55" activity="Tiếp nhận BN003 · Phiếu PK003" actor="Phạm Thu Hà"/>
+                            <HashMap time="08:50" activity="Hoàn tất khám PK006" actor="Nguyễn Lan Anh"/>
+                            <HashMap time="08:45" activity="Thanh toán HD006 · 800.000 ₫" actor="Phạm Thu Hà"/>
+                            <HashMap time="08:30" activity="Bắt đầu ca khám · P01" actor="Trần Minh Đức"/>
+                        </FXCollections>
+                    </items>
                 </TableView>
             </VBox>
         </VBox>
-        <VBox spacing="16" prefWidth="320" minWidth="260" maxWidth="320">
-            <VBox spacing="16" styleClass="notice-card">
-                <Label text="Tình hình trong ngày" wrapText="true" styleClass="card-title"/>
-                <VBox spacing="6"><Label text="Đã tiếp nhận" styleClass="muted"/><Label fx:id="lblReceived" text="—" styleClass="identity-name"/></VBox>
-                <Separator/>
-                <VBox spacing="6"><Label text="Phiếu khám hoàn tất" styleClass="muted"/><Label fx:id="lblCompleted" text="—" styleClass="identity-name"/></VBox>
-                <Separator/>
-                <VBox spacing="6"><Label text="Hóa đơn chờ thu" styleClass="muted"/><Label fx:id="lblUnpaid" text="—" styleClass="identity-name"/></VBox>
-                <Label text="Số liệu sẽ hiển thị sau khi kết nối Backend." wrapText="true" maxWidth="Infinity" styleClass="info-banner"/>
+
+        <!-- Chỉ giữ một card bên phải, tự co chiều cao theo nội dung. -->
+        <VBox spacing="16" minWidth="320" prefWidth="320" maxWidth="320" maxHeight="-Infinity" styleClass="dashboard-card">
+            <Label text="Tình hình trong ngày" styleClass="dashboard-card-title"/>
+            <VBox spacing="6">
+                <Label text="Đã tiếp nhận" styleClass="dashboard-caption"/>
+                <Label fx:id="lblReceived" text="18 / 24 lịch hẹn" styleClass="dashboard-summary"/>
             </VBox>
-            <VBox spacing="16" styleClass="notice-card">
-                <Label text="Lịch làm việc nha sĩ" wrapText="true" styleClass="card-title"/>
-                <Label text="Chưa kết nối dữ liệu ca làm việc." wrapText="true" maxWidth="Infinity" styleClass="info-banner"/>
-                <Button fx:id="btnViewSchedule" id="btnViewSchedule" text="Xem Lịch làm việc" styleClass="secondary-button"/>
+            <Separator/>
+            <VBox spacing="6">
+                <Label text="Phiếu khám hoàn tất" styleClass="dashboard-caption"/>
+                <Label fx:id="lblCompleted" text="10 phiếu" styleClass="dashboard-summary"/>
             </VBox>
+            <Separator/>
+            <VBox spacing="6">
+                <Label text="Hóa đơn chờ thu" styleClass="dashboard-caption"/>
+                <Label fx:id="lblUnpaid" text="3 hóa đơn" styleClass="dashboard-summary"/>
+            </VBox>
+            <Label fx:id="lblPendingAppointments" text="6 lịch hẹn chưa đến. Theo dõi tại danh sách lịch khám."
+                   wrapText="true" minHeight="-Infinity" maxWidth="Infinity" styleClass="dashboard-inline-note"/>
         </VBox>
     </HBox>
-    <Label text="DentaFlow · Chưa kết nối dữ liệu Dashboard" styleClass="muted"/>
+    <Label fx:id="lblDemoDataNotice" text="DỮ LIỆU MINH HỌA · Tên và số liệu giả lập · Không kết nối SQL Server · 09/10/2026"
+           wrapText="true" minHeight="-Infinity" styleClass="dashboard-caption"/>
 </VBox>
