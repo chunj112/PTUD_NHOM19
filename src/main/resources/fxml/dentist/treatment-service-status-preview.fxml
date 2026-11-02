@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Biến thể dữ liệu nghiệp vụ cùng cột trạng thái của 15:1352; không phải frame Figma mới. -->
+<!-- DENTIST · examination · Figma 15:1352.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="treatmentServiceStatusPreview" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-page, dentist-examination" spacing="20" minWidth="0" prefWidth="788" maxWidth="788" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="0" minWidth="0">
+        <VBox styleClass="dt-table-frame">
+            <TableView fx:id="tblTreatmentServices" editable="false" fixedCellSize="56" minHeight="156" prefHeight="156" maxHeight="156" styleClass="dt-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblTreatmentServicesColName" text="Tên dịch vụ" minWidth="130" prefWidth="170" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblTreatmentServicesColTooth" text="Vị trí răng" minWidth="65" prefWidth="80" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblTreatmentServicesColQuantity" text="SL" minWidth="40" prefWidth="45" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblTreatmentServicesColPrice" text="Đơn giá" minWidth="95" prefWidth="100" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblTreatmentServicesColStatus" text="Trạng thái" minWidth="110" prefWidth="120" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblTreatmentServicesColActions" text="Thao tác" minWidth="110" prefWidth="115" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v5"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="Trám răng composite" v1="36" v2="1" v3="500.000 ₫">
+                            <v4>
+                                <Label fx:id="lblServiceStatus0" text="Chưa thực hiện" styleClass="dt-status-warning" wrapText="true" minHeight="-Infinity"/>
+                            </v4>
+                            <v5>
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Button fx:id="btnEditService0" text="Sửa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button"/>
+                                    <Button fx:id="btnRemoveService0" text="Xóa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button, dt-danger-button"/>
+                                </HBox>
+                            </v5>
+                        </HashMap>
+                        <HashMap v0="Cạo vôi răng" v1="Toàn hàm" v2="1" v3="300.000 ₫">
+                            <v4>
+                                <Label fx:id="lblServiceStatus1" text="Đã thực hiện" styleClass="dt-status-success" wrapText="true" minHeight="-Infinity"/>
+                            </v4>
+                            <v5>
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Button fx:id="btnEditService1" text="Sửa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button"/>
+                                    <Button fx:id="btnRemoveService1" text="Xóa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button, dt-danger-button"/>
+                                </HBox>
+                            </v5>
+                        </HashMap>
+                    </FXCollections>
+                </items>
+            </TableView>
+        </VBox>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="dt-total-row">
+            <Label text="Tổng dịch vụ" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Label fx:id="lblServiceTotal" text="800.000 ₫" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </HBox>
+    </VBox>
+</VBox>

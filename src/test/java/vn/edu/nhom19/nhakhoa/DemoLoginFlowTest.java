@@ -111,14 +111,29 @@ class DemoLoginFlowTest {
 
                 node(pageButton, Button.class).fire();
                 assertSame(shell, stage.getScene().getRoot());
-                assertTrue(node("lblPageMessage", Label.class).getText().contains("CHƯA TRIỂN KHAI"));
+                if (role == Role.NURSE) {
+                    assertTrue(node("lblPageMessage", Label.class).getText().contains("CHƯA TRIỂN KHAI"));
+                } else {
+                    assertNull(stage.getScene().getRoot().lookup("#lblPageMessage"), "Trang đã có UI/Controller phải được nạp");
+                }
                 node("btnDashboard", Button.class).fire();
                 assertTrue(node("btnDashboard", Button.class).getStyleClass().contains("menu-selected"));
 
-                // Kiểm tra mục tài khoản cũng là placeholder, không báo thành công giả.
+                // Profile dùng modal có sẵn cho Dentist/Receptionist; role thiếu UI vẫn là placeholder.
                 MenuButton account = node("mnuAccount", MenuButton.class);
                 account.getItems().get(0).fire();
-                assertEquals("Hồ sơ cá nhân", node("lblBreadcrumbPage", Label.class).getText());
+                if (role == Role.DENTIST || role == Role.RECEPTIONIST) {
+                    boolean found = false;
+                    for (javafx.stage.Window window : java.util.List.copyOf(javafx.stage.Window.getWindows())) {
+                        if (window instanceof Stage dialog && dialog != stage && dialog.getTitle().contains("Hồ sơ DEMO")) {
+                            found = true;
+                            dialog.close();
+                        }
+                    }
+                    assertTrue(found, "Phải mở hồ sơ đúng Role");
+                } else {
+                    assertEquals("Hồ sơ cá nhân", node("lblBreadcrumbPage", Label.class).getText());
+                }
                 account.getItems().get(1).fire();
                 assertEquals("Đổi mật khẩu", node("lblBreadcrumbPage", Label.class).getText());
                 for (MenuItem item : account.getItems()) {

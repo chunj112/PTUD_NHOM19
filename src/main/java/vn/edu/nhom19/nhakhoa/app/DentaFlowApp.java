@@ -15,6 +15,7 @@ public class DentaFlowApp extends Application {
         navigator = new AppNavigator(stage, new UserSession());
         navigator.start();
 
+        stage.setOnCloseRequest(event -> { if (!navigator.canClose()) event.consume(); });
         stage.setMinWidth(1040);
         stage.setMinHeight(650);
         URL icon = getClass().getResource("/images/dentaflow-logo.png");

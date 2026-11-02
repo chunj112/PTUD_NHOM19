@@ -1,0 +1,3 @@
+.dentist-dashboard .dt-metric-value { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+/* Card hành động nhanh theo User Flow mới; không có bảng/chọn bệnh nhân trên Dashboard. */
+.dentist-dashboard .dt-next-patient { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }

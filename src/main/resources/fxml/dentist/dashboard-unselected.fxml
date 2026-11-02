@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dashboard: nền Figma 15:1246, bố cục theo quyết định User Flow mới của nhóm.
+     Preview tĩnh; không xử lý ưu tiên phiếu, điều hướng hoặc lưu dữ liệu. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="dentistDashboardUnselected" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-dashboard.css" styleClass="dentist-page, dentist-dashboard" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="4">
+        <Label fx:id="lblPageTitle" text="Ca khám hôm nay" styleClass="dt-title" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblPageSubtitle" text="Nha sĩ Trần Minh Đức · Phòng P01 · Thứ Sáu, 09/10/2026" styleClass="dt-subtitle" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <GridPane fx:id="dentistMetrics" hgap="16">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        <VBox spacing="8" minWidth="0" styleClass="dt-card" GridPane.columnIndex="0">
+            <Label text="Chờ khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblWaitingPatients" text="0" styleClass="dt-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblWaitingPatientsNote" text="Đã được lễ tân tiếp nhận" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="dt-card" GridPane.columnIndex="1">
+            <Label text="Đang khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblExaminingPatients" text="0" styleClass="dt-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblExaminingPatientsNote" text="Phiếu đang thực hiện" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="dt-card" GridPane.columnIndex="2">
+            <Label text="Đã khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblCompletedPatients" text="3" styleClass="dt-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblCompletedPatientsNote" text="Đã hoàn tất trong ngày" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="dt-card" GridPane.columnIndex="3">
+            <Label text="Tổng lượt khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTotalExams" text="3" styleClass="dt-metric-value" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTotalExamsNote" text="Chờ khám + đang khám + đã khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </GridPane>
+    <HBox spacing="20" alignment="TOP_LEFT">
+        <VBox fx:id="nextExamCard" spacing="16" minWidth="0" minHeight="330" HBox.hgrow="ALWAYS" styleClass="dt-card">
+            <Label text="Ca khám cần xử lý tiếp" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+            <VBox fx:id="emptyNextExam" spacing="16" minWidth="0">
+                <Label fx:id="lblNoPendingExam" text="Hiện không có bệnh nhân đang chờ khám." styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblNextExamHint" text="Bạn có thể mở Khám bệnh để xem danh sách theo ngày." styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Button fx:id="btnOpenNextExamination" text="Đến Khám bệnh" styleClass="primary-button" minWidth="-Infinity"/>
+        </VBox>
+        <VBox spacing="16" minWidth="0" styleClass="dt-card" minHeight="330" prefWidth="330" maxWidth="330">
+            <Label text="Ca làm việc hôm nay" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+            <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                <Label fx:id="lblMorningShiftRoom" text="Ca sáng · P01" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblMorningShift" text="08:00–12:00" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+            <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                <Label fx:id="lblAfternoonShiftRoom" text="Ca chiều · P01" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblAfternoonShift" text="13:30–17:00" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Button fx:id="btnOpenDentistSchedule" text="Xem lịch làm việc" minWidth="-Infinity" styleClass="secondary-button"/>
+        </VBox>
+    </HBox>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

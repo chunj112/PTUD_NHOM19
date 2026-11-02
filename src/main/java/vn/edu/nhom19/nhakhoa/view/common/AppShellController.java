@@ -18,6 +18,10 @@ import vn.edu.nhom19.nhakhoa.app.AppNavigator;
 import vn.edu.nhom19.nhakhoa.app.Route;
 import vn.edu.nhom19.nhakhoa.auth.Role;
 import vn.edu.nhom19.nhakhoa.auth.UserSession;
+import vn.edu.nhom19.nhakhoa.service.DemoClinicService;
+import vn.edu.nhom19.nhakhoa.view.manager.*;
+import vn.edu.nhom19.nhakhoa.view.receptionist.*;
+import vn.edu.nhom19.nhakhoa.view.dentist.ExaminationController;
 
 /** AppShell DEMO ONLY: chọn menu theo Role để kiểm tra UI, không phải phân quyền bảo mật. */
 public final class AppShellController {
@@ -38,6 +42,9 @@ public final class AppShellController {
     private AppNavigator navigator;
     private long sessionVersion;
     private boolean disposed;
+    private ControllerContext context;
+    private final Map<Route, ScreenController> screens = new EnumMap<>(Route.class);
+    private ScreenController currentScreen;
 
     @FXML private void initialize() {
         hideRoleMenus();
@@ -75,6 +82,7 @@ public final class AppShellController {
         session = userSession;
         navigator = appNavigator;
         sessionVersion = session.version();
+        context = new ControllerContext(new DemoClinicService(session), this);
         Role role = session.requireRole(sessionVersion);
 
         // Ẩn và bỏ chỗ của mọi nhóm, sau đó chỉ bật đúng một nhóm menu.
@@ -113,37 +121,83 @@ public final class AppShellController {
             throw new IllegalArgumentException("Màn hình không thuộc vai trò demo đang chọn.");
         }
 
-        Parent page;
-        var url = getClass().getResource(route.fxml(role));
-        try {
-            if (url == null) {
-                page = placeholder(route.title(),
-                    "DEMO ONLY · CHƯA TRIỂN KHAI: màn hình hoặc Backend chưa có. Không lưu dữ liệu.");
-            } else {
-                FXMLLoader loader = new FXMLLoader(url);
-                page = loader.load();
-            }
-        } catch (IOException ex) {
-            page = placeholder(route.title(), "DEMO ONLY · Không thể nạp FXML của màn hình.");
+        // Hồ sơ là modal của UI đã có; không làm mất workspace phía sau.
+        if (route == Route.PROFILE && (role == Role.DENTIST || role == Role.RECEPTIONIST)) {
+            context.profile();
+            return;
         }
-        contentArea.getChildren().setAll(page);
-        contentScroll.setVvalue(0);
+        if (!canLeave()) return;
+        ScreenController screen = screens.get(route);
+        if (screen == null) {
+            Parent page;
+            var url = getClass().getResource(route.fxml(role));
+            try {
+                if (route == Route.PASSWORD) {
+                    page = placeholder(route.title(), "DEMO ONLY · CHƯA TRIỂN KHAI: Không có tài khoản/mật khẩu thật hoặc AuthService. Không thu/lưu mật khẩu.");
+                } else if (url == null) {
+                    page = placeholder(route.title(), "DEMO ONLY · CHƯA TRIỂN KHAI: Chưa có FXML cho màn hình/Role này.");
+                } else {
+                    FXMLLoader loader = new FXMLLoader(url);
+                    page = loader.load();
+                    ViewAccess.rememberNamespace(page, loader);
+                }
+                screen = createController(route, new ViewAccess(page));
+            } catch (IOException | RuntimeException ex) {
+                System.getLogger(getClass().getName()).log(System.Logger.Level.ERROR, "Không nạp được route " + route, ex);
+                page = placeholder(route.title(), "Không thể mở màn hình: " + ex.getMessage());
+                screen = new ScreenController(new ViewAccess(page), context);
+            }
+            screens.put(route, screen);
+        }
+        if (screen instanceof ExaminationController examination) examination.openQueue();
+        String refreshError = null;
+        try { screen.refresh(); }
+        catch (RuntimeException ex) { refreshError = ex.getMessage(); }
+        replacePage(screen);
         lblBreadcrumbPage.setText(route.title());
         clearSelection();
-        if (buttons.containsKey(route)) {
-            buttons.get(route).getStyleClass().add("menu-selected");
-        }
-
-        // Hai nút Dashboard chỉ nối điều hướng, chưa làm Controller nghiệp vụ của module khác.
-        Node reports = page.lookup("#btnViewReports");
-        if (reports instanceof Button button) {
-            button.setOnAction(event -> navigate(Route.REPORTS));
-        }
-        Node schedule = page.lookup("#btnViewSchedule");
-        if (schedule instanceof Button button) {
-            button.setOnAction(event -> navigate(Route.ASSIGNMENTS));
-        }
+        if (buttons.containsKey(route)) buttons.get(route).getStyleClass().add("menu-selected");
         navigator.updateTitle(role.displayName() + " / " + route.title());
+        if (refreshError != null) screen.view.error("Chưa thể làm mới dữ liệu: " + refreshError);
+    }
+
+    /** Mỗi trang có một Controller trong phiên; không tạo lại Sidebar/Topbar. */
+    private ScreenController createController(Route route, ViewAccess view) {
+        if (view.find("lblPageMessage") != null) return new ScreenController(view, context);
+        switch (route) {
+            case DASHBOARD: return new DashboardController(view, context);
+            case STAFF: return new EmployeeController(view, context);
+            case ASSIGNMENTS: return new AssignmentController(view, context);
+            case SERVICES: return new ServiceCatalogController(view, context);
+            case REPORTS: return new ReportsController(view, context);
+            case INTAKE: return new IntakeController(view, context);
+            case PATIENTS: return new PatientController(view, context);
+            case CASHIER: return new CashierController(view, context);
+            case EXAMINATION: return new ExaminationController(view, context);
+            case DENTIST_SCHEDULE:
+            case RECEPTIONIST_SCHEDULE: return new WorkScheduleController(view, context);
+            default: return new ScreenController(view, context);
+        }
+    }
+
+    public BorderPane getRoot() { return appShell; }
+    public boolean canLeave() { return currentScreen == null || currentScreen.canLeave(); }
+
+    public void replacePage(ScreenController screen) {
+        if (!isCurrent()) throw new IllegalStateException("Phiên demo đã đóng.");
+        currentScreen = screen;
+        contentArea.getChildren().setAll(screen.view.root);
+        contentScroll.setVvalue(0);
+    }
+
+    public void openExam(String id, boolean resume) {
+        if (!isCurrent()) throw new IllegalStateException("Phiên demo đã đóng.");
+        if (session.requireRole(sessionVersion) != Role.DENTIST) throw new IllegalArgumentException("Chỉ nha sĩ mở workspace khám.");
+        if (!canLeave()) return;
+        navigate(Route.EXAMINATION);
+        ScreenController screen = screens.get(Route.EXAMINATION);
+        // canLeave có thể bị hủy; không điều hướng tiếp nếu vẫn ở trang cũ.
+        if (currentScreen == screen && screen instanceof ExaminationController examination) examination.selectExam(id, resume);
     }
 
     @FXML private void handleLogout() {
@@ -178,7 +232,10 @@ public final class AppShellController {
     }
 
     private void showPlaceholder(String title, String message) {
-        contentArea.getChildren().setAll(placeholder(title, message));
+        if (!canLeave()) return;
+        Parent page = placeholder(title, message);
+        currentScreen = new ScreenController(new ViewAccess(page), context);
+        contentArea.getChildren().setAll(page);
         contentScroll.setVvalue(0);
         lblBreadcrumbPage.setText(title);
         clearSelection();
@@ -195,6 +252,11 @@ public final class AppShellController {
     /** Xóa phiên nhìn thấy trên UI; Controller cũ không được tiếp tục điều hướng. */
     public void dispose() {
         disposed = true;
+        for (ScreenController screen : screens.values()) screen.dispose();
+        screens.clear();
+        currentScreen = null;
+        if (context != null) context.dispose();
+        context = null;
         hideRoleMenus();
         contentArea.getChildren().clear();
         appShell.setDisable(true);

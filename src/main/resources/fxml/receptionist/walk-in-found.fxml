@@ -73,17 +73,17 @@
             <HBox spacing="12" alignment="CENTER_LEFT">
                 <VBox spacing="4" minWidth="0" styleClass="rx-card, rx-slot-selected" fx:id="walkInSlot0" HBox.hgrow="ALWAYS" prefWidth="0">
                     <Label fx:id="lblWalkInSlotTime0" text="11:30–12:00" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
-                    <Label text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWalkInSlotRoom0" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
                     <Label text="✓ Đã chọn" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
                 </VBox>
                 <VBox spacing="4" minWidth="0" styleClass="rx-card" fx:id="walkInSlot1" HBox.hgrow="ALWAYS" prefWidth="0">
                     <Label fx:id="lblWalkInSlotTime1" text="14:00–14:30" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
-                    <Label text="Nguyễn Lan Anh · P02" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWalkInSlotRoom1" text="Nguyễn Lan Anh · P02" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
                     <Label text="Còn trống" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
                 </VBox>
                 <VBox spacing="4" minWidth="0" styleClass="rx-card" fx:id="walkInSlot2" HBox.hgrow="ALWAYS" prefWidth="0">
                     <Label fx:id="lblWalkInSlotTime2" text="14:30–15:00" styleClass="rx-detail-value" wrapText="true" minHeight="-Infinity"/>
-                    <Label text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblWalkInSlotRoom2" text="Trần Minh Đức · P01" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
                     <Label text="Còn trống" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
                 </VBox>
             </HBox>

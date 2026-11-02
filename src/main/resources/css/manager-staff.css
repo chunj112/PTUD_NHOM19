@@ -67,7 +67,7 @@
 }
 .staff-page .staff-table .table-cell:empty { -fx-border-width: 0; }
 .staff-page .staff-table .staff-email-column { -fx-font-size: 12px; }
-.staff-page .staff-status-active { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #21764F; }
+.staff-page .staff-status-active { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
 .staff-page .staff-status-inactive { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #C33D42; }
 .staff-page .staff-table-footer { -fx-padding: 0 12; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0; }
 .staff-page .staff-page-button { -fx-padding: 2 6; -fx-background-color: transparent; -fx-background-radius: 4; -fx-text-fill: #172B3A; -fx-font-size: 14px; }
@@ -78,11 +78,11 @@
 .staff-page .staff-detail-value { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
 .staff-page .staff-detail-badge {
     -fx-padding: 4 8;
-    -fx-background-color: #EDF7F1;
+    -fx-background-color: #E8F5F6;
     -fx-background-radius: 6;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-text-fill: #21764F;
+    -fx-text-fill: #087E91;
 }
 .staff-page .staff-detail-badge.inactive { -fx-background-color: #FDECEC; -fx-text-fill: #C33D42; }
 .staff-page .staff-table .table-row-cell:filled:selected .table-cell {
@@ -93,3 +93,16 @@
     -fx-border-width: 0 0 1 3;
     -fx-padding: 12 8 12 5;
 }
+
+/* Panel review UC004: gọn để danh sách vẫn có đủ sáu cột khi mở chi tiết. */
+.staff-page .staff-details-card { -fx-padding: 16; }
+.staff-details .staff-card-title { -fx-font-size: 16px; }
+.staff-details .staff-detail-summary { -fx-font-size: 12px; }
+.staff-details .staff-detail-value { -fx-font-size: 13px; }
+.staff-details .staff-detail-badge { -fx-font-size: 11px; -fx-padding: 3 6; }
+.staff-details .secondary-button { -fx-min-height: 34; -fx-pref-height: 34; -fx-padding: 6 12; -fx-font-size: 13px; }
+.staff-page .staff-status-active, .staff-page .staff-status-inactive {
+    -fx-padding: 3 6; -fx-background-radius: 4; -fx-font-size: 11px;
+}
+.staff-page .staff-status-active { -fx-background-color: #E8F5F6; }
+.staff-page .staff-status-inactive { -fx-background-color: #FDECEC; }

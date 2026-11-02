@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · examination · Figma 296:2178.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="emptyToothField" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-page, dentist-examination" spacing="20" minWidth="364" prefWidth="364" maxWidth="364" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="4" minWidth="0" styleClass="dt-field">
+        <Label text="Vị trí răng (FDI)" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <Label fx:id="previewTeethPrompt" text="Chọn một hoặc nhiều răng…" styleClass="dt-body" wrapText="true" minHeight="-Infinity"/>
+        </HBox>
+    </VBox>
+</VBox>

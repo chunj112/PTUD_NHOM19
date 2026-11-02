@@ -106,3 +106,13 @@
     -fx-text-fill: #172B3A; -fx-font-size: 14px; -fx-cursor: hand;
 }
 .reports-page .reports-page-button:focused { -fx-border-color: #087E91; -fx-border-radius: 4; }
+
+/* Pie chart 2D: tỷ trọng lượt thực hiện, chỉ áp dụng Report Manager. */
+.reports-page .reports-pie { -fx-background-color: transparent; -fx-padding: 0; }
+.reports-page .reports-pie .chart-legend { -fx-background-color: transparent; -fx-padding: 8; }
+.reports-page .reports-pie .chart-legend-item { -fx-font-size: 12px; -fx-text-fill: #172B3A; }
+.reports-page .reports-pie .default-color0.chart-pie { -fx-pie-color: #087E91; }
+.reports-page .reports-pie .default-color1.chart-pie { -fx-pie-color: #55AAB7; }
+.reports-page .reports-pie .default-color2.chart-pie { -fx-pie-color: #B3DCE1; }
+.reports-page .reports-pie .default-color3.chart-pie { -fx-pie-color: #407585; }
+.reports-page .reports-pie .default-color4.chart-pie { -fx-pie-color: #82BDC6; }

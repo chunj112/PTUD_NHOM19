@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Không gian khám đã có: Controller chỉ nạp sau Bắt đầu/Tiếp tục khám.
+     Giữ nguyên bốn tab, field, nút và dữ liệu preview. DENTIST · examination · Figma 15:1352, 59:32334, 59:32444, 59:32877.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="dentistExaminationWorkspace" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-page, dentist-examination" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="Khám bệnh" styleClass="dt-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Phiếu PK001 · Ghi nhận khám và chỉ định trong cùng một hồ sơ" styleClass="dt-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="dt-card">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label fx:id="lblPatientAvatar" text="VA" styleClass="dt-avatar" wrapText="true" minHeight="46" minWidth="46" prefWidth="46" maxWidth="46" prefHeight="46" maxHeight="46" alignment="CENTER"/>
+            <VBox spacing="3" minWidth="0" HBox.hgrow="ALWAYS">
+                <Label fx:id="lblPatientName" text="Nguyễn Văn A · BN001" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientDemographics" text="34 tuổi · Nam · PK001 · 09/10/2026, 09:00" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Label fx:id="lblExamStatus" text="Đang khám" styleClass="dt-status-info" wrapText="true" minHeight="-Infinity"/>
+        </HBox>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Nha sĩ phụ trách" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamDentist" text="Trần Minh Đức" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Phòng khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamRoom" text="P01" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Lý do khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamReason" text="Đau răng hàm dưới" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Dị ứng" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamAllergy" text="Penicillin" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+    <VBox spacing="16" minWidth="0" styleClass="dt-card">
+        <TabPane fx:id="examinationTabs" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${examinationTabs.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="dt-tabs">
+            <tabs>
+                <Tab fx:id="tabExamOverview" text="Tổng quan">
+                    <content>
+                        <fx:include fx:id="tabExamOverviewContent" source="exam-overview.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabExamMedicalRecord" text="Hồ sơ bệnh án">
+                    <content>
+                        <fx:include fx:id="tabExamMedicalRecordContent" source="exam-medical-record.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabExamClinical" text="Khám">
+                    <content>
+                        <fx:include fx:id="tabExamClinicalContent" source="exam-clinical.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabExamHistory" text="Lịch sử">
+                    <content>
+                        <fx:include fx:id="tabExamHistoryContent" source="exam-history.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label fx:id="lblExamSaveStatus" text="Chẩn đoán bắt buộc trước khi hoàn tất" styleClass="dt-caption" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="btnSaveDraft" text="Lưu nháp" minWidth="-Infinity" styleClass="secondary-button" disable="false"/>
+            <Button fx:id="btnCompleteExam" text="Hoàn tất khám" minWidth="-Infinity" styleClass="primary-button" disable="false"/>
+        </HBox>
+    </VBox>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

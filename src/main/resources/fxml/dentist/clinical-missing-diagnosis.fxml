@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · examination · Figma 285:9646.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="clinicalmissingdiagnosis" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-page, dentist-examination" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="Khám bệnh" styleClass="dt-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Phiếu khám · Ghi nhận khám và chỉ định trong cùng một hồ sơ" styleClass="dt-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="dt-card">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label text="VA" styleClass="dt-avatar" wrapText="true" minHeight="46" minWidth="46" prefWidth="46" maxWidth="46" prefHeight="46" maxHeight="46" alignment="CENTER"/>
+            <VBox spacing="3" minWidth="0" HBox.hgrow="ALWAYS">
+                <Label fx:id="lblPatientName" text="Nguyễn Văn A · BN001" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+                <Label fx:id="lblPatientDemographics" text="34 tuổi · Nam · PK001 · 09/10/2026, 09:00" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Label fx:id="lblExamStatus" text="Đang khám" styleClass="dt-status-info" wrapText="true" minHeight="-Infinity"/>
+        </HBox>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Nha sĩ phụ trách" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamDentist" text="Trần Minh Đức" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Phòng khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamRoom" text="P01" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Lý do khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamReason" text="Đau răng hàm dưới" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Dị ứng" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblExamAllergy" text="Penicillin" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+    <VBox spacing="16" minWidth="0" styleClass="dt-card">
+        <HBox spacing="4" alignment="CENTER_LEFT" styleClass="dt-static-tabs">
+            <Label fx:id="lblPreviewTab0" text="Tổng quan" styleClass="dt-static-tab" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPreviewTab1" text="Hồ sơ bệnh án" styleClass="dt-static-tab" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPreviewTab2" text="Khám" styleClass="dt-static-tab, dt-current-tab" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPreviewTab3" text="Lịch sử" styleClass="dt-static-tab" wrapText="true" minHeight="-Infinity"/>
+        </HBox>
+        <HBox spacing="24" alignment="TOP_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="THÔNG TIN KHÁM BỆNH" styleClass="dt-section-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+                <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="dt-field, dt-field-tall">
+                    <Label text="Tình trạng lâm sàng *" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <TextArea fx:id="txtClinicalCondition" text="Đau khi ăn nhai vùng răng 36. Tổn thương sâu mặt nhai, chưa có dấu hiệu viêm tủy. Có cao răng vùng hàm dưới." wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="dt-field-area"/>
+                </VBox>
+                <VBox spacing="2" minWidth="0" styleClass="dt-field, dt-field-error, dt-error-with-message">
+                    <Label text="Chẩn đoán *" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <TextField fx:id="txtDiagnosis" promptText="Nhập chẩn đoán…" styleClass="dt-field-input"/>
+                    <Label fx:id="txtDiagnosisError" text="Vui lòng nhập chẩn đoán trước khi hoàn tất khám." styleClass="dt-error-text" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="dt-field">
+                            <Label text="Vị trí răng (FDI)" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                            <ComboBox fx:id="cboClinicalTooth" value="36" maxWidth="Infinity" minWidth="0" styleClass="dt-field-choice">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="36"/>
+                                        <String fx:value="0 · Toàn hàm"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="dt-field">
+                            <Label text="Mức độ đau" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                            <ComboBox fx:id="cboPainLevel" value="Nhẹ · 3/10" maxWidth="Infinity" minWidth="0" styleClass="dt-field-choice">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Nhẹ · 3/10"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+                <Label fx:id="lblFdiRule" text="Danh mục FDI: 11–18, 21–28, 31–38, 41–48. Chọn 0 cho toàn hàm." styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="dt-field, dt-field-tall">
+                    <Label text="Ghi chú điều trị" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <TextArea fx:id="txtTreatmentNotes" text="Trám răng 36 bằng composite, cạo vôi toàn hàm. Hướng dẫn vệ sinh răng miệng và tái khám sau 6 tháng." wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="dt-field-area"/>
+                </VBox>
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="DỊCH VỤ ĐIỀU TRỊ" styleClass="dt-section-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button fx:id="btnAddTreatmentService" text="+ Thêm dịch vụ" minWidth="-Infinity" styleClass="primary-button, dt-mini-button"/>
+                </HBox>
+                <VBox spacing="0" minWidth="0">
+                    <VBox styleClass="dt-table-frame">
+                        <TableView fx:id="tblTreatmentServices" editable="false" fixedCellSize="56" minHeight="156" prefHeight="156" maxHeight="156" styleClass="dt-table">
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                            </columnResizePolicy>
+                            <placeholder>
+                                <Label text="Chưa có dữ liệu" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                            </placeholder>
+                            <columns>
+                                <TableColumn fx:id="tblTreatmentServicesColName" text="Tên dịch vụ" minWidth="130" prefWidth="170" sortable="false" reorderable="false">
+                                    <cellValueFactory>
+                                        <MapValueFactory key="v0"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="tblTreatmentServicesColTooth" text="Vị trí răng" minWidth="65" prefWidth="80" sortable="false" reorderable="false">
+                                    <cellValueFactory>
+                                        <MapValueFactory key="v1"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="tblTreatmentServicesColQuantity" text="SL" minWidth="40" prefWidth="45" sortable="false" reorderable="false">
+                                    <cellValueFactory>
+                                        <MapValueFactory key="v2"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="tblTreatmentServicesColPrice" text="Đơn giá" minWidth="95" prefWidth="100" sortable="false" reorderable="false">
+                                    <cellValueFactory>
+                                        <MapValueFactory key="v3"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="tblTreatmentServicesColStatus" text="Trạng thái" minWidth="110" prefWidth="120" sortable="false" reorderable="false">
+                                    <cellValueFactory>
+                                        <MapValueFactory key="v4"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="tblTreatmentServicesColActions" text="Thao tác" minWidth="110" prefWidth="115" sortable="false" reorderable="false">
+                                    <cellValueFactory>
+                                        <MapValueFactory key="v5"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                            </columns>
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <HashMap v0="Trám răng composite" v1="36" v2="1" v3="500.000 ₫">
+                                        <v4>
+                                            <Label fx:id="lblServiceStatus0" text="Đã thực hiện" styleClass="dt-status-success" wrapText="true" minHeight="-Infinity"/>
+                                        </v4>
+                                        <v5>
+                                            <HBox spacing="6" alignment="CENTER_LEFT">
+                                                <Button fx:id="btnEditService0" text="Sửa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button"/>
+                                                <Button fx:id="btnRemoveService0" text="Xóa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button, dt-danger-button"/>
+                                            </HBox>
+                                        </v5>
+                                    </HashMap>
+                                    <HashMap v0="Cạo vôi răng" v1="Toàn hàm" v2="1" v3="300.000 ₫">
+                                        <v4>
+                                            <Label fx:id="lblServiceStatus1" text="Đã thực hiện" styleClass="dt-status-success" wrapText="true" minHeight="-Infinity"/>
+                                        </v4>
+                                        <v5>
+                                            <HBox spacing="6" alignment="CENTER_LEFT">
+                                                <Button fx:id="btnEditService1" text="Sửa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button"/>
+                                                <Button fx:id="btnRemoveService1" text="Xóa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button, dt-danger-button"/>
+                                            </HBox>
+                                        </v5>
+                                    </HashMap>
+                                </FXCollections>
+                            </items>
+                        </TableView>
+                    </VBox>
+                    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="dt-total-row">
+                        <Label text="Tổng dịch vụ" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Label fx:id="lblServiceTotal" text="800.000 ₫" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </HBox>
+                </VBox>
+                <Label fx:id="lblServicePriceRule" text="Đơn giá theo danh mục dịch vụ phòng khám. Giá chỉ đọc, không thể chỉnh sửa." styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="ĐƠN THUỐC" styleClass="dt-section-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button fx:id="btnAddPrescriptionMedicine" text="+ Thêm thuốc" minWidth="-Infinity" styleClass="primary-button, dt-mini-button"/>
+                </HBox>
+                <Label fx:id="lblPrescriptionAllergy" text="Dị ứng Penicillin. Kiểm tra thuốc và chống chỉ định trước khi kê đơn." styleClass="dt-alert, dt-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+                <VBox styleClass="dt-table-frame">
+                    <TableView fx:id="tblPrescriptionMedicines" editable="false" fixedCellSize="88" minHeight="132" prefHeight="132" maxHeight="132" styleClass="dt-table">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                        </columnResizePolicy>
+                        <placeholder>
+                            <Label text="Chưa có dữ liệu" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </placeholder>
+                        <columns>
+                            <TableColumn fx:id="tblPrescriptionMedicinesColName" text="Tên thuốc" minWidth="110" prefWidth="140" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v0"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblPrescriptionMedicinesColStrength" text="Hàm lượng" minWidth="65" prefWidth="75" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v1"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblPrescriptionMedicinesColQuantity" text="SL" minWidth="35" prefWidth="40" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v2"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblPrescriptionMedicinesColUnit" text="ĐVT" minWidth="40" prefWidth="45" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v3"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblPrescriptionMedicinesColDosage" text="Liều dùng" minWidth="100" prefWidth="120" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v4"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblPrescriptionMedicinesColInstructions" text="Cách dùng" minWidth="125" prefWidth="145" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v5"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="tblPrescriptionMedicinesColActions" text="Thao tác" minWidth="110" prefWidth="115" sortable="false" reorderable="false">
+                                <cellValueFactory>
+                                    <MapValueFactory key="v6"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <HashMap v0="Paracetamol 500 mg" v1="500 mg" v2="10" v3="viên" v4="1 viên × 2 lần/ngày × 5 ngày" v5="Uống sau ăn khi đau. Tối đa 4 viên/ngày.">
+                                    <v6>
+                                        <HBox spacing="6" alignment="CENTER_LEFT">
+                                            <Button fx:id="btnEditMedicine0" text="Sửa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button"/>
+                                            <Button fx:id="btnRemoveMedicine0" text="Xóa" minWidth="-Infinity" styleClass="secondary-button, dt-mini-button, dt-danger-button"/>
+                                        </HBox>
+                                    </v6>
+                                </HashMap>
+                            </FXCollections>
+                        </items>
+                    </TableView>
+                </VBox>
+                <Label fx:id="lblPrescriptionRule" text="Thuốc nhập thủ công. Bệnh nhân tự mua thuốc ngoài phòng khám." styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label text="LỜI DẶN CỦA BÁC SĨ" styleClass="dt-section-title" wrapText="true" minHeight="-Infinity"/>
+                <TextArea fx:id="txtDoctorAdvice" promptText="Nhập lời dặn và hướng dẫn chăm sóc sau điều trị…" wrapText="true" minHeight="80" prefHeight="80" maxHeight="80" styleClass="dt-doctor-advice"/>
+            </VBox>
+            <VBox spacing="16" minWidth="300" prefWidth="300" maxWidth="300">
+                <Label fx:id="lblSummaryAllergy" text="Dị ứng Penicillin. Kiểm tra thuốc và chống chỉ định trước khi kê đơn." styleClass="dt-alert, dt-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+                <VBox spacing="16" minWidth="0" styleClass="dt-card">
+                    <Label text="Tóm tắt ca khám" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+                    <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                        <Label text="Dịch vụ đã chỉ định" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblSummaryServices" text="2 dịch vụ · 800.000 ₫" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                        <Label text="Đơn thuốc" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblSummaryPrescription" text="1 thuốc · Paracetamol 500 mg" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                        <Label text="Số lượng thuốc" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblSummaryMedicineQuantity" text="10 viên" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                        <Label text="Tổng dịch vụ" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblSummaryTotal" text="800.000 ₫" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+                    <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                        <Label text="Lần khám trước" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblPreviousVisit" text="15/04/2026 · Kiểm tra định kỳ" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                    <Label fx:id="lblHistoryReadonlyNote" text="Hồ sơ cũ chỉ đọc tại thẻ Hồ sơ bệnh án và Lịch sử." styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <HBox spacing="8" alignment="CENTER_LEFT" styleClass="dt-alert, dt-alert-danger">
+                    <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/dentist/state-error.png"/>
+                        </image>
+                    </ImageView>
+                    <Label fx:id="lblCurrentStateNotice" text="Chưa thể hoàn tất. Vui lòng nhập chẩn đoán." styleClass="dt-message-text" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+            </VBox>
+        </HBox>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label fx:id="lblExamSaveStatus" text="Chẩn đoán bắt buộc trước khi hoàn tất" styleClass="dt-caption" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="btnSaveDraft" text="Lưu nháp" minWidth="-Infinity" styleClass="secondary-button" disable="false"/>
+            <Button fx:id="btnCompleteExam" text="Hoàn tất khám" minWidth="-Infinity" styleClass="primary-button" disable="false"/>
+        </HBox>
+    </VBox>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

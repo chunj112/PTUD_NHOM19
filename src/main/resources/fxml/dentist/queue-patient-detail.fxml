@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · examination · Figma 15:1246, 272:2263.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="dentistQueuePatientDetail" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-page, dentist-examination" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="16" minWidth="0" styleClass="dt-card">
+        <Label text="Bệnh nhân được chọn" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblSelectedPatientId" text="BN001 · PK001" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblSelectedPatientName" text="Nguyễn Văn A" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+        <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+            <Label text="Tuổi / giới tính" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblSelectedPatientAgeGender" text="34 tuổi · Nam" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <Label fx:id="lblSelectedPatientStatus" text="Chờ khám" styleClass="dt-status-warning" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblPatientAllergy" text="Dị ứng Penicillin" styleClass="dt-alert, dt-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+            <Label text="Lý do" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPatientReason" text="Đau răng hàm dưới, răng 36" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+            <Label text="Đã tiếp nhận lúc" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPatientIntakeTime" text="08:55 · Lễ tân Phạm Thu Hà" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <Button fx:id="btnStartExamination" text="Bắt đầu khám" minWidth="-Infinity" styleClass="primary-button" graphicTextGap="8">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/dentist/start-exam.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </VBox>
+</VBox>

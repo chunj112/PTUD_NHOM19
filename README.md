@@ -1,3 +1,7 @@
+> **Cập nhật 30/10/2026:** Đã nối Controller cho các UI Manager, Receptionist và Dentist hiện có. Giữ Login DEMO, CRUD và quy tắc chạy bằng dữ liệu bộ nhớ, xóa khi logout; chưa kết nối SQL Server hoặc xác thực tài khoản thật. Nurse chưa có FXML trong branch này.
+>
+> Bàn giao lớp/phương thức, luồng, kiểm thử và cách chạy: [docs/CONTROLLER_IMPLEMENTATION_HANDOFF.md](docs/CONTROLLER_IMPLEMENTATION_HANDOFF.md). Audit: [docs/CONTROLLER_FLOW_AUDIT.md](docs/CONTROLLER_FLOW_AUDIT.md). Các phần Starter/Sprint 0 bên dưới là lịch sử khởi tạo, không phải số lượng class hiện tại.
+
 # DentaFlow — Starter sạch từ đầu | Nhóm 19 IUH
 
 Đây là bộ khởi tạo **mới, tối giản**, phù hợp khi bạn đã xóa toàn bộ `src` cũ. Không phải bản hoàn thiện 14 Use Case.

@@ -107,6 +107,7 @@ public final class AppNavigator implements AutoCloseable {
         if (closed) {
             return;
         }
+        if (shellController != null && !shellController.canLeave()) return;
         try {
             showLogin();
         } catch (IOException ex) {
@@ -114,6 +115,8 @@ public final class AppNavigator implements AutoCloseable {
                     "Lỗi tài nguyên");
         }
     }
+
+    public boolean canClose() { return shellController == null || shellController.canLeave(); }
 
     @Override public void close() {
         closed = true;

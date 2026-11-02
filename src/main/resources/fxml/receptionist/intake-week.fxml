@@ -39,7 +39,7 @@
     </HBox>
     <HBox spacing="20" alignment="TOP_LEFT">
         <VBox spacing="16" minWidth="0" styleClass="rx-card" HBox.hgrow="ALWAYS">
-            <Label text="Lịch hẹn tuần · 05–11/10/2026" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblAppointmentWeekRange" text="Lịch hẹn tuần · 05–11/10/2026" styleClass="rx-card-title" wrapText="true" minHeight="-Infinity"/>
             <Label text="Chọn lịch hẹn để xem chi tiết · Giờ làm việc 08:00–17:00" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
             <GridPane fx:id="appointmentWeekGrid" hgap="8" minHeight="460" prefHeight="460">
                 <columnConstraints>

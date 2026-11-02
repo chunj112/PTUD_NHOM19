@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · schedule · Figma 15:1451, 15:1763, 39:5720.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="dentistSchedule" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-schedule.css" styleClass="dentist-page, dentist-schedule" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblPageTitle" text="Lịch làm việc" styleClass="dt-title" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblPageSubtitle" text="Lịch được quản lý phân công · Chỉ xem, không chỉnh sửa ca" styleClass="dt-subtitle" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <StackPane minWidth="0">
+        <TabPane fx:id="scheduleTabs" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${scheduleTabs.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="dt-tabs">
+            <tabs>
+                <Tab fx:id="tabScheduleDay" text="Ngày">
+                    <content>
+                        <fx:include fx:id="tabScheduleDayContent" source="schedule-day.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabScheduleWeek" text="Tuần">
+                    <content>
+                        <fx:include fx:id="tabScheduleWeekContent" source="schedule-week.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <ComboBox fx:id="cboScheduleWeek" value="05–11/10/2026" prefWidth="200" minWidth="200" maxWidth="200" styleClass="dt-filter" StackPane.alignment="TOP_RIGHT" visible="${tabScheduleWeek.selected}" managed="${tabScheduleWeek.selected}">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="05–11/10/2026"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </StackPane>
+    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+</VBox>

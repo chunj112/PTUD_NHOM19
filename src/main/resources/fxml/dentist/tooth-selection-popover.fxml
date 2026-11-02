@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · examination · Figma 296:2225.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="toothSelectionPopover" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-modal, dentist-examination, dt-fdi-popover" spacing="10" minWidth="400" prefWidth="400" maxWidth="400" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblDialogTitle" text="CHỌN VỊ TRÍ RĂNG" styleClass="dt-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnClose" text="×" minWidth="32" styleClass="dt-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng"/>
+    </HBox>
+    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+    <VBox spacing="6" minWidth="0">
+        <Label text="HÀM TRÊN PHẢI" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ToggleButton fx:id="btnTooth18" text="18" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth17" text="17" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth16" text="16" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth15" text="15" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth14" text="14" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth13" text="13" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth12" text="12" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth11" text="11" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+        </HBox>
+    </VBox>
+    <VBox spacing="6" minWidth="0">
+        <Label text="HÀM TRÊN TRÁI" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ToggleButton fx:id="btnTooth21" text="21" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth22" text="22" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth23" text="23" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth24" text="24" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth25" text="25" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth26" text="26" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth27" text="27" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth28" text="28" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+        </HBox>
+    </VBox>
+    <VBox spacing="6" minWidth="0">
+        <Label text="HÀM DƯỚI TRÁI" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ToggleButton fx:id="btnTooth31" text="31" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth32" text="32" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth33" text="33" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth34" text="34" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth35" text="35" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth36" text="36" selected="true" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth37" text="37" selected="true" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth38" text="38" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+        </HBox>
+    </VBox>
+    <VBox spacing="6" minWidth="0">
+        <Label text="HÀM DƯỚI PHẢI" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <ToggleButton fx:id="btnTooth41" text="41" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth42" text="42" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth43" text="43" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth44" text="44" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth45" text="45" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth46" text="46" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth47" text="47" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+            <ToggleButton fx:id="btnTooth48" text="48" selected="false" minWidth="40" prefWidth="40" maxWidth="40" minHeight="32" prefHeight="32" maxHeight="32" styleClass="dt-tooth-option"/>
+        </HBox>
+    </VBox>
+    <CheckBox fx:id="chkWholeMouth" text="Toàn hàm"/>
+    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label fx:id="lblSelectedTeeth" text="Đã chọn: 36, 37" styleClass="dt-caption" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnCancel" text="Hủy" minWidth="-Infinity" styleClass="secondary-button"/>
+        <Button fx:id="btnConfirmTeeth" text="Xác nhận" minWidth="-Infinity" styleClass="primary-button"/>
+    </HBox>
+</VBox>

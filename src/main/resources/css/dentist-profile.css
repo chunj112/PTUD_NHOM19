@@ -1,0 +1,2 @@
+.dentist-profile .dt-profile-avatar { -fx-background-color: #E8F5F6; -fx-background-radius: 100; -fx-text-fill: #087E91; -fx-font-size: 20px; -fx-font-weight: bold; }
+.dentist-profile #lblProfileStatus { -fx-padding: 4 8; -fx-background-color: #EDF7F1; -fx-background-radius: 4; -fx-text-fill: #21764F; -fx-font-size: 12px; }

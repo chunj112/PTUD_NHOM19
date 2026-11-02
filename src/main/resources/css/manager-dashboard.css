@@ -174,3 +174,6 @@
 .manager-dashboard .readonly-table .table-cell .label {
     -fx-cursor: default;
 }
+
+/* So sánh KPI dùng màu trung tính; tăng/giảm không tự mang nghĩa tốt/xấu. */
+.manager-dashboard .dashboard-comparison { -fx-font-size: 12px; -fx-text-fill: #617584; }

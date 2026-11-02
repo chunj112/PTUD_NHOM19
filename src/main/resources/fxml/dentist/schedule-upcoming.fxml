@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · schedule · Figma 15:1451.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="dentistUpcomingSchedule" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-schedule.css" styleClass="dentist-page, dentist-schedule" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="16" minWidth="0" styleClass="dt-card">
+        <Label text="Lịch sắp tới" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="dt-table-frame">
+            <TableView fx:id="tblUpcomingShifts" editable="false" fixedCellSize="72" minHeight="260" prefHeight="260" maxHeight="260" styleClass="dt-table">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa có dữ liệu" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblUpcomingShiftsColDate" text="Ngày" minWidth="100" prefWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblUpcomingShiftsColShift" text="Ca" minWidth="120" prefWidth="150" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblUpcomingShiftsColRoom" text="Phòng" minWidth="70" prefWidth="100" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblUpcomingShiftsColWork" text="Công việc" minWidth="160" prefWidth="270" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <HashMap v0="10/10/2026" v1="08:00–12:00" v2="P01" v3="Khám tổng quát"/>
+                        <HashMap v0="12/10/2026" v1="08:00–12:00" v2="P01" v3="Khám tổng quát"/>
+                        <HashMap v0="12/10/2026" v1="13:30–17:00" v2="P01" v3="Điều trị"/>
+                    </FXCollections>
+                </items>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="dt-table-footer">
+                <Label fx:id="tblUpcomingShiftsCount" text="Hiển thị 3 / 3 bản ghi" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblUpcomingShiftsPrevious" text="‹" minWidth="-Infinity" styleClass="dt-page-button" disable="true"/>
+                <Label fx:id="tblUpcomingShiftsPage" text="1" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblUpcomingShiftsNext" text="›" minWidth="-Infinity" styleClass="dt-page-button" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>

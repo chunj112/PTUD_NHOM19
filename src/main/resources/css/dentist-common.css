@@ -1,0 +1,138 @@
+/* UI dùng riêng cho DENTIST; không đổi theme hoặc UI Manager. */
+.dentist-page { -fx-background-color: transparent; }
+.dentist-page .dt-title { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.dentist-page .dt-subtitle { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.dentist-page .dt-body, .dentist-modal .dt-body { -fx-font-size: 13px; -fx-text-fill: #172B3A; }
+.dentist-page .dt-caption, .dentist-modal .dt-caption { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.dentist-page .dt-card, .dentist-modal .dt-card {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.dentist-page .dt-card-title, .dentist-modal .dt-card-title {
+    -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.dentist-page .dt-detail, .dentist-modal .dt-detail { -fx-min-height: 44; }
+.dentist-page .dt-detail-value, .dentist-modal .dt-detail-value {
+    -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.dentist-page .dt-divider, .dentist-modal .dt-divider { -fx-background-color: #DCE4EA; }
+.dentist-page .dt-alert, .dentist-modal .dt-alert { -fx-padding: 12; -fx-background-radius: 8; -fx-font-size: 12px; }
+.dentist-page .dt-alert-info, .dentist-modal .dt-alert-info { -fx-background-color: #E8F5F6; -fx-text-fill: #087E91; }
+.dentist-page .dt-alert-warning, .dentist-modal .dt-alert-warning { -fx-background-color: #FFF7E1; -fx-text-fill: #966B16; }
+.dentist-page .dt-alert-success, .dentist-modal .dt-alert-success { -fx-background-color: #EDF7F1; -fx-text-fill: #21764F; }
+.dentist-page .dt-alert-danger, .dentist-modal .dt-alert-danger { -fx-background-color: #FDEFF0; -fx-text-fill: #C33D42; }
+.dentist-page .dt-search, .dentist-page .dt-filter {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-max-height: 42;
+    -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A;
+}
+.dentist-page .dt-search { -fx-padding: 10 12; -fx-prompt-text-fill: #617584; }
+.dentist-page .dt-filter > .text-field, .dentist-page .dt-filter > .list-cell {
+    -fx-padding: 8 12; -fx-background-color: transparent; -fx-background-insets: 0; -fx-text-fill: #172B3A;
+}
+.dentist-page .dt-filter > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 10; }
+.dentist-page .dt-filter > .arrow-button > .arrow { -fx-background-color: #617584; }
+.dentist-page .dt-search:focused, .dentist-page .dt-filter:focused { -fx-border-color: #087E91; }
+.dentist-page .dt-table-frame, .dentist-modal .dt-table-frame {
+    -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+}
+.dentist-page .dt-table, .dentist-modal .dt-table {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0; -fx-border-width: 0;
+}
+.dentist-page .dt-table .column-header-background, .dentist-page .dt-table .column-header,
+.dentist-page .dt-table .filler, .dentist-modal .dt-table .column-header-background,
+.dentist-modal .dt-table .column-header, .dentist-modal .dt-table .filler { -fx-background-color: #F4F7FA; }
+.dentist-page .dt-table .column-header, .dentist-modal .dt-table .column-header {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-border-width: 0;
+}
+.dentist-page .dt-table .column-header .label, .dentist-modal .dt-table .column-header .label {
+    -fx-padding: 4 8; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584;
+    -fx-alignment: CENTER_LEFT; -fx-wrap-text: true;
+}
+.dentist-page .dt-table .table-row-cell, .dentist-modal .dt-table .table-row-cell {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0;
+}
+.dentist-page .dt-table .table-row-cell:filled:hover, .dentist-modal .dt-table .table-row-cell:filled:hover { -fx-background-color: #F0F6F8; }
+.dentist-page .dt-table .table-row-cell:filled:selected, .dentist-modal .dt-table .table-row-cell:filled:selected {
+    -fx-background-color: #087E91, #E8F5F6; -fx-background-insets: 0, 0 0 0 3;
+}
+.dentist-page .dt-table .table-cell, .dentist-modal .dt-table .table-cell {
+    -fx-padding: 12; -fx-font-size: 13px; -fx-text-fill: #172B3A; -fx-wrap-text: true; -fx-alignment: TOP_LEFT;
+    -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.dentist-page .dt-table .table-cell:empty, .dentist-modal .dt-table .table-cell:empty { -fx-border-width: 0; }
+.dentist-page .dt-readonly-table .table-row-cell:filled:hover,
+.dentist-page .dt-readonly-table .table-row-cell:filled:selected { -fx-background-color: white; -fx-background-insets: 0; -fx-cursor: default; }
+.dentist-page .dt-table-footer, .dentist-modal .dt-table-footer {
+    -fx-padding: 8 12; -fx-min-height: 38; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0;
+}
+.dentist-page .dt-page-button, .dentist-modal .dt-page-button {
+    -fx-padding: 0 6; -fx-background-color: transparent; -fx-text-fill: #172B3A; -fx-cursor: hand;
+}
+.dentist-page .dt-status-warning, .dentist-modal .dt-status-warning { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #966B16; }
+.dentist-page .dt-status-success, .dentist-modal .dt-status-success { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #21764F; }
+.dentist-page .dt-status-danger, .dentist-modal .dt-status-danger { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #C33D42; }
+.dentist-page .dt-status-info, .dentist-modal .dt-status-info { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.dentist-page .dt-tabs { -fx-background-color: transparent; }
+.dentist-page .dt-tabs > .tab-header-area { -fx-padding: 0; }
+.dentist-page .dt-tabs > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent; -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.dentist-page .dt-tabs .tab {
+    -fx-padding: 12 16; -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 0;
+    -fx-border-color: transparent; -fx-border-width: 0 0 2 0;
+}
+.dentist-page .dt-tabs .tab .tab-label { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.dentist-page .dt-tabs .tab:selected { -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent; }
+.dentist-page .dt-tabs .tab:selected .tab-label { -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.dentist-page .dt-tabs .tab .focus-indicator,
+.dentist-page .dt-tabs:focused .tab:selected .focus-indicator { -fx-border-width: 0; -fx-border-color: transparent; }
+.dentist-page .dt-tabs > .tab-content-area { -fx-padding: 16 0 0 0; }
+.dentist-page .dt-field, .dentist-modal .dt-field {
+    -fx-padding: 8 11; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62;
+}
+.dentist-page .dt-field-tall, .dentist-modal .dt-field-tall { -fx-min-height: 104; -fx-pref-height: 104; -fx-max-height: 104; }
+.dentist-page .dt-field-readonly, .dentist-modal .dt-field-readonly { -fx-background-color: #F4F7FA; }
+.dentist-page .dt-field-input, .dentist-page .dt-field-choice, .dentist-page .dt-field-date,
+.dentist-modal .dt-field-input, .dentist-modal .dt-field-choice, .dentist-modal .dt-field-date {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-border-width: 0;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-min-height: 23; -fx-pref-height: 23; -fx-max-height: 23;
+}
+.dentist-page .dt-field-readonly .text-field, .dentist-modal .dt-field-readonly .text-field { -fx-text-fill: #617584; }
+.dentist-page .dt-field-date > .text-field, .dentist-modal .dt-field-date > .text-field,
+.dentist-page .dt-field-choice > .list-cell, .dentist-modal .dt-field-choice > .list-cell {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-text-fill: #172B3A;
+}
+.dentist-page .dt-field-date > .arrow-button, .dentist-modal .dt-field-date > .arrow-button,
+.dentist-page .dt-field-choice > .arrow-button, .dentist-modal .dt-field-choice > .arrow-button { -fx-padding: 0 3; -fx-background-color: transparent; }
+.dentist-page .dt-field-area, .dentist-modal .dt-field-area {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-border-width: 0;
+    -fx-text-fill: #172B3A; -fx-font-size: 14px;
+}
+.dentist-page .dt-field-area .content, .dentist-modal .dt-field-area .content,
+.dentist-page .dt-field-area .scroll-pane, .dentist-modal .dt-field-area .scroll-pane,
+.dentist-page .dt-field-area .viewport, .dentist-modal .dt-field-area .viewport { -fx-padding: 0; -fx-background-color: transparent; }
+.dentist-page .dt-field-input:focused, .dentist-modal .dt-field-input:focused,
+.dentist-page .dt-field-choice:focused, .dentist-modal .dt-field-choice:focused { -fx-background-color: #E8F5F6; }
+.dentist-modal {
+    -fx-padding: 23; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.dentist-modal .dt-modal-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.dentist-modal .dt-close {
+    -fx-padding: 0; -fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-text-fill: #617584; -fx-font-size: 16px; -fx-cursor: hand;
+}
+.dentist-page .dt-danger-button, .dentist-modal .dt-danger-button { -fx-border-color: #C33D42; -fx-text-fill: #C33D42; }
+.dentist-page .dt-total, .dentist-modal .dt-total { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.dentist-page .dt-empty-circle { -fx-background-color: #E8F5F6; -fx-background-radius: 100; }
+.dentist-page .dt-selected-card { -fx-background-color: #E8F5F6; -fx-border-color: #087E91; }
+.dentist-page .dt-skeleton { -fx-background-color: #E8EDF1; -fx-background-radius: 6; }
+
+.dentist-page .primary-button:disabled, .dentist-modal .primary-button:disabled { -fx-opacity: 1; -fx-background-color: #E8EDF1; -fx-border-color: #E8EDF1; -fx-text-fill: #617584; }
+
+/* Mũi tên 14px xuất từ Figma, chỉ áp dụng ComboBox của Dentist. */
+.dentist-page .dt-field-choice > .arrow-button > .arrow, .dentist-modal .dt-field-choice > .arrow-button > .arrow { -fx-shape: null; -fx-background-color: transparent; -fx-background-image: url('../images/dentist/chevron-down.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: 14 14; -fx-min-width: 14; -fx-pref-width: 14; -fx-min-height: 14; -fx-pref-height: 14; -fx-padding: 0; }

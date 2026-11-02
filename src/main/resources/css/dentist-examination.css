@@ -1,0 +1,25 @@
+.dentist-examination .dt-avatar { -fx-background-color: #E8F5F6; -fx-background-radius: 100; -fx-text-fill: #087E91; -fx-font-size: 14px; -fx-font-weight: bold; }
+.dentist-examination .dt-section-title { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.dentist-examination .dt-mini-button { -fx-padding: 4 8; -fx-min-height: 28; -fx-font-size: 12px; }
+.dentist-examination .dt-field-error { -fx-border-color: #F34B54; }
+.dentist-examination .dt-error-text { -fx-font-size: 12px; -fx-text-fill: #C33D42; }
+.dentist-examination .dt-tooth-chip { -fx-padding: 3 9; -fx-background-color: #E8F5F6; -fx-border-color: #087E91; -fx-background-radius: 100; -fx-border-radius: 100; -fx-text-fill: #087E91; -fx-font-size: 12px; }
+.dentist-examination .dt-skeleton { -fx-background-color: #E8EDF1; -fx-background-radius: 6; }
+.dentist-examination .dt-static-tab { -fx-padding: 12 16; -fx-background-color: white; -fx-border-width: 0 0 2 0; -fx-border-color: transparent; -fx-font-size: 14px; -fx-text-fill: #617584; }
+.dentist-examination .dt-static-tab:selected { -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent; -fx-text-fill: #087E91; -fx-font-weight: bold; }
+.dentist-examination .dt-tooth-option { -fx-padding: 4; -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 6; -fx-background-radius: 6; -fx-text-fill: #172B3A; -fx-font-size: 13px; -fx-font-weight: bold; }
+.dentist-examination .dt-tooth-option:selected { -fx-background-color: #E8F5F6; -fx-border-color: #087E91; -fx-text-fill: #087E91; }
+.dentist-examination .dt-total-row { -fx-padding: 10 12; -fx-background-color: #F4F7FA; }
+.dentist-examination .dt-current-tab { -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent; -fx-text-fill: #087E91; -fx-font-weight: bold; }
+.dentist-examination .dt-static-tabs { -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0; }
+.dentist-examination .dt-doctor-advice { -fx-padding: 10 12; -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 8; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1; -fx-font-size: 14px; }
+.dentist-examination .dt-doctor-advice .content, .dentist-examination .dt-doctor-advice .viewport { -fx-padding: 0; -fx-background-color: transparent; }
+.dentist-examination.dt-fdi-popover { -fx-padding: 11; }
+.dentist-examination.dt-fdi-popover .dt-modal-title { -fx-font-size: 14px; }
+.dentist-examination .dt-error-with-message { -fx-min-height: 88; -fx-pref-height: 88; -fx-max-height: 88; }
+.dentist-examination .dt-message-text { -fx-font-size: 12px; }
+.dentist-examination .dt-alert-success .dt-message-text { -fx-text-fill: #21764F; }
+.dentist-examination .dt-alert-danger .dt-message-text { -fx-text-fill: #C33D42; }
+.dentist-examination .dt-alert-info .dt-message-text { -fx-text-fill: #087E91; }
+.dentist-examination.dt-fdi-popover .dt-close { -fx-min-width: 24; -fx-pref-width: 24; -fx-max-width: 24; -fx-min-height: 24; -fx-pref-height: 24; -fx-max-height: 24; }
+.dentist-examination .dt-plain-close { -fx-border-width: 0; -fx-background-color: transparent; -fx-font-size: 20px; }

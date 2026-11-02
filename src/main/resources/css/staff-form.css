@@ -65,3 +65,9 @@
 .staff-form .staff-form-choice > .arrow-button > .arrow { -fx-background-color: #172B3A; }
 .staff-form .staff-form-choice:focused { -fx-background-color: #E8F5F6; -fx-background-radius: 2; }
 .staff-form .staff-form-date > .arrow-button > .arrow { -fx-background-color: #617584; }
+
+/* Chỉ dùng khi màn hình thấp: hiển thị trọn form, không cuộn/cắt nút Lưu. */
+.staff-form.staff-form-compact { -fx-padding: 18; -fx-spacing: 10; }
+.staff-form.staff-form-compact .staff-form-field {
+    -fx-min-height: 54; -fx-pref-height: 54; -fx-max-height: 54; -fx-padding: 6 10;
+}

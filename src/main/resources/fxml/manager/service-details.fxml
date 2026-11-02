@@ -2,17 +2,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-
-<!-- UC006 · Khang · Figma 33:5326 trong frame 33:5265.
-     Panel bên phải rộng 356px; services.fxml include trong serviceDetailsPane, ẩn mặc định.
-     DV002 và các Label là dữ liệu xem trước theo Figma, không phải dữ liệu được chọn thật.
-     Nhóm dịch vụ/FDI chưa có cột trong DichVu; không tự suy ra hay lưu vào SQL.
-     Không fx:controller, sự kiện chọn dòng, handler Sửa hoặc thông báo lưu thành công. -->
-<VBox fx:id="serviceSelectedDetails" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      stylesheets="@/css/manager-services.css" styleClass="services-page, service-details"
-      spacing="16" minWidth="356" prefWidth="356" maxWidth="356" minHeight="-Infinity" maxHeight="-Infinity">
-    <Label fx:id="lblSelectedServiceName" text="Trám răng composite" wrapText="true"
-           minHeight="-Infinity" styleClass="services-card-title"/>
+<!-- UC006 refinement: không có yêu cầu FDI trong danh mục. Nhóm dịch vụ vẫn là metadata DEMO, chưa có cột SQL. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="serviceSelectedDetails" stylesheets="@/css/manager-services.css" styleClass="services-page, service-details" spacing="16" minWidth="356" prefWidth="356" maxWidth="356" minHeight="-Infinity" maxHeight="-Infinity">
+    <Label fx:id="lblSelectedServiceName" text="Trám răng composite" wrapText="true" minHeight="-Infinity" styleClass="services-card-title"/>
     <HBox spacing="12" alignment="CENTER_LEFT">
         <Label fx:id="lblSelectedServiceId" text="DV002" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="service-detail-summary"/>
         <Label fx:id="lblSelectedServiceStatus" text="Hoạt động" styleClass="service-detail-badge"/>
@@ -34,22 +26,18 @@
         <Label text="Thời gian dự kiến" styleClass="services-caption"/>
         <Label fx:id="lblServiceDetailDuration" text="30 phút" wrapText="true" styleClass="service-detail-value"/>
     </VBox>
-    <VBox spacing="4" minHeight="44">
-        <Label text="Vị trí điều trị" styleClass="services-caption"/>
-        <Label fx:id="lblServiceDetailFdiRequirement" text="Bắt buộc chọn răng theo FDI" wrapText="true" styleClass="service-detail-value"/>
-    </VBox>
     <VBox spacing="4" minHeight="67">
         <Label text="Mô tả" styleClass="services-caption"/>
-        <Label fx:id="lblServiceDetailDescription" text="Phục hồi tổn thương sâu răng bằng vật liệu composite."
-               wrapText="true" minHeight="-Infinity" styleClass="service-detail-value"/>
+        <Label fx:id="lblServiceDetailDescription" text="Phục hồi tổn thương sâu răng bằng vật liệu composite." wrapText="true" minHeight="-Infinity" styleClass="service-detail-value"/>
     </VBox>
     <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="service-detail-divider"/>
-    <Label fx:id="lblServicePricePolicy" text="Đơn giá chỉ được điều chỉnh tại danh mục. Nha sĩ sử dụng giá chỉ đọc khi chỉ định."
-           wrapText="true" minHeight="-Infinity" styleClass="services-caption"/>
+    <Label fx:id="lblServicePricePolicy" text="Đơn giá chỉ được điều chỉnh tại danh mục. Nha sĩ sử dụng giá chỉ đọc khi chỉ định." wrapText="true" minHeight="-Infinity" styleClass="services-caption"/>
     <Button fx:id="btnEditService" text="Sửa dịch vụ" graphicTextGap="8" minWidth="-Infinity" styleClass="secondary-button">
         <graphic>
             <ImageView fx:id="imgEditService" fitWidth="16" fitHeight="16" preserveRatio="true">
-                <image><Image url="@/images/staff/edit-staff.png"/></image>
+                <image>
+                    <Image url="@/images/staff/edit-staff.png"/>
+                </image>
             </ImageView>
         </graphic>
     </Button>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · schedule · Figma 15:1763, 39:5720, 15:1451.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="dentistScheduleWeek" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-schedule.css" styleClass="dentist-page, dentist-schedule" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="1020">
+    <VBox spacing="16" minWidth="0" styleClass="dt-card">
+        <HBox spacing="20" alignment="TOP_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button fx:id="btnPreviousScheduleWeek" text="‹" minWidth="-Infinity" styleClass="secondary-button"/>
+                    <Label fx:id="lblScheduleWeek" text="05 – 11/10/2026" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity" alignment="CENTER"/>
+                    <Button fx:id="btnNextScheduleWeek" text="›" minWidth="-Infinity" styleClass="secondary-button"/>
+                </HBox>
+                <GridPane fx:id="dentistWeekCalendar" hgap="8" minHeight="360" prefHeight="360">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                    </columnConstraints>
+                    <VBox spacing="8" minWidth="0" GridPane.columnIndex="0" minHeight="360" styleClass="dt-schedule-day">
+                        <Label fx:id="lblScheduleDay0" text="T2 · 05/10" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="6" minWidth="0" fx:id="morningShiftCard0" styleClass="dt-shift-card">
+                            <Label fx:id="lblMorningTime0" text="08:00–&#10;12:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningWork0" text="Khám tổng quát" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningRoom0" text="P01 · Trần Minh Đức" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                        <VBox spacing="6" minWidth="0" fx:id="afternoonShiftCard0" styleClass="dt-shift-card">
+                            <Label fx:id="lblAfternoonTime0" text="13:30–&#10;17:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonWork0" text="Điều trị theo lịch hẹn" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonRoom0" text="P01" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="8" minWidth="0" GridPane.columnIndex="1" minHeight="360" styleClass="dt-schedule-day">
+                        <Label fx:id="lblScheduleDay1" text="T3 · 06/10" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="6" minWidth="0" fx:id="morningShiftCard1" styleClass="dt-shift-card">
+                            <Label fx:id="lblMorningTime1" text="08:00–&#10;12:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningWork1" text="Khám tổng quát" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningRoom1" text="P01 · Trần Minh Đức" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                        <VBox spacing="6" minWidth="0" fx:id="afternoonShiftCard1" styleClass="dt-shift-card">
+                            <Label fx:id="lblAfternoonTime1" text="13:30–&#10;17:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonWork1" text="Điều trị theo lịch hẹn" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonRoom1" text="P01" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="8" minWidth="0" GridPane.columnIndex="2" minHeight="360" styleClass="dt-schedule-day">
+                        <Label fx:id="lblScheduleDay2" text="T4 · 07/10" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="6" minWidth="0" fx:id="morningShiftCard2" styleClass="dt-shift-card">
+                            <Label fx:id="lblMorningTime2" text="08:00–&#10;12:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningWork2" text="Khám tổng quát" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningRoom2" text="P01 · Trần Minh Đức" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="8" minWidth="0" GridPane.columnIndex="3" minHeight="360" styleClass="dt-schedule-day">
+                        <Label fx:id="lblScheduleDay3" text="T5 · 08/10" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="6" minWidth="0" fx:id="morningShiftCard3" styleClass="dt-shift-card">
+                            <Label fx:id="lblMorningTime3" text="08:00–&#10;12:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningWork3" text="Khám tổng quát" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningRoom3" text="P01 · Trần Minh Đức" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                        <VBox spacing="6" minWidth="0" fx:id="afternoonShiftCard3" styleClass="dt-shift-card">
+                            <Label fx:id="lblAfternoonTime3" text="13:30–&#10;17:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonWork3" text="Điều trị theo lịch hẹn" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonRoom3" text="P01" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="8" minWidth="0" GridPane.columnIndex="4" minHeight="360" styleClass="dt-schedule-day, dt-schedule-today">
+                        <Label fx:id="lblScheduleDay4" text="T6 · 09/10" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="6" minWidth="0" fx:id="morningShiftCard4" styleClass="dt-shift-card">
+                            <Label fx:id="lblMorningTime4" text="08:00–&#10;12:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningWork4" text="Khám tổng quát" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningRoom4" text="P01 · Trần Minh Đức" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                        <VBox spacing="6" minWidth="0" fx:id="afternoonShiftCard4" styleClass="dt-shift-card">
+                            <Label fx:id="lblAfternoonTime4" text="13:30–&#10;17:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonWork4" text="Điều trị theo lịch hẹn" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonRoom4" text="P01" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="8" minWidth="0" GridPane.columnIndex="5" minHeight="360" styleClass="dt-schedule-day">
+                        <Label fx:id="lblScheduleDay5" text="T7 · 10/10" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="6" minWidth="0" fx:id="morningShiftCard5" styleClass="dt-shift-card">
+                            <Label fx:id="lblMorningTime5" text="08:00–&#10;12:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningWork5" text="Khám tổng quát" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblMorningRoom5" text="P01 · Trần Minh Đức" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                        <VBox spacing="6" minWidth="0" fx:id="afternoonShiftCard5" styleClass="dt-shift-card">
+                            <Label fx:id="lblAfternoonTime5" text="13:30–&#10;17:00" styleClass="dt-shift-time" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonWork5" text="Điều trị theo lịch hẹn" styleClass="dt-shift-work" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblAfternoonRoom5" text="P01" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="8" minWidth="0" GridPane.columnIndex="6" minHeight="360" styleClass="dt-schedule-day">
+                        <Label fx:id="lblScheduleDay6" text="CN · 11/10" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                        <Label fx:id="lblNoSundayShift" text="Không có ca" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+            <VBox spacing="16" minWidth="280" prefWidth="280" maxWidth="280">
+                <fx:include fx:id="selectedShiftDetail" source="schedule-detail.fxml"/>
+            </VBox>
+        </HBox>
+    </VBox>
+    <fx:include fx:id="upcomingSchedule" source="schedule-upcoming.fxml"/>
+</VBox>

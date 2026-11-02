@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · examination · Figma 104:17528.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="removePrescriptionMedicine" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-modal, dentist-examination" spacing="16" minWidth="480" prefWidth="480" maxWidth="480" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblDialogTitle" text="Bỏ thuốc khỏi đơn này?" styleClass="dt-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnClose" text="×" minWidth="32" styleClass="dt-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng"/>
+    </HBox>
+    <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+        <Label text="Thuốc / đơn thuốc" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblMedicineToRemove" text="Paracetamol 500 mg · DT001" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <Label fx:id="lblRemoveMedicineNotice" text="Thuốc sẽ được bỏ khỏi đơn hiện tại của BN001 · Nguyễn Văn A. Các đơn thuốc khác không thay đổi." styleClass="dt-body" wrapText="true" minHeight="-Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnKeepMedicine" text="Giữ thuốc" minWidth="-Infinity" styleClass="secondary-button"/>
+        <Button fx:id="btnConfirmRemoveMedicine" text="Bỏ khỏi đơn" minWidth="-Infinity" styleClass="secondary-button, dt-danger-button"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- DENTIST · examination · Figma 59:32444.
+     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
+     Dữ liệu minh họa từ Figma; file trạng thái chỉ dùng preview, không tự lưu.
+     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
+     Không có handler Java; Controller của nhóm sẽ nối sau. -->
+<VBox fx:id="dentistMedicalRecord" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/dentist-common.css, @/css/dentist-examination.css" styleClass="dentist-page, dentist-examination" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="870">
+    <Label fx:id="lblRecordReadonly" text="Hồ sơ bệnh án đã lưu · Thông tin các lần khám trước chỉ đọc." styleClass="dt-alert, dt-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <HBox spacing="16" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+            <VBox spacing="16" minWidth="0" styleClass="dt-card">
+                <Label text="Tiền sử bệnh án" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Dị ứng" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblRecordAllergy" text="Penicillin · Đã ghi nhận từ 15/10/2025" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Bệnh toàn thân" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblSystemicHistory" text="Không ghi nhận tăng huyết áp, đái tháo đường hoặc bệnh tim mạch." styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Tiền sử nha khoa" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblDentalHistory" text="Trám răng 46 ngày 15/10/2025; cạo vôi toàn hàm ngày 15/04/2026." styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Ghi chú hồ sơ" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblRecordNotes" text="Duy trì vệ sinh răng miệng; kiểm tra định kỳ 6 tháng." styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" styleClass="dt-card">
+                <Label text="Phiếu khám đã lưu · PK015" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                        <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                            <Label text="Ngày khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblSavedExamDate" text="15/04/2026 · 09:00" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                        <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                            <Label text="Nha sĩ" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblSavedExamDentist" text="Trần Minh Đức" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Triệu chứng" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblSavedSymptoms" text="Chảy máu lợi khi chải răng." styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Kết quả khám" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblSavedClinicalResult" text="Cao răng toàn hàm; lợi viêm nhẹ, chưa có túi nha chu." styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Chẩn đoán" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblSavedDiagnosis" text="Viêm lợi nhẹ; cao răng toàn hàm" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Ghi chú" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblSavedNotes" text="Hướng dẫn chải răng đúng cách và dùng chỉ nha khoa. Tái khám sau 6 tháng." styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </VBox>
+        <VBox spacing="16" minWidth="300" prefWidth="300" maxWidth="300">
+            <VBox spacing="16" minWidth="0" styleClass="dt-card">
+                <Label text="Lịch sử hồ sơ" styleClass="dt-card-title" wrapText="true" minHeight="-Infinity"/>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Tạo hồ sơ" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblRecordCreated" text="15/10/2025 · BN001" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dt-divider"/>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Lần khám đã lưu" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblSavedExamCount" text="2 lần · PK094, PK015" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <VBox spacing="4" minWidth="0" styleClass="dt-detail">
+                    <Label text="Cập nhật gần nhất" styleClass="dt-caption" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblRecordUpdated" text="15/04/2026 · Trần Minh Đức" styleClass="dt-detail-value" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+                <Label text="Chỉ đọc" styleClass="dt-status-info" wrapText="true" minHeight="-Infinity"/>
+            </VBox>
+            <Label fx:id="lblRecordAllergyWarning" text="Dị ứng Penicillin được giữ xuyên suốt hồ sơ và ca khám hiện tại." styleClass="dt-alert, dt-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+</VBox>
