@@ -6,15 +6,11 @@
 <?import javafx.scene.control.cell.MapValueFactory?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<!-- RECEPTIONIST · intake · Figma 40:6121.
-     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
-     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
-     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
-     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
-<VBox fx:id="walkInModal" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-modal, receptionist-intake" spacing="16" minWidth="680" prefWidth="680" maxWidth="680" minHeight="-Infinity" maxHeight="-Infinity">
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="walkInModal" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-modal, receptionist-intake" spacing="16" minWidth="680" prefWidth="680" maxWidth="680" minHeight="-Infinity" maxHeight="-Infinity">
     <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
         <Label fx:id="lblDialogTitle" text="Tiếp nhận khách không hẹn" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-        <Button fx:id="btnClose" text="" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" graphicTextGap="8">
+        <Button fx:id="btnClose" text="" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" graphicTextGap="8" disable="true">
             <graphic>
                 <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
                     <image>
@@ -24,13 +20,13 @@
             </graphic>
         </Button>
     </HBox>
-    <Label text="○ Hôm nay     ○ Lịch tuần     ● Khách không hẹn" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
+    <Label text="—" styleClass="rx-status-info" wrapText="true" minHeight="-Infinity"/>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
         <Label text="Tìm mã BN / họ tên / SĐT *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
-        <TextField fx:id="txtWalkInModalSearch" text="0988 765 432" styleClass="rx-field-input"/>
+        <TextField fx:id="txtWalkInModalSearch" text="" styleClass="rx-field-input"/>
     </VBox>
-    <Label fx:id="lblWalkInModalNotFound" text="Không tìm thấy hồ sơ phù hợp. Chỉ tạo hồ sơ mới sau khi kiểm tra lại mã, họ tên hoặc SĐT." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
-    <Button fx:id="btnWalkInModalCreatePatient" text="Tạo hồ sơ bệnh nhân" minWidth="-Infinity" styleClass="secondary-button" graphicTextGap="8">
+    <Label fx:id="lblWalkInModalNotFound" text="—" styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <Button fx:id="btnWalkInModalCreatePatient" text="Tạo hồ sơ bệnh nhân" minWidth="-Infinity" styleClass="secondary-button" graphicTextGap="8" disable="true">
         <graphic>
             <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
                 <image>
@@ -41,12 +37,9 @@
     </Button>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
         <Label text="Nha sĩ đang có ca" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
-        <ComboBox fx:id="cboWalkInModalDentist" value="Trần Minh Đức · P01" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+        <ComboBox fx:id="cboWalkInModalDentist" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice" promptText="Chọn nha sĩ">
             <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Trần Minh Đức · P01"/>
-                    <String fx:value="Nguyễn Lan Anh · P02"/>
-                </FXCollections>
+                <FXCollections fx:factory="observableArrayList"/>
             </items>
         </ComboBox>
     </VBox>
@@ -56,7 +49,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
             </columnResizePolicy>
             <placeholder>
-                <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="empty-data-note"/>
             </placeholder>
             <columns>
                 <TableColumn fx:id="tblWalkInModalSlotsColTime" text="Ca trống" minWidth="140" prefWidth="210" sortable="false" reorderable="false">
@@ -75,12 +68,6 @@
                     </cellValueFactory>
                 </TableColumn>
             </columns>
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <HashMap v0="11:30–12:00" v1="Trần Minh Đức" v2="P01"/>
-                    <HashMap v0="14:00–14:30" v1="Nguyễn Lan Anh" v2="P02"/>
-                </FXCollections>
-            </items>
         </TableView>
     </VBox>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-tall">

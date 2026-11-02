@@ -6,15 +6,11 @@
 <?import javafx.scene.control.cell.MapValueFactory?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<!-- RECEPTIONIST · intake · Figma 40:6040.
-     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
-     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
-     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
-     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
-<VBox fx:id="appointmentconflictForm" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-modal, receptionist-intake" spacing="16" minWidth="659" prefWidth="659" maxWidth="659" minHeight="-Infinity" maxHeight="-Infinity">
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="appointmentconflictForm" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-modal, receptionist-intake" spacing="16" minWidth="659" prefWidth="659" maxWidth="659" minHeight="-Infinity" maxHeight="-Infinity">
     <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
         <Label fx:id="lblDialogTitle" text="Tạo/Sửa lịch" styleClass="rx-modal-title" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-        <Button fx:id="btnClose" text="" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" graphicTextGap="8">
+        <Button fx:id="btnClose" text="" minWidth="32" styleClass="rx-close" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" graphicTextGap="8" disable="true">
             <graphic>
                 <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
                     <image>
@@ -26,7 +22,7 @@
     </HBox>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
         <Label text="Tìm bệnh nhân *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
-        <TextField fx:id="txtAppointmentPatient" text="BN001" styleClass="rx-field-input"/>
+        <TextField fx:id="txtAppointmentPatient" text="" styleClass="rx-field-input"/>
     </VBox>
     <VBox styleClass="rx-table-frame">
         <TableView fx:id="tblAppointmentPatientResults" editable="false" fixedCellSize="72" minHeight="116" prefHeight="116" maxHeight="116" styleClass="rx-table">
@@ -34,7 +30,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
             </columnResizePolicy>
             <placeholder>
-                <Label text="Chưa có dữ liệu" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+                <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="empty-data-note"/>
             </placeholder>
             <columns>
                 <TableColumn fx:id="tblAppointmentPatientResultsColId" text="Mã BN" minWidth="80" prefWidth="160" sortable="false" reorderable="false">
@@ -53,21 +49,13 @@
                     </cellValueFactory>
                 </TableColumn>
             </columns>
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <HashMap v0="BN001" v1="Nguyễn Văn A" v2="0912 345 678"/>
-                </FXCollections>
-            </items>
         </TableView>
     </VBox>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
         <Label text="Nha sĩ *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
-        <ComboBox fx:id="cboAppointmentDentist" value="Trần Minh Đức" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
+        <ComboBox fx:id="cboAppointmentDentist" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice" promptText="Chọn nha sĩ">
             <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Trần Minh Đức"/>
-                    <String fx:value="Nguyễn Lan Anh"/>
-                </FXCollections>
+                <FXCollections fx:factory="observableArrayList"/>
             </items>
         </ComboBox>
     </VBox>
@@ -75,35 +63,26 @@
         <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
             <Label text="Ngày hẹn *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
             <DatePicker fx:id="dpAppointmentDate" maxWidth="Infinity" minWidth="0" editable="false" styleClass="rx-field-date">
-                <editor text="09/10/2026"/>
+                <editor text=""/>
             </DatePicker>
         </VBox>
         <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
             <Label text="Giờ hẹn *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
-            <ComboBox fx:id="cboAppointmentTime" value="09:00" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="09:00"/>
-                        <String fx:value="09:30"/>
-                        <String fx:value="11:30"/>
-                        <String fx:value="14:00"/>
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <ComboBox fx:id="cboAppointmentTime" maxWidth="Infinity" minWidth="0" styleClass="rx-field-choice" promptText="Chọn giờ sau khi tải ca khả dụng"/>
         </VBox>
     </HBox>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field">
         <Label text="Lý do khám *" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
-        <TextField fx:id="txtAppointmentReason" text="Đau răng hàm dưới, kiểm tra răng 36." styleClass="rx-field-input"/>
+        <TextField fx:id="txtAppointmentReason" text="" styleClass="rx-field-input"/>
     </VBox>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="rx-field, rx-field-tall">
         <Label text="Ghi chú" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
-        <TextArea fx:id="txtAppointmentNotes" text="Đau răng hàm dưới, kiểm tra răng 36." wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="rx-field-area"/>
+        <TextArea fx:id="txtAppointmentNotes" text="" wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="rx-field-area"/>
     </VBox>
-    <Label fx:id="lblAppointmentConflict" text="Xung đột lịch: Trần Minh Đức đã có lịch hẹn 09:00–09:30 tại P01. Chọn nha sĩ hoặc giờ khác." styleClass="rx-alert, rx-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
-    <Label fx:id="lblAppointmentFormRule" text="Tìm bệnh nhân trước khi chọn. Sửa lịch sử dụng cùng biểu mẫu, giữ mã LH001." styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <Label fx:id="lblAppointmentConflict" text="—" styleClass="rx-alert, rx-alert-warning" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <Label fx:id="lblAppointmentFormRule" text="Chưa tải dữ liệu" styleClass="rx-alert, rx-alert-info" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
     <HBox spacing="12" alignment="CENTER_LEFT">
-        <Button fx:id="btnCancel" text="Hủy" minWidth="-Infinity" styleClass="secondary-button" cancelButton="true"/>
+        <Button fx:id="btnCancel" text="Hủy" minWidth="-Infinity" styleClass="secondary-button" cancelButton="true" disable="true"/>
         <Button fx:id="btnSaveAppointment" text="Lưu lịch hẹn" minWidth="-Infinity" styleClass="primary-button" disable="true"/>
     </HBox>
 </VBox>

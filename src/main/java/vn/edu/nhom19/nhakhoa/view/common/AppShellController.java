@@ -19,7 +19,7 @@ import vn.edu.nhom19.nhakhoa.app.Route;
 import vn.edu.nhom19.nhakhoa.auth.Role;
 import vn.edu.nhom19.nhakhoa.auth.UserSession;
 
-/** AppShell DEMO ONLY: chọn menu theo Role để kiểm tra UI, không phải phân quyền bảo mật. */
+/** AppShell dùng danh tính Session đã xác thực; chức năng chưa có backend hiển thị trống, không gán dữ liệu giả. */
 public final class AppShellController {
     @FXML private BorderPane appShell;
     @FXML private VBox managerMenu, receptionistMenu, dentistMenu, nurseMenu, navigationMenu;
@@ -63,14 +63,14 @@ public final class AppShellController {
         miChangePassword.setOnAction(event -> navigate(Route.PASSWORD));
         btnNotifications.setOnAction(event -> {
             if (isCurrent()) {
-                showPlaceholder("Thông báo", "DEMO ONLY · Chưa triển khai nguồn dữ liệu thông báo.");
+                showPlaceholder("Thông báo", "Chức năng đang phát triển: chưa kết nối nguồn thông báo.");
             }
         });
     }
 
     public void configure(UserSession userSession, AppNavigator appNavigator) {
         if (disposed || userSession == null || appNavigator == null) {
-            throw new IllegalStateException("Không thể mở AppShell demo.");
+            throw new IllegalStateException("Không thể mở AppShell.");
         }
         session = userSession;
         navigator = appNavigator;
@@ -85,19 +85,20 @@ public final class AppShellController {
             case RECEPTIONIST: activeMenu = receptionistMenu; break;
             case DENTIST: activeMenu = dentistMenu; break;
             case NURSE: activeMenu = nurseMenu; break;
-            default: throw new IllegalStateException("Vai trò demo không hợp lệ.");
+            default: throw new IllegalStateException("Vai trò không hợp lệ.");
         }
         activeMenu.setVisible(true);
         activeMenu.setManaged(true);
 
         lblRole.setText(role.displayName().toUpperCase(Locale.forLanguageTag("vi")));
         lblBreadcrumbRole.setText(role.displayName());
-        lblSidebarName.setText("Demo · " + role.displayName());
-        lblSidebarStatus.setText("DEMO ONLY · Phiên giả lập");
-        lblAvatarInitials.setText("DM");
+        lblSidebarName.setText(session.layHoTen());
+        lblSidebarStatus.setText("Đã đăng nhập · "+role.displayName());
+        lblSidebarStatus.setWrapText(true);
+        lblAvatarInitials.setText(layChuCaiDau(session.layHoTen()));
         lblCurrentDate.setText(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"))
             .format(DateTimeFormatter.ofPattern("EEEE, dd/MM/yyyy", Locale.forLanguageTag("vi"))));
-        mnuAccount.setText("Demo · " + role.displayName());
+        mnuAccount.setText(session.layHoTen());
         appShell.setDisable(false);
         navigate(Route.DASHBOARD);
     }
@@ -105,12 +106,12 @@ public final class AppShellController {
     /** Chỉ đổi contentArea; không tạo lại Stage, Scene, Sidebar hoặc Topbar. */
     public void navigate(Route route) {
         if (!isCurrent()) {
-            throw new IllegalStateException("Phiên demo đã đóng. Hãy chọn Role trên Login.");
+            throw new IllegalStateException("Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại.");
         }
         Role role = session.requireRole(sessionVersion);
-        // Chỉ giữ luồng preview nhất quán, không coi kiểm tra này là bảo mật.
+        // Kiểm tra route ở đây không thay thế kiểm tra quyền của Service/DAO khi các UC chuyển sang SQL.
         if (route == null || !route.allows(role)) {
-            throw new IllegalArgumentException("Màn hình không thuộc vai trò demo đang chọn.");
+            throw new IllegalArgumentException("Màn hình không thuộc vai trò của phiên đăng nhập.");
         }
 
         Parent page;
@@ -118,15 +119,19 @@ public final class AppShellController {
         try {
             if (url == null) {
                 page = placeholder(route.title(),
-                    "DEMO ONLY · CHƯA TRIỂN KHAI: màn hình hoặc Backend chưa có. Không lưu dữ liệu.");
+                    "Chức năng đang phát triển. Màn hình hoặc backend chưa được tích hợp.");
             } else {
                 FXMLLoader loader = new FXMLLoader(url);
                 page = loader.load();
             }
         } catch (IOException ex) {
-            page = placeholder(route.title(), "DEMO ONLY · Không thể nạp FXML của màn hình.");
+            page = placeholder(route.title(), "Không thể nạp giao diện của màn hình.");
         }
-        contentArea.getChildren().setAll(page);
+        // Các màn hình nghiệp vụ hiện chưa có Controller/Service SQL. Giữ UI nhưng thông báo rõ trạng thái.
+        Label thongBao=new Label("Chức năng đang phát triển · Chưa tải dữ liệu từ hệ thống.");
+        thongBao.setWrapText(true);thongBao.getStyleClass().add("info-banner");
+        VBox noiDung=new VBox(16,thongBao,page);noiDung.setMinWidth(0);
+        contentArea.getChildren().setAll(noiDung);
         contentScroll.setVvalue(0);
         lblBreadcrumbPage.setText(route.title());
         clearSelection();
@@ -137,11 +142,11 @@ public final class AppShellController {
         // Hai nút Dashboard chỉ nối điều hướng, chưa làm Controller nghiệp vụ của module khác.
         Node reports = page.lookup("#btnViewReports");
         if (reports instanceof Button button) {
-            button.setOnAction(event -> navigate(Route.REPORTS));
+            button.setDisable(false);button.setOnAction(event -> navigate(Route.REPORTS));
         }
         Node schedule = page.lookup("#btnViewSchedule");
         if (schedule instanceof Button button) {
-            button.setOnAction(event -> navigate(Route.ASSIGNMENTS));
+            button.setDisable(false);button.setOnAction(event -> navigate(Route.ASSIGNMENTS));
         }
         navigator.updateTitle(role.displayName() + " / " + route.title());
     }
@@ -152,6 +157,11 @@ public final class AppShellController {
         }
     }
 
+    private String layChuCaiDau(String hoTen) {
+        String[] tu=hoTen.trim().split("\\s+");String ketQua="";
+        for(int i=Math.max(0,tu.length-2);i<tu.length;i++)ketQua+=tu[i].substring(0,1);
+        return ketQua.toUpperCase(Locale.forLanguageTag("vi"));
+    }
     private boolean isCurrent() {
         if (disposed || session == null || !session.isActive()) {
             return false;

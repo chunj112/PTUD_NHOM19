@@ -47,9 +47,9 @@
 .assignments-page .assignment-filter:showing { -fx-border-color: #087E91; }
 .assignments-page .assignment-week-range { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
 .assignments-page .calendar-day { -fx-padding: 10; -fx-background-color: #F4F7FA; -fx-background-radius: 8; }
-.assignments-page .calendar-demo-today { -fx-background-color: #E8F5F6; }
+.assignments-page .calendar-today { -fx-background-color: #E8F5F6; }
 .assignments-page .calendar-day-title { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584; }
-.assignments-page .calendar-demo-today > .calendar-day-title { -fx-text-fill: #087E91; }
+.assignments-page .calendar-today > .calendar-day-title { -fx-text-fill: #087E91; }
 .assignments-page .calendar-shift {
     -fx-padding: 10; -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 6;
     -fx-border-color: #DCE4EA; -fx-border-radius: 6; -fx-border-width: 1;

@@ -10,25 +10,34 @@ import javafx.stage.Stage;
 import vn.edu.nhom19.nhakhoa.auth.Role;
 import vn.edu.nhom19.nhakhoa.auth.UserSession;
 import vn.edu.nhom19.nhakhoa.view.common.AppShellController;
-import vn.edu.nhom19.nhakhoa.view.common.LoginController;
+import vn.edu.nhom19.nhakhoa.view.common.DangNhapController;
+import vn.edu.nhom19.nhakhoa.auth.KetQuaDangNhap;
+import vn.edu.nhom19.nhakhoa.service.DangNhapService;
 
-/** Điều hướng demo: giữ một Stage/Scene và xóa UI cũ khi đăng xuất. Không xác thực tài khoản. */
+/** Giữ một Stage/Scene, chỉ mở không gian làm việc sau xác thực tài khoản SQL. */
 public final class AppNavigator implements AutoCloseable {
     private final Stage stage;
     private final UserSession session;
-    private LoginController loginController;
+    private DangNhapController loginController;
+    private final DangNhapService dichVuDangNhap;
     private AppShellController shellController;
     private boolean closed;
 
     public AppNavigator(Stage stage, UserSession session) {
+        this(stage,session,new DangNhapService());
+    }
+    /** Cho phép cấp Service khi kiểm thử; ứng dụng mặc định luôn dùng Service/DAO SQL thật. */
+    public AppNavigator(Stage stage, UserSession session, DangNhapService dichVuDangNhap) {
         if (stage == null || session == null) {
             throw new IllegalArgumentException("Thiếu cửa sổ hoặc Session.");
         }
         this.stage = stage;
         this.session = session;
+        this.dichVuDangNhap=java.util.Objects.requireNonNull(dichVuDangNhap);
     }
 
     public void start() throws IOException {
+        if (closed) throw new IllegalStateException("Bộ điều hướng đã đóng.");
         showLogin();
     }
 
@@ -51,9 +60,9 @@ public final class AppNavigator implements AutoCloseable {
         updateTitle(title);
     }
 
-    /** Ghi DEMO ONLY ở tiêu đề mọi màn hình, kể cả placeholder. */
+    /** Tiêu đề không chứa danh tính hoặc thông tin xác thực. */
     public void updateTitle(String pageTitle) {
-        stage.setTitle("DentaFlow · DEMO ONLY · " + pageTitle);
+        stage.setTitle("DentaFlow · "+pageTitle);
     }
 
     private void showLogin() throws IOException {
@@ -73,17 +82,26 @@ public final class AppNavigator implements AutoCloseable {
         FXMLLoader loader = loader("/fxml/common/login.fxml");
         Parent root = loader.load();
         loginController = loader.getController();
-        loginController.configure(this);
-        install(root, "Đăng nhập demo");
+        loginController.configure(this, dichVuDangNhap);
+        install(root, "Đăng nhập");
     }
 
-    /** Điểm nối duy nhất từ nút Role demo. Sprint Backend sẽ thay bằng kết quả AuthService thật. */
-    public void openDemoRole(Role role) {
-        if (closed || session.isActive()) {
-            throw new IllegalStateException("Hãy quay về Login trước khi chọn vai trò demo.");
+    /** Không nhận Role hoặc kết quả do bên gọi tự tạo; lấy từ form đã xác thực. */
+    public void moSauDangNhap() {
+        if (closed || session.isActive() || loginController == null) {
+            throw new IllegalStateException("Phiên đăng nhập không còn sẵn sàng.");
         }
+        KetQuaDangNhap ketQua=loginController.layKetQuaDaXacThuc();
+        if (ketQua == null) {
+            throw new IllegalStateException("Chưa xác thực tài khoản.");
+        }
+        session.batDauPhienDangNhap(ketQua);
+        moAppShell();
+    }
+
+    private void moAppShell() {
+        Role role=session.requireRole(session.version());
         try {
-            session.startDemo(role);
             FXMLLoader loader = loader("/fxml/common/app-shell.fxml");
             Parent root = loader.load();
             shellController = loader.getController();
@@ -99,7 +117,7 @@ public final class AppNavigator implements AutoCloseable {
                 shellController.dispose();
                 shellController = null;
             }
-            throw new IllegalStateException("Không thể nạp AppShell demo", ex);
+            throw new IllegalStateException("Không thể nạp giao diện sau đăng nhập", ex);
         }
     }
 
