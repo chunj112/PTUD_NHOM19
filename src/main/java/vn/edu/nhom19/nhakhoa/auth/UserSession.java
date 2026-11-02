@@ -1,46 +1,37 @@
 package vn.edu.nhom19.nhakhoa.auth;
 
-/**
- * DEMO ONLY: chỉ nhớ Role đang xem UI, không phải bằng chứng xác thực.
- * Không giữ tài khoản, mật khẩu, hash hoặc kết nối database.
- */
+/** Phiên chỉ giữ danh tính/vai trò, không lưu mật khẩu, hash hoặc Connection. */
 public final class UserSession {
     private Role role;
+    private String maNV, hoTen;
     private long version;
 
-    public void startDemo(Role selectedRole) {
-        if (selectedRole == null) {
-            throw new IllegalArgumentException("Cần chọn vai trò demo.");
-        }
-        role = selectedRole;
+    public void batDauPhienDangNhap(KetQuaDangNhap ketQua) {
+        if (ketQua == null) throw new IllegalArgumentException("Thiếu kết quả xác thực.");
+        maNV = ketQua.layMaNhanVien();
+        hoTen = ketQua.layHoTen();
+        role = ketQua.layVaiTro();
         version++;
     }
 
-    public boolean isActive() {
-        return role != null;
-    }
+    public boolean isActive() { return role != null; }
+    public Role getRole() { return role; }
+    public String layMaNhanVien() { return maNV; }
+    public String layHoTen() { return hoTen; }
+    public long version() { return version; }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public long version() {
-        return version;
-    }
-
-    /**
-     * Chặn Controller cũ sau logout để tránh dùng nhầm UI.
-     * Đây là kiểm tra vòng đời demo, không phải kiểm tra bảo mật.
-     */
     public Role requireRole(long expectedVersion) {
         if (role == null || version != expectedVersion) {
-            throw new IllegalStateException("Phiên demo không còn hoạt động. Hãy chọn lại vai trò trên Login.");
+            throw new IllegalStateException("Phiên đăng nhập đã kết thúc. Vui lòng đăng nhập lại.");
         }
         return role;
     }
 
+    /** Tăng version làm mọi Controller/callback của phiên trước hết hiệu lực. */
     public void clear() {
         role = null;
+        maNV = null;
+        hoTen = null;
         version++;
     }
 }

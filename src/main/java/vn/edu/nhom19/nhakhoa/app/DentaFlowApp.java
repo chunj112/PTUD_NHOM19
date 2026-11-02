@@ -6,12 +6,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import vn.edu.nhom19.nhakhoa.auth.UserSession;
 
-/** Bootstrap giữ nguyên JavaFX; ngoại lệ Prompt 02 cho phần Login/Session của Tường. */
+/** Khởi động màn hình Login và đóng bộ điều hướng khi ứng dụng kết thúc. */
 public class DentaFlowApp extends Application {
     private AppNavigator navigator;
     @Override
     public void start(Stage stage) throws Exception {
-        // Quyết định UI hiện tại: chọn Role DEMO ONLY, không xác thực SQL hoặc mật khẩu.
+        // UC001 luôn xác thực bằng tài khoản SQL Server; không có đường đăng nhập theo Role.
         navigator = new AppNavigator(stage, new UserSession());
         navigator.start();
 

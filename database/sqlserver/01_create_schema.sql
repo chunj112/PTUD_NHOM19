@@ -1,19 +1,22 @@
-/*
-  Sprint 0 - initial SQL Server schema for Nhom19 Dental Clinic
-  Derived and adapted from the previous Chapter 4 SQL design.
-  15 business tables; X-ray functionality removed (2026-10-20).
-  Appointment reason is free text; NO appointment-service FK.
-  Multiple personnel MAY be assigned to the same room/shift.
-  Note: execute with SSMS/SQLCMD (GO separators), on a NEW development database.
-  Run only once. Not yet verified against a live SQL Server.
-  Changes to an existing DB require reviewed incremental migration scripts.
-  Work still required: end-to-end service transaction/concurrency tests and
-  review consistency with final Java domain/Enum definitions.
-*/
-IF DB_ID(N'NhaKhoa_QuanLy') IS NULL
-    EXEC(N'CREATE DATABASE [NhaKhoa_QuanLy]');
+/* DentaFlow - schema khoi tao cho SQL Server LOCAL, database DENTAFLOW_DB.
+   BAT BUOC: SSMS Query > SQLCMD Mode hoac sqlcmd -b. :ON ERROR EXIT dung toan bo script khi loi.
+   Chi dung khi database chua co bang/view nguoi dung. DB da co du lieu: sao luu, verify va dung migration da review.
+   Khong DROP/TRUNCATE/DELETE, khong reset DB. CREATE DATABASE nam ngoai transaction.
+   15 bang nghiep vu; tai khoan duoc tao thu cong bang cong cu PBKDF2 sau khi khoi tao.
+   Chua duoc chay/xac minh tren SQL Server trong tac vu don dep nay. */
+:ON ERROR EXIT
+USE [master];
 GO
-USE [NhaKhoa_QuanLy];
+IF DB_ID(N'DENTAFLOW_DB') IS NULL
+    EXEC(N'CREATE DATABASE [DENTAFLOW_DB]');
+GO
+USE [DENTAFLOW_DB];
+GO
+IF EXISTS (SELECT 1 FROM sys.tables WHERE is_ms_shipped=0)
+   OR EXISTS (SELECT 1 FROM sys.views WHERE is_ms_shipped=0)
+    THROW 51040, N'DENTAFLOW_DB da co schema. Khong chay lai file 01; hay verify va dung migration.', 1;
+SET XACT_ABORT ON;
+BEGIN TRANSACTION;
 GO
 
 -- I. DANH MUC VA NHAN SU ---------------------------------------------------
@@ -56,7 +59,7 @@ CREATE TABLE dbo.TaiKhoan (
     CONSTRAINT UQ_TaiKhoan_TenDangNhap UNIQUE (tenDangNhap),
     CONSTRAINT FK_TaiKhoan_NhanVien FOREIGN KEY (maNV) REFERENCES dbo.NhanVien(maNV),
     CONSTRAINT CK_TaiKhoan_TenDangNhap CHECK (LEN(LTRIM(RTRIM(tenDangNhap))) >= 3 AND tenDangNhap NOT LIKE '% %'),
-    CONSTRAINT CK_TaiKhoan_MatKhau CHECK (LEN(matKhau) >= 40)
+    CONSTRAINT CK_TaiKhoan_MatKhau CHECK (LEN(matKhau) BETWEEN 80 AND 255 AND matKhau LIKE 'PBKDF2-SHA256$%')
 );
 GO
 CREATE TABLE dbo.PhanCong (
@@ -496,3 +499,6 @@ GO
 -- SELECT * FROM dbo.v_BaoCaoDoanhThu ORDER BY ngay DESC;
 -- SELECT * FROM dbo.v_BaoCaoLuotKham ORDER BY ngayKham DESC;
 -- SELECT * FROM dbo.v_BaoCaoDichVu ORDER BY soLuotThucHien DESC;
+
+COMMIT TRANSACTION;
+GO

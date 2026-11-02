@@ -6,18 +6,14 @@
 <?import javafx.scene.control.cell.MapValueFactory?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<!-- RECEPTIONIST · intake · Figma 15:924, 112:5173, 104:16073, 104:16298.
-     Chỉ FXML/CSS, không Controller/SQL hoặc thao tác lưu/thanh toán thật.
-     Mọi tên, ngày, số tiền là mẫu Figma; file trạng thái chỉ dùng preview.
-     DatePicker.editor chỉ là text xem trước; Controller tự gán LocalDate/converter.
-     Không fx:controller hoặc onAction trỏ Java chưa tồn tại. -->
-<VBox fx:id="receptionistIntake" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-page, receptionist-intake" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="receptionistIntake" stylesheets="@/css/theme.css, @/css/receptionist-common.css, @/css/receptionist-intake.css" styleClass="receptionist-page, receptionist-intake" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
     <HBox spacing="12" alignment="CENTER_LEFT">
         <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
             <Label fx:id="lblPageTitle" text="Tiếp nhận &amp; Lịch hẹn" styleClass="rx-title" wrapText="true" minHeight="-Infinity"/>
             <Label fx:id="lblPageSubtitle" text="Quản lý lịch hẹn và tiếp nhận bệnh nhân trong cùng một quy trình" styleClass="rx-subtitle" wrapText="true" minHeight="-Infinity"/>
         </VBox>
-        <Button fx:id="btnBookAppointment" text="Đặt lịch" minWidth="-Infinity" styleClass="primary-button" graphicTextGap="8">
+        <Button fx:id="btnBookAppointment" text="Đặt lịch" minWidth="-Infinity" styleClass="primary-button" graphicTextGap="8" disable="true">
             <graphic>
                 <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
                     <image>
@@ -46,5 +42,5 @@
             </Tab>
         </tabs>
     </TabPane>
-    <Label fx:id="lblDemoNotice" text="DỮ LIỆU MINH HỌA · Không kết nối SQL Server · 09/10/2026" styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
+    <Label fx:id="lblDemoNotice" text="Chức năng đang phát triển · Chưa tải dữ liệu từ hệ thống." styleClass="rx-caption" wrapText="true" minHeight="-Infinity"/>
 </VBox>

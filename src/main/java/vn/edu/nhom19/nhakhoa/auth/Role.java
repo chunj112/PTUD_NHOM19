@@ -1,6 +1,6 @@
 package vn.edu.nhom19.nhakhoa.auth;
 
-/** Bốn vai trò để xem thử UI. Role được chọn trên Login demo, chưa lấy từ SQL Server. */
+/** Bốn vai trò ứng dụng; UC001 mapping từ NhanVien.chucVu sau khi xác thực. */
 public enum Role {
     MANAGER("Quản lý"),
     RECEPTIONIST("Lễ tân"),

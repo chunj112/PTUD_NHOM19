@@ -3,7 +3,7 @@ package vn.edu.nhom19.nhakhoa.app;
 import java.util.Set;
 import vn.edu.nhom19.nhakhoa.auth.Role;
 
-/** Định tuyến demo và nhóm menu; không phải bảng phân quyền bảo mật.
+/** Định tuyến theo vai trò; các Service nghiệp vụ vẫn phải kiểm tra quyền.
  * Các đường dẫn chưa có được hiển thị bằng một FXML placeholder chung. */
 public enum Route {
     DASHBOARD("Dashboard", "btnDashboard", null, Role.values()),
