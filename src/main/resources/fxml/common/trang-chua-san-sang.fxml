@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" spacing="20">
+    <Label fx:id="lblTrangTieuDe" text="Màn hình" wrapText="true" styleClass="trang-tieu-de"/>
+    <VBox spacing="12" styleClass="luu-y-the">
+        <Label text="CHƯA TRIỂN KHAI" styleClass="xem-truoc-nhan"/>
+        <Label fx:id="lblTrangThongBao" text="Chức năng đang phát triển." wrapText="true" styleClass="noi-dung-chinh-van-ban"/>
+    </VBox>
+</VBox>

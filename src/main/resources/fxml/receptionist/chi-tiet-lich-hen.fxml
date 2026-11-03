@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="lichHenChiTiet" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-trang, le-tan-tiep-nhan" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <Label fx:id="lblLichHenTieuDe" text="Chi tiết lịch hẹn" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="le-tan-duong-phan-cach"/>
+        <Label fx:id="lblLichHenTinhTrang" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
+        <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+            <Label text="Bệnh nhân" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblLichHenBenhNhan" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Điện thoại" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblLichHenSoDienThoai" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Tuổi / giới tính" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblLichHenTuoiGioiTinh" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+            <Label text="Ngày / giờ" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblLichHenNgayGio" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+            <Label text="Nha sĩ / phòng" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblLichHenNhaSiPhong" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+            <Label text="Lý do khám" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblLichHenLyDo" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <Label fx:id="lblLichHenDiUng" text="—" styleClass="le-tan-canh-bao, le-tan-canh-bao-canh-bao" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Button fx:id="btnSuaLichHen" text="Sửa lịch" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+            <Button fx:id="btnHuyLichHen" text="Hủy lịch" minWidth="-Infinity" styleClass="phu-nut, le-tan-nguy-hiem-nut" disable="true"/>
+        </HBox>
+        <Button fx:id="btnTiepNhanLichHen" text="Tiếp nhận" minWidth="-Infinity" styleClass="chinh-nut" maxWidth="Infinity" disable="true"/>
+    </VBox>
+</VBox>

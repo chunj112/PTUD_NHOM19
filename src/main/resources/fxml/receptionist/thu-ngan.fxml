@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="leTanThuNgan" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-thu-ngan.css" styleClass="le-tan-trang, le-tan-thu-ngan" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTrangTieuDe" text="Thu ngân" styleClass="le-tan-tieu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTrangPhuDe" text="Lập hóa đơn từ ca khám hoàn tất, sau đó thu tiền và đối soát" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <TabPane fx:id="thuNganCacTab" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${thuNganCacTab.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="le-tan-cac-tab">
+        <tabs>
+            <Tab fx:id="tabSanSangHoaDon" text="Chờ lập hóa đơn">
+                <content>
+                    <fx:include fx:id="tabSanSangHoaDonNoiDung" source="thu-ngan-cho-lap-hoa-don.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabDangChoThanhToan" text="Chờ thu tiền">
+                <content>
+                    <fx:include fx:id="tabDangChoThanhToanNoiDung" source="thu-ngan-cho-thanh-toan.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabDaThanhToan" text="Đã hoàn tất">
+                <content>
+                    <fx:include fx:id="tabDaThanhToanNoiDung" source="thu-ngan-da-thanh-toan.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

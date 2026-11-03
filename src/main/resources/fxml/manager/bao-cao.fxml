@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="baoCaoTrang" stylesheets="@/css/quan-ly-bao-cao.css" styleClass="bao-cao-trang" spacing="20" minWidth="960" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblBaoCaoTieuDe" text="Báo cáo" styleClass="bao-cao-tieu-de"/>
+            <Label fx:id="lblBaoCaoPhuDe" text="Tổng hợp hoạt động trong kỳ · Đơn vị tiền tệ: VNĐ" wrapText="true" minHeight="-Infinity" styleClass="bao-cao-phu-de"/>
+        </VBox>
+        <Button fx:id="btnXuatBanBaoCao" text="Xuất" graphicTextGap="8" styleClass="phu-nut" accessibleText="Xuất file báo cáo, chưa có xử lý" disable="true">
+            <graphic>
+                <ImageView fx:id="imgXuatBanBaoCao" fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/reports/export-report.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <!-- 70px: thanh tab và khoảng đệm/viền theo skin JavaFX hiện tại.
+         Chiều cao đổi theo tab để tab Dịch vụ không giữ khoảng trống của bảng 4 dòng. -->
+    <TabPane fx:id="baoCaoCacTab" tabClosingPolicy="UNAVAILABLE" styleClass="bao-cao-cac-tab" minWidth="0" prefHeight="${baoCaoCacTab.selectionModel.selectedItem.content.prefHeight + 70}" minHeight="-Infinity" maxHeight="-Infinity">
+        <tabs>
+            <Tab fx:id="tabDoanhThu" text="Doanh thu">
+                <content>
+                    <fx:include fx:id="doanhThuNoiDung" source="bao-cao-doanh-thu.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabCacLuotKham" text="Lượt khám">
+                <content>
+                    <fx:include fx:id="cacLuotKhamNoiDung" source="bao-cao-luot-kham.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabDichVuSuDung" text="Dịch vụ">
+                <content>
+                    <fx:include fx:id="dichVuSuDungNoiDung" source="bao-cao-dich-vu.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

@@ -1,0 +1,46 @@
+/* UC006: Thêm 7:2171 và Sửa 39:5486. Chỉ áp dụng trong .dich-vu-bieu-mau.
+   Không sửa theme hoặc CSS của modal Nhân sự/Phân công. */
+.dich-vu-bieu-mau {
+    /* 23px + viền 1px = khoảng cách 24px theo Figma. */
+    -fx-padding: 23; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.dich-vu-bieu-mau .dich-vu-bieu-mau-tieu-de { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-dong {
+    -fx-padding: 0; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-text-fill: #617584; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;
+}
+.dich-vu-bieu-mau .dich-vu-bieu-mau-dong:hover { -fx-background-color: #E8F5F6; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-dong:focused { -fx-border-color: #087E91; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-truong, .dich-vu-bieu-mau .dich-vu-bieu-mau-mo-ta-truong {
+    -fx-padding: 8 11; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+}
+.dich-vu-bieu-mau .dich-vu-bieu-mau-truong { -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-mo-ta-truong { -fx-min-height: 104; -fx-pref-height: 104; -fx-max-height: 104; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-chi-doc { -fx-background-color: #F4F7FA; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-truong-nhan { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-nhap, .dich-vu-bieu-mau .dich-vu-bieu-mau-lua-chon {
+    -fx-min-height: 23; -fx-pref-height: 23; -fx-max-height: 23;
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0;
+    -fx-border-width: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-prompt-text-fill: #617584;
+}
+.dich-vu-bieu-mau .dich-vu-bieu-mau-nhap:focused, .dich-vu-bieu-mau .dich-vu-bieu-mau-lua-chon:focused {
+    -fx-background-color: #E8F5F6; -fx-background-radius: 2;
+}
+.dich-vu-bieu-mau .dich-vu-bieu-mau-chi-doc .dich-vu-bieu-mau-nhap { -fx-text-fill: #617584; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-lua-chon > .list-cell {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-text-fill: #172B3A; -fx-font-size: 14px;
+}
+.dich-vu-bieu-mau .dich-vu-bieu-mau-lua-chon > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 3; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-lua-chon > .arrow-button > .arrow { -fx-background-color: #172B3A; }
+.dich-vu-bieu-mau .dich-vu-bieu-mau-mo-ta {
+    -fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;
+    -fx-border-width: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-focus-color: transparent;
+}
+.dich-vu-bieu-mau .dich-vu-bieu-mau-mo-ta .scroll-pane,
+.dich-vu-bieu-mau .dich-vu-bieu-mau-mo-ta .scroll-pane > .viewport,
+.dich-vu-bieu-mau .dich-vu-bieu-mau-mo-ta .content {
+    -fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;
+}

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="leTanLichLamViecTuan" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-lich-lam-viec.css" styleClass="le-tan-trang, le-tan-lich-lam-viec" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="780">
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <HBox spacing="20" alignment="TOP_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button fx:id="btnTruocLichLamViecTuan" text="‹" minWidth="-Infinity" styleClass="phu-nut" accessibleText="Tuần trước" disable="true"/>
+                    <Button fx:id="btnLichLamViecHomNay" text="Hôm nay" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+                    <Label fx:id="lblLichLamViecTuan" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity" alignment="CENTER"/>
+                    <Button fx:id="btnTiepLichLamViecTuan" text="›" minWidth="-Infinity" styleClass="phu-nut" accessibleText="Tuần tiếp theo" disable="true"/>
+                </HBox>
+                <GridPane fx:id="leTanLichLamViecLuoi" hgap="8" minHeight="360" prefHeight="360">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                        <ColumnConstraints percentWidth="14.285714285714286"/>
+                    </columnConstraints>
+                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lam-viec-ngay-lam" GridPane.columnIndex="0" minHeight="360">
+                        <Label fx:id="lblLichLamViecNgayLam0" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="lichLamViecCaThe0" styleClass="le-tan-ca-the">
+                            <Label fx:id="lblLichLamViecCaGio0" text="—" styleClass="le-tan-ca-gio" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaTen0" text="—" styleClass="le-tan-noi-dung-chinh" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaPhong0" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lam-viec-ngay-lam" GridPane.columnIndex="1" minHeight="360">
+                        <Label fx:id="lblLichLamViecNgayLam1" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="lichLamViecCaThe1" styleClass="le-tan-ca-the">
+                            <Label fx:id="lblLichLamViecCaGio1" text="—" styleClass="le-tan-ca-gio" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaTen1" text="—" styleClass="le-tan-noi-dung-chinh" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaPhong1" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lam-viec-ngay-lam" GridPane.columnIndex="2" minHeight="360">
+                        <Label fx:id="lblLichLamViecNgayLam2" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="lichLamViecCaThe2" styleClass="le-tan-ca-the">
+                            <Label fx:id="lblLichLamViecCaGio2" text="—" styleClass="le-tan-ca-gio" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaTen2" text="—" styleClass="le-tan-noi-dung-chinh" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaPhong2" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lam-viec-ngay-lam" GridPane.columnIndex="3" minHeight="360">
+                        <Label fx:id="lblLichLamViecNgayLam3" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="lichLamViecCaThe3" styleClass="le-tan-ca-the">
+                            <Label fx:id="lblLichLamViecCaGio3" text="—" styleClass="le-tan-ca-gio" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaTen3" text="—" styleClass="le-tan-noi-dung-chinh" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaPhong3" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lam-viec-ngay-lam" GridPane.columnIndex="4" minHeight="360">
+                        <Label fx:id="lblLichLamViecNgayLam4" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="lichLamViecCaThe4" styleClass="le-tan-ca-the">
+                            <Label fx:id="lblLichLamViecCaGio4" text="—" styleClass="le-tan-ca-gio" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaTen4" text="—" styleClass="le-tan-noi-dung-chinh" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaPhong4" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lam-viec-ngay-lam" GridPane.columnIndex="5" minHeight="360">
+                        <Label fx:id="lblLichLamViecNgayLam5" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        <VBox spacing="16" minWidth="0" fx:id="lichLamViecCaThe5" styleClass="le-tan-ca-the">
+                            <Label fx:id="lblLichLamViecCaGio5" text="—" styleClass="le-tan-ca-gio" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaTen5" text="—" styleClass="le-tan-noi-dung-chinh" wrapText="true" minHeight="-Infinity"/>
+                            <Label fx:id="lblLichLamViecCaPhong5" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lam-viec-ngay-lam" GridPane.columnIndex="6" minHeight="360">
+                        <Label fx:id="lblLichLamViecNgayLam6" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                        <Label text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+            <VBox spacing="16" minWidth="280" prefWidth="280" maxWidth="280">
+                <fx:include fx:id="daChonLichLamViecChiTiet" source="chi-tiet-ca-lam.fxml"/>
+            </VBox>
+        </HBox>
+    </VBox>
+    <fx:include fx:id="sapToiLichLamViec" source="lich-lam-viec-sap-toi.fxml"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label text="Ca sáng 08:00–12:00" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label text="Ca chiều 13:30–17:00" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+    </HBox>
+</VBox>

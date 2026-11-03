@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="phanCongDaChonPhanChiTiet" stylesheets="@/css/chu-de.css, @/css/bieu-mau-phan-cong.css" styleClass="phan-cong-chi-tiet" spacing="16" minWidth="222" prefWidth="222" maxWidth="222" maxHeight="-Infinity">
+    <Label fx:id="lblDaChonPhanCongNhanVien" text="—" wrapText="true" styleClass="phan-cong-chi-tiet-tieu-de"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label fx:id="lblDaChonPhanCongNhanVienTomTat" text="—" wrapText="true" minWidth="0" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="phan-cong-chi-tiet-tom-tat"/>
+        <Label fx:id="lblDaChonNhanVienTinhTrang" text="—" styleClass="phan-cong-tinh-trang-nhan"/>
+    </HBox>
+    <Separator/>
+    <HBox spacing="12" alignment="TOP_LEFT">
+        <VBox spacing="3" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label text="Ngày" styleClass="phan-cong-truong-chu-thich"/>
+            <Label fx:id="lblPhanCongNgay" text="—" wrapText="true" minHeight="-Infinity" styleClass="phan-cong-chi-tiet-gia-tri"/>
+        </VBox>
+        <VBox spacing="3" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label text="Ca làm việc" styleClass="phan-cong-truong-chu-thich"/>
+            <Label fx:id="lblPhanCongCa" text="—" styleClass="phan-cong-chi-tiet-gia-tri"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="3">
+        <Label text="Thời gian" styleClass="phan-cong-truong-chu-thich"/>
+        <Label fx:id="lblPhanCongGio" text="—" styleClass="phan-cong-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="Phòng" styleClass="phan-cong-truong-chu-thich"/>
+        <Label fx:id="lblPhanCongPhong" text="—" styleClass="phan-cong-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="Công việc" styleClass="phan-cong-truong-chu-thich"/>
+        <Label fx:id="lblPhanCongCongViec" text="—" wrapText="true" minHeight="-Infinity" styleClass="phan-cong-chi-tiet-gia-tri"/>
+    </VBox>
+    <Separator/>
+    <Label text="Trạng thái" styleClass="phan-cong-truong-chu-thich"/>
+    <Label fx:id="lblPhanCongTinhTrang" text="—" styleClass="phan-cong-tinh-trang-nhan"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnSuaPhanCong" text="Sửa" graphicTextGap="8" styleClass="phu-nut" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/edit-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnYeuCauHuyPhanCong" text="Hủy" styleClass="phu-nut, phan-cong-nguy-hiem-nut" disable="true"/>
+    </HBox>
+</VBox>

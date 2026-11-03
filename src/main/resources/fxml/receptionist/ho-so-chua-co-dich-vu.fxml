@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="trongBenhNhanHoSo1" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-benh-nhan.css" styleClass="le-tan-trang, le-tan-danh-sach-benh-nhan" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTrangTieuDe" text="TRA CỨU BỆNH NHÂN" styleClass="le-tan-tieu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTrangPhuDe" text="Tìm hồ sơ theo mã bệnh nhân, họ tên hoặc số điện thoại" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label text="TB" styleClass="le-tan-benh-nhan-anh-dai-dien" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblDaChonBenhNhanTen" text="—" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="btnThayDoiBenhNhan" text="Đổi bệnh nhân" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+        </HBox>
+        <Label fx:id="lblDaChonBenhNhanTomTat" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <fx:define>
+        <ToggleGroup fx:id="trongHoSoTheTabNhom"/>
+    </fx:define>
+    <HBox spacing="0" styleClass="le-tan-xem-truoc-cac-tab">
+        <ToggleButton fx:id="btnTrongHoSoTheTab0" text="Thông tin" toggleGroup="$trongHoSoTheTabNhom" selected="false" styleClass="le-tan-xem-truoc-the-tab"/>
+        <ToggleButton fx:id="btnTrongHoSoTheTab1" text="Lịch sử khám" toggleGroup="$trongHoSoTheTabNhom" selected="false" styleClass="le-tan-xem-truoc-the-tab"/>
+        <ToggleButton fx:id="btnTrongHoSoTheTab2" text="Dịch vụ" toggleGroup="$trongHoSoTheTabNhom" selected="true" styleClass="le-tan-xem-truoc-the-tab"/>
+        <ToggleButton fx:id="btnTrongHoSoTheTab3" text="Đơn thuốc" toggleGroup="$trongHoSoTheTabNhom" selected="false" styleClass="le-tan-xem-truoc-the-tab"/>
+        <ToggleButton fx:id="btnTrongHoSoTheTab4" text="Hoá đơn" toggleGroup="$trongHoSoTheTabNhom" selected="false" styleClass="le-tan-xem-truoc-the-tab"/>
+    </HBox>
+    <fx:include fx:id="trongHoSoNoiDung" source="benh-nhan-chua-co-dich-vu.fxml"/>
+</VBox>

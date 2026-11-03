@@ -1,0 +1,14 @@
+.le-tan-tiep-nhan .le-tan-lich-ngay-lam { -fx-padding: 8; -fx-background-color: #F4F7FA; -fx-background-radius: 8; }
+.le-tan-tiep-nhan .le-tan-lich-hom-nay { -fx-background-color: #E8F5F6; }
+.le-tan-tiep-nhan .le-tan-lich-lich-hen {
+    -fx-padding: 8; -fx-background-color: white; -fx-background-radius: 6;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 6; -fx-border-width: 1;
+}
+.le-tan-tiep-nhan .le-tan-lich-lich-hen .le-tan-chi-tiet-gia-tri { -fx-font-size: 12px; }
+.le-tan-tiep-nhan .le-tan-lich-lich-hen .le-tan-chu-thich,
+.le-tan-tiep-nhan .le-tan-lich-lich-hen .le-tan-tinh-trang-canh-bao,
+.le-tan-tiep-nhan .le-tan-lich-lich-hen .le-tan-tinh-trang-thanh-cong { -fx-font-size: 11px; }
+.le-tan-tiep-nhan .le-tan-lich-gio { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.le-tan-tiep-nhan .le-tan-khung-gio-da-chon { -fx-background-color: #087E91; }
+.le-tan-tiep-nhan .le-tan-khung-gio-da-chon .label { -fx-text-fill: white; }
+.le-tan-tiep-nhan .le-tan-buoc-thanh { -fx-padding: 16; -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; }

@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="danhSachPhanCongTrang" stylesheets="@/css/quan-ly-phan-cong.css" styleClass="danh-sach-phan-cong-trang" spacing="20" minWidth="960" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblDanhSachPhanCongTieuDe" text="Lịch &amp; Phân công" styleClass="phan-cong-tieu-de"/>
+            <Label fx:id="lblDanhSachPhanCongPhuDe" text="Sắp xếp ca làm việc theo nhân viên, ngày và phòng khám" wrapText="true" minHeight="-Infinity" styleClass="phan-cong-phu-de"/>
+        </VBox>
+        <Button fx:id="btnTaoPhanCong" text="Phân công ca" graphicTextGap="8" styleClass="chinh-nut" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/add-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <VBox styleClass="phan-cong-the" minWidth="0">
+        <!-- Binding FXML theo tab đang chọn: tránh TabPane lấy chiều cao lớn nhất
+             của cả hai tab và chừa khoảng trắng thừa dưới lịch tuần.
+             66px gồm thanh tab 50px và padding nội dung 16px của CSS. -->
+        <TabPane fx:id="phanCongCacTab" tabClosingPolicy="UNAVAILABLE" minWidth="0" styleClass="phan-cong-cac-tab" prefHeight="${phanCongCacTab.selectionModel.selectedItem.content.prefHeight + 66}" minHeight="-Infinity" maxHeight="-Infinity">
+            <tabs>
+                <Tab fx:id="tabLichLamViec" text="Lịch làm việc">
+                    <content>
+                        <VBox spacing="16" minWidth="0" prefHeight="526">
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <ComboBox fx:id="cboLichLamViecNhanVien" minWidth="0" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="phan-cong-bo-loc" accessibleText="Tất cả nhân viên" promptText="Tất cả nhân viên" value="Tất cả nhân viên">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Tất cả nhân viên"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <ComboBox fx:id="cboLichLamViecChucVu" minWidth="220" prefWidth="220" maxWidth="220" styleClass="phan-cong-bo-loc" accessibleText="Tất cả chức vụ" promptText="Tất cả chức vụ" value="Tất cả chức vụ">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Tất cả chức vụ"/>
+                                            <String fx:value="Quản lý"/>
+                                            <String fx:value="Nha sĩ"/>
+                                            <String fx:value="Lễ tân"/>
+                                            <String fx:value="Y tá"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <ComboBox fx:id="cboLichLamViecPhong" minWidth="220" prefWidth="220" maxWidth="220" styleClass="phan-cong-bo-loc" accessibleText="Tất cả phòng" promptText="Tất cả phòng" value="Tất cả phòng">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Tất cả phòng"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                            </HBox>
+                            <VBox spacing="12">
+                                <HBox spacing="12" alignment="CENTER_LEFT">
+                                    <Button fx:id="btnLichLamViecTruocTuan" text="‹" accessibleText="Tuần trước" styleClass="phu-nut" disable="true"/>
+                                    <Label fx:id="lblLichLamViecTuanKhoang" text="—" alignment="CENTER_LEFT" styleClass="phan-cong-tuan-khoang"/>
+                                    <Button fx:id="btnLichLamViecTiepTuan" text="›" accessibleText="Tuần tiếp theo" styleClass="phu-nut" disable="true"/>
+                                    <Button fx:id="btnLichLamViecHomNay" text="Hôm nay" styleClass="phu-nut" disable="true"/>
+                                </HBox>
+                                <GridPane fx:id="tuanLich" hgap="8" minHeight="360" prefHeight="360" maxHeight="360">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                        <ColumnConstraints percentWidth="14.285714" minWidth="0" fillWidth="true"/>
+                                    </columnConstraints>
+                                    <VBox fx:id="ngayLamThuHai" GridPane.columnIndex="0" spacing="18" minWidth="0" minHeight="360" styleClass="lich-ngay-lam">
+                                        <Label fx:id="lblThuHaiNgay" text="—" styleClass="lich-ngay-lam-tieu-de"/>
+                                        <Button fx:id="btnThuHaiSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Chưa tải dữ liệu" styleClass="lich-ca, sang-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="btnThuHaiChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Mon · 13:30–17:00 · Điều trị · P01" styleClass="lich-ca, chieu-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                    </VBox>
+                                    <VBox fx:id="ngayLamThuBa" GridPane.columnIndex="1" spacing="18" minWidth="0" minHeight="360" styleClass="lich-ngay-lam">
+                                        <Label fx:id="lblThuBaNgay" text="—" styleClass="lich-ngay-lam-tieu-de"/>
+                                        <Button fx:id="btnThuBaSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Chưa tải dữ liệu" styleClass="lich-ca, sang-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="btnThuBaChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Tue · 13:30–17:00 · Điều trị · P01" styleClass="lich-ca, chieu-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                    </VBox>
+                                    <VBox fx:id="ngayLamThuTu" GridPane.columnIndex="2" spacing="18" minWidth="0" minHeight="360" styleClass="lich-ngay-lam">
+                                        <Label fx:id="lblThuTuNgay" text="—" styleClass="lich-ngay-lam-tieu-de"/>
+                                        <Button fx:id="btnThuTuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Chưa tải dữ liệu" styleClass="lich-ca, sang-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                    </VBox>
+                                    <VBox fx:id="ngayLamThu" GridPane.columnIndex="3" spacing="18" minWidth="0" minHeight="360" styleClass="lich-ngay-lam">
+                                        <Label fx:id="lblThuNgay" text="—" styleClass="lich-ngay-lam-tieu-de"/>
+                                        <Button fx:id="btnThuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Chưa tải dữ liệu" styleClass="lich-ca, sang-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="btnThuChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Thu · 13:30–17:00 · Điều trị · P01" styleClass="lich-ca, chieu-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                    </VBox>
+                                    <VBox fx:id="ngayLamThuSau" GridPane.columnIndex="4" spacing="18" minWidth="0" minHeight="360" styleClass="lich-ngay-lam">
+                                        <Label fx:id="lblThuSauNgay" text="—" styleClass="lich-ngay-lam-tieu-de"/>
+                                        <Button fx:id="btnThuSauSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Chưa tải dữ liệu" styleClass="lich-ca, sang-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="btnThuSauChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Fri · 13:30–17:00 · Điều trị · P01" styleClass="lich-ca, chieu-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                    </VBox>
+                                    <VBox fx:id="ngayLamThuBay" GridPane.columnIndex="5" spacing="18" minWidth="0" minHeight="360" styleClass="lich-ngay-lam">
+                                        <Label fx:id="lblThuBayNgay" text="—" styleClass="lich-ngay-lam-tieu-de"/>
+                                        <Button fx:id="btnThuBaySang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Chưa tải dữ liệu" styleClass="lich-ca, sang-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="btnThuBayChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" accessibleText="Sat · 13:30–17:00 · Điều trị · P01" styleClass="lich-ca, chieu-ca" disable="true" visible="false" managed="false">
+                                            <graphic>
+                                                <VBox spacing="6" minWidth="0" prefWidth="160">
+                                                    <Label text="—" styleClass="lich-ca-gio"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-cong-viec"/>
+                                                    <Label text="—" wrapText="true" minHeight="-Infinity" styleClass="lich-ca-phong"/>
+                                                </VBox>
+                                            </graphic>
+                                        </Button>
+                                    </VBox>
+                                    <VBox fx:id="ngayLamChuNhat" GridPane.columnIndex="6" spacing="18" minWidth="0" minHeight="360" styleClass="lich-ngay-lam">
+                                        <Label fx:id="lblChuNhatNgay" text="—" styleClass="lich-ngay-lam-tieu-de"/>
+                                        <Label text="Chưa tải dữ liệu" styleClass="phan-cong-chu-thich" wrapText="true"/>
+                                    </VBox>
+                                </GridPane>
+                            </VBox>
+                            <Label fx:id="lblPhanCongCacQuyTac" text="—" wrapText="true" minHeight="-Infinity" maxWidth="Infinity" styleClass="phan-cong-quy-tac-ghi-chu"/>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabDanhSachPhanCong" text="Phân công">
+                    <content>
+                        <VBox spacing="16" minWidth="0" prefHeight="655">
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <TextField fx:id="txtPhanCongTimKiem" promptText="Tìm mã NV / họ tên / SĐT" accessibleText="Tìm phân công theo mã nhân viên, họ tên hoặc số điện thoại" HBox.hgrow="ALWAYS" minWidth="0" styleClass="phan-cong-tim-kiem"/>
+                                <ComboBox fx:id="cboPhanCongChucVu" minWidth="220" prefWidth="220" maxWidth="220" styleClass="phan-cong-bo-loc" accessibleText="Tất cả chức vụ" promptText="Tất cả chức vụ" value="Tất cả chức vụ">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Tất cả chức vụ"/>
+                                            <String fx:value="Quản lý"/>
+                                            <String fx:value="Nha sĩ"/>
+                                            <String fx:value="Lễ tân"/>
+                                            <String fx:value="Y tá"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <ComboBox fx:id="cboPhanCongPhong" minWidth="220" prefWidth="220" maxWidth="220" styleClass="phan-cong-bo-loc" accessibleText="Tất cả phòng" promptText="Tất cả phòng" value="Tất cả phòng">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Tất cả phòng"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                            </HBox>
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <Button fx:id="btnMaTranTruocTuan" text="‹" accessibleText="Tuần trước" styleClass="phu-nut" disable="true"/>
+                                <Label fx:id="lblMaTranTuanKhoang" text="—" alignment="CENTER_LEFT" styleClass="phan-cong-tuan-khoang"/>
+                                <Button fx:id="btnMaTranTiepTuan" text="›" accessibleText="Tuần tiếp theo" styleClass="phu-nut" disable="true"/>
+                                <Button fx:id="btnMaTranHomNay" text="Hôm nay" styleClass="phu-nut" disable="true"/>
+                            </HBox>
+                            <HBox fx:id="phanCongMaTranBoCuc" spacing="15" alignment="TOP_LEFT">
+                                <!-- Ma trận cuộn ngang riêng khi cửa sổ hẹp; không thu nhỏ card/nhãn. -->
+                                <ScrollPane fx:id="maTranCuon" fitToWidth="true" fitToHeight="false" hbarPolicy="AS_NEEDED" vbarPolicy="NEVER" hvalue="0" HBox.hgrow="ALWAYS" minWidth="0" prefWidth="0" minHeight="510" prefHeight="510" maxHeight="510" styleClass="phan-cong-ma-tran-cuon">
+                                    <content>
+                                        <GridPane fx:id="phanCongMaTran" minWidth="917" styleClass="phan-cong-ma-tran">
+                                            <columnConstraints>
+                                                <ColumnConstraints minWidth="160" prefWidth="160" maxWidth="160"/>
+                                                <ColumnConstraints minWidth="90" prefWidth="90" maxWidth="90"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                                <ColumnConstraints minWidth="95" prefWidth="95" hgrow="ALWAYS" fillWidth="true"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="42" prefHeight="42"/>
+                                                <!-- Hai card 44px + gap 4px + padding/viền cần 109px.
+                                                     Hàng 112px đồng đều để mọi ô nằm đúng trong hàng. -->
+                                            </rowConstraints>
+                                            <Label fx:id="lblMaTranNhanVienTieuDeCot" text="Nhân viên" GridPane.columnIndex="0" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER_LEFT" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranChucVuTieuDeCot" text="Chức vụ" GridPane.columnIndex="1" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER_LEFT" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranThuHaiTieuDeCot" text="T2" GridPane.columnIndex="2" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranThuBaTieuDeCot" text="T3" GridPane.columnIndex="3" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranThuTuTieuDeCot" text="T4" GridPane.columnIndex="4" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranThuTieuDeCot" text="T5" GridPane.columnIndex="5" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranThuSauTieuDeCot" text="T6" GridPane.columnIndex="6" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranThuBayTieuDeCot" text="T7" GridPane.columnIndex="7" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="ma-tran-tieu-de-cot"/>
+                                            <Label fx:id="lblMaTranChuNhatTieuDeCot" text="CN" GridPane.columnIndex="8" minWidth="0" maxWidth="Infinity" minHeight="42" alignment="CENTER" styleClass="ma-tran-tieu-de-cot"/>
+                                            <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="ma-tran-nhan-vien-cell" visible="false" managed="false">
+                                                <Label fx:id="lblNv002Ten" text="—" wrapText="true" styleClass="ma-tran-nhan-vien-ten"/>
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="ma-tran-chuc-vu-cell" visible="false" managed="false">
+                                                <Label text="Nha sĩ" styleClass="phan-cong-chu-thich"/>
+                                            </StackPane>
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv002ThuHaiSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv002ThuHaiChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv002ThuBaSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv002ThuBaChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv002ThuTuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv002ThuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv002ThuChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv002ThuSauSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv002ThuSauChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv002ThuBaySang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv002ThuBayChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="1" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="ma-tran-nhan-vien-cell" visible="false" managed="false">
+                                                <Label fx:id="lblNv003Ten" text="—" wrapText="true" styleClass="ma-tran-nhan-vien-ten"/>
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <StackPane GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="ma-tran-chuc-vu-cell" visible="false" managed="false">
+                                                <Label text="Nha sĩ" styleClass="phan-cong-chu-thich"/>
+                                            </StackPane>
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv003ThuHaiSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv003ThuBaSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv003ThuBaChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv003ThuTuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <!-- Không có ca sáng: giữ ô trống 44px để ca chiều cùng hàng với các ca chiều khác. -->
+                                                <Region minHeight="44" prefHeight="44" maxHeight="44"/>
+                                                <Button fx:id="btnNv003ThuChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv003ThuSauSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv003ThuBaySang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="2" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="ma-tran-nhan-vien-cell" visible="false" managed="false">
+                                                <Label fx:id="lblNv004Ten" text="—" wrapText="true" styleClass="ma-tran-nhan-vien-ten"/>
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <StackPane GridPane.rowIndex="3" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="ma-tran-chuc-vu-cell" visible="false" managed="false">
+                                                <Label text="Lễ tân" styleClass="phan-cong-chu-thich"/>
+                                            </StackPane>
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv004ThuHaiSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv004ThuBaSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv004ThuTuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv004ThuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv004ThuSauSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv004ThuBaySang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="3" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="0" spacing="2" alignment="TOP_LEFT" styleClass="ma-tran-nhan-vien-cell" visible="false" managed="false">
+                                                <Label fx:id="lblNv005Ten" text="—" wrapText="true" styleClass="ma-tran-nhan-vien-ten"/>
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <StackPane GridPane.rowIndex="4" GridPane.columnIndex="1" alignment="TOP_LEFT" styleClass="ma-tran-chuc-vu-cell" visible="false" managed="false">
+                                                <Label text="Y tá" styleClass="phan-cong-chu-thich"/>
+                                            </StackPane>
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="2" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv005ThuHaiSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv005ThuHaiChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="3" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv005ThuBaSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="4" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv005ThuTuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="5" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv005ThuSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="6" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv005ThuSauSang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="btnNv005ThuSauChieu" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-chieu" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="7" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Button fx:id="btnNv005ThuBaySang" minWidth="0" maxWidth="Infinity" contentDisplay="GRAPHIC_ONLY" accessibleText="Chưa tải dữ liệu" styleClass="ma-tran-ca, ma-tran-sang" disable="true" visible="false" managed="false">
+                                                    <graphic>
+                                                        <VBox spacing="2" minWidth="0" prefWidth="92">
+                                                            <Label text="—" styleClass="ma-tran-ca-tieu-de"/>
+                                                            <Label text="—" styleClass="ma-tran-ca-phong"/>
+                                                        </VBox>
+                                                    </graphic>
+                                                </Button>
+                                            </VBox>
+                                            <VBox GridPane.rowIndex="4" GridPane.columnIndex="8" alignment="TOP_LEFT" spacing="4" minWidth="0" styleClass="ma-tran-ngay-lam-cell" visible="false" managed="false">
+                                                <Label text="—" styleClass="phan-cong-chu-thich"/>
+                                            </VBox>
+                                            <Label text="Chưa tải dữ liệu phân công" wrapText="true" styleClass="trong-du-lieu-ghi-chu" GridPane.rowIndex="1" GridPane.columnSpan="9"/>
+                                        </GridPane>
+                                    </content>
+                                </ScrollPane>
+                                <!-- Ẩn cả visible/managed: bảng dùng hết chiều ngang khi chưa chọn.
+                                     Controller sau này điền thông tin ca rồi hiện cả hai thuộc tính;
+                                     bỏ chọn thì ẩn lại. Chưa gắn handler nhấn card bằng Java. -->
+                                <VBox fx:id="phanCongPhanChiTietKhungGio" minWidth="222" prefWidth="222" maxWidth="222" maxHeight="-Infinity" visible="false" managed="false">
+                                    <fx:include fx:id="phanCongDaChonPhanChiTiet" source="chi-tiet-phan-cong.fxml"/>
+                                </VBox>
+                            </HBox>
+                            <HBox spacing="16" alignment="CENTER_LEFT">
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Region minWidth="12" prefWidth="12" maxWidth="12" minHeight="12" prefHeight="12" maxHeight="12" styleClass="phan-cong-chu-giai-sang"/>
+                                    <Label text="Ca sáng 08:00–12:00" styleClass="phan-cong-chu-thich"/>
+                                </HBox>
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Region minWidth="12" prefWidth="12" maxWidth="12" minHeight="12" prefHeight="12" maxHeight="12" styleClass="phan-cong-chu-giai-chieu"/>
+                                    <Label text="Ca chiều 13:30–17:00" styleClass="phan-cong-chu-thich"/>
+                                </HBox>
+                                <HBox spacing="6" alignment="CENTER_LEFT">
+                                    <Region minWidth="12" prefWidth="12" maxWidth="12" minHeight="12" prefHeight="12" maxHeight="12" styleClass="phan-cong-chu-giai-da-chon"/>
+                                    <Label text="Đang chọn" styleClass="phan-cong-chu-thich"/>
+                                </HBox>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </VBox>
+</VBox>

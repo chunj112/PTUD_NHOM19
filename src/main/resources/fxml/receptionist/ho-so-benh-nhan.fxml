@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="benhNhanHoSo" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-benh-nhan.css" styleClass="le-tan-trang, le-tan-danh-sach-benh-nhan" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTrangTieuDe" text="TRA CỨU BỆNH NHÂN" styleClass="le-tan-tieu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTrangPhuDe" text="Tìm hồ sơ theo mã bệnh nhân, họ tên hoặc số điện thoại" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label text="VA" styleClass="le-tan-benh-nhan-anh-dai-dien" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblDaChonBenhNhanTen" text="—" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="btnThayDoiBenhNhan" text="Đổi bệnh nhân" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+        </HBox>
+        <Label fx:id="lblDaChonBenhNhanTomTat" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <TabPane fx:id="benhNhanHoSoCacTab" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${benhNhanHoSoCacTab.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="le-tan-cac-tab">
+        <tabs>
+            <Tab fx:id="tabBenhNhanThongTin" text="Thông tin">
+                <content>
+                    <fx:include fx:id="tabBenhNhanThongTinNoiDung" source="thong-tin-benh-nhan.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabBenhNhanLichSu" text="Lịch sử khám">
+                <content>
+                    <fx:include fx:id="tabBenhNhanLichSuNoiDung" source="lich-su-kham-benh-nhan.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabBenhNhanDanhSachHoaDon" text="Hoá đơn">
+                <content>
+                    <fx:include fx:id="tabBenhNhanDanhSachHoaDonNoiDung" source="hoa-don-benh-nhan.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

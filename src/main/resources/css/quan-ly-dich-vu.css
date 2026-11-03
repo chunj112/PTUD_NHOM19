@@ -1,0 +1,64 @@
+/* UC006 list + detail, Figma ROPzygiAnJyl1VudYGf0sm, 15:511 / 33:5265 / 33:5326.
+   Mọi selector chỉ áp dụng trong .danh-muc-dich-vu-trang. Không đổi theme/UI đã hoàn thiện. */
+.danh-muc-dich-vu-trang { -fx-background-color: transparent; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-tieu-de { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-phu-de { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-chu-thich { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-the {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-the-tieu-de { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-tim-kiem, .danh-muc-dich-vu-trang .danh-muc-dich-vu-bo-loc {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-max-height: 42;
+    -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A;
+}
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-tim-kiem { -fx-padding: 10 12; -fx-prompt-text-fill: #617584; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-tim-kiem:focused, .danh-muc-dich-vu-trang .danh-muc-dich-vu-bo-loc:focused,
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bo-loc:showing { -fx-border-color: #087E91; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bo-loc > .list-cell { -fx-padding: 10 12; -fx-text-fill: #172B3A; -fx-background-color: transparent; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bo-loc > .arrow-button { -fx-padding: 0 12 0 0; -fx-background-color: transparent; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bo-loc > .arrow-button > .arrow { -fx-background-color: #617584; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang-vien {
+    -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+}
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang { -fx-background-color: white; -fx-background-insets: 0; -fx-border-width: 0; -fx-padding: 0; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .column-header-background,
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .column-header,
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .filler { -fx-background-color: #F4F7FA; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .column-header { -fx-min-height: 38; -fx-pref-height: 38; -fx-border-width: 0; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .column-header .label {
+    -fx-padding: 4 8; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584;
+    -fx-alignment: CENTER_LEFT; -fx-wrap-text: true;
+}
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .table-row-cell { -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .table-row-cell:filled:hover { -fx-background-color: #F4FAFB; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .table-row-cell:filled:selected {
+    -fx-background-color: #087E91, #E8F5F6; -fx-background-insets: 0, 0 0 0 3;
+}
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .table-cell {
+    -fx-padding: 12; -fx-font-size: 13px; -fx-text-fill: #172B3A; -fx-alignment: TOP_LEFT; -fx-wrap-text: true;
+    -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang .table-cell:empty { -fx-border-width: 0; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-tinh-trang-hoat-dong { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #21764F; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-bang-chan { -fx-padding: 0 12; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-trang-nut { -fx-padding: 2 6; -fx-background-color: transparent; -fx-background-radius: 4; -fx-text-fill: #172B3A; -fx-font-size: 14px; }
+.danh-muc-dich-vu-trang .danh-muc-dich-vu-trang-nut:focused { -fx-border-color: #087E91; -fx-border-radius: 4; }
+
+/* Panel 356px bên phải; tự preview được khi nạp service-details.fxml riêng.
+   Không thay style của Nhân sự, Phân công, Báo cáo hoặc theme chung. */
+.dich-vu-phan-chi-tiet {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.dich-vu-phan-chi-tiet .dich-vu-chi-tiet-tom-tat { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.dich-vu-phan-chi-tiet .dich-vu-chi-tiet-nhan {
+    -fx-padding: 4 8; -fx-background-color: #EDF7F1; -fx-background-radius: 6;
+    -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #21764F;
+}
+.dich-vu-phan-chi-tiet .dich-vu-chi-tiet-gia-tri { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.dich-vu-phan-chi-tiet .dich-vu-chi-tiet-duong-phan-cach { -fx-background-color: #DCE4EA; }

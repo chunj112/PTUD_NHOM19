@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="danhMucDichVuTrang" fx:controller="iuh.se.nhom19.view.manager.QuanLyDichVuController" stylesheets="@/css/quan-ly-dich-vu.css" styleClass="danh-muc-dich-vu-trang" spacing="20" minWidth="960" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblDanhMucDichVuTieuDe" text="Dịch vụ" styleClass="danh-muc-dich-vu-tieu-de"/>
+            <Label fx:id="lblDanhMucDichVuPhuDe" text="Danh mục và bảng giá sử dụng trong chỉ định điều trị" wrapText="true" minHeight="-Infinity" styleClass="danh-muc-dich-vu-phu-de"/>
+        </VBox>
+        <Button fx:id="btnThemDichVu" text="Thêm dịch vụ" graphicTextGap="8" styleClass="chinh-nut" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/add-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtDichVuTimKiem" promptText="Tìm mã / tên dịch vụ" minWidth="0" HBox.hgrow="ALWAYS" accessibleText="Tìm dịch vụ theo mã hoặc tên" styleClass="danh-muc-dich-vu-tim-kiem"/>
+        <ComboBox fx:id="cboDichVuNhomBoLoc" minWidth="200" prefWidth="200" maxWidth="200" accessibleText="Lọc nhóm dịch vụ, dữ liệu mẫu" styleClass="danh-muc-dich-vu-bo-loc" promptText="Tất cả nhóm dịch vụ" value="Tất cả nhóm dịch vụ">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả nhóm dịch vụ"/>
+                    <String fx:value="Khám"/>
+                    <String fx:value="Phục hồi"/>
+                    <String fx:value="Dự phòng"/>
+                    <String fx:value="Phẫu thuật"/>
+                    <String fx:value="Nội nha"/>
+                    <String fx:value="Thẩm mỹ"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="cboDichVuTinhTrangBoLoc" minWidth="180" prefWidth="180" maxWidth="180" accessibleText="Lọc trạng thái sử dụng dịch vụ" styleClass="danh-muc-dich-vu-bo-loc" promptText="Chọn dịch vụ">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Đang hoạt động"/>
+                    <String fx:value="Ngừng hoạt động"/>
+                    <String fx:value="Tất cả trạng thái"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+    <!-- Chưa chọn: bảng toàn chiều ngang theo 15:511.
+         Khi Khang chọn dịch vụ: cập nhật Label, bật visible/managed của panel bên phải.
+         Không có handler Java trong lượt UI này. -->
+    <HBox fx:id="danhMucDichVuNoiDung" spacing="20" alignment="TOP_LEFT" minWidth="0">
+        <VBox fx:id="danhMucDichVuDanhSachThe" spacing="16" minWidth="0" styleClass="danh-muc-dich-vu-the" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblDanhMucDichVuDanhSachTieuDe" text="Danh mục dịch vụ" styleClass="danh-muc-dich-vu-the-tieu-de"/>
+            <Label fx:id="lblDanhMucDichVuTienTeGoiY" text="Đơn giá tính bằng VNĐ" styleClass="danh-muc-dich-vu-chu-thich"/>
+            <VBox styleClass="danh-muc-dich-vu-bang-vien">
+                <TableView fx:id="tblDanhMucDichVu" editable="false" fixedCellSize="72" minHeight="472" prefHeight="472" maxHeight="472" styleClass="danh-muc-dich-vu-bang">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                    </columnResizePolicy>
+                    <placeholder>
+                        <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="trong-du-lieu-ghi-chu"/>
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="colDichVuMa" text="Mã" minWidth="60" prefWidth="155" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="serviceId"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colDichVuTen" text="Tên" minWidth="125" prefWidth="260" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="name"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colDichVuNhom" text="Nhóm dịch vụ" minWidth="98" prefWidth="211" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="group"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colDichVuDonVi" text="Đơn vị" minWidth="60" prefWidth="155" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="unit"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colDichVuDonGia" text="Giá" minWidth="90" prefWidth="193" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="price"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colDichVuTinhTrang" text="Trạng thái" minWidth="110" prefWidth="135" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="status"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                <HBox spacing="6" alignment="CENTER_LEFT" minHeight="38" prefHeight="38" styleClass="danh-muc-dich-vu-bang-chan">
+                    <Label fx:id="lblDanhMucDichVuHoSoSoLuong" text="Chưa tải dữ liệu" styleClass="danh-muc-dich-vu-chu-thich"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnDanhMucDichVuTruocTrang" text="‹" disable="true" accessibleText="Trang dịch vụ trước" styleClass="danh-muc-dich-vu-trang-nut"/>
+                    <Label fx:id="lblDanhMucDichVuHienTaiTrang" text="—" styleClass="danh-muc-dich-vu-chu-thich"/>
+                    <Button fx:id="btnDanhMucDichVuTiepTrang" text="›" disable="true" accessibleText="Trang dịch vụ tiếp theo" styleClass="danh-muc-dich-vu-trang-nut"/>
+                </HBox>
+            </VBox>
+        </VBox>
+        <VBox fx:id="dichVuPhanChiTietKhung" visible="false" managed="false" minWidth="356" prefWidth="356" maxWidth="356">
+            <fx:include fx:id="daChonDichVuPhanChiTiet" source="chi-tiet-dich-vu.fxml"/>
+        </VBox>
+    </HBox>
+</VBox>

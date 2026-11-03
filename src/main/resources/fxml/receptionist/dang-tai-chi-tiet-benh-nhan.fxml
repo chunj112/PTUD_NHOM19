@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="benhNhanDangTaiChiTiet" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-benh-nhan.css" styleClass="le-tan-trang, le-tan-danh-sach-benh-nhan" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="410">
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <Label text="Thông tin bệnh nhân" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
+        <Label text="Đang tải dữ liệu, vui lòng chờ…" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+        </HBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+        </HBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+        </HBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Region minWidth="140" prefWidth="140" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+            <Region HBox.hgrow="ALWAYS" minHeight="44" prefHeight="44" styleClass="le-tan-khung-dang-tai"/>
+        </HBox>
+    </VBox>
+</VBox>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- UC001: chỉ đăng nhập bằng tài khoản SQL Server; không có chế độ chọn Role. -->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="gocDangNhap" fx:controller="iuh.se.nhom19.view.common.DangNhapController" styleClass="khung-ung-dung, dang-nhap-khung-ung-dung" stylesheets="@/css/chu-de.css, @/css/dang-nhap.css">
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <ImageView fitWidth="40" fitHeight="40" preserveRatio="true" accessibleText="Logo DentaFlow">
+                <image>
+                    <Image url="@/images/dentaflow-logo.png"/>
+                </image>
+            </ImageView>
+            <Label text="DentaFlow · Hệ thống quản lý phòng khám" styleClass="thuong-hieu-ten" wrapText="true"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Ứng dụng nội bộ" styleClass="mo"/>
+        </HBox>
+    </top>
+    <center>
+                <StackPane alignment="CENTER" styleClass="dang-nhap-vung-hien-thi">
+                    <HBox maxWidth="1056" minWidth="0" styleClass="dang-nhap-the" alignment="TOP_LEFT">
+                        <VBox prefWidth="500" minWidth="320" minHeight="600" spacing="28" HBox.hgrow="ALWAYS" styleClass="dang-nhap-gioi-thieu">
+                            <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                                <image>
+                                    <Image url="@/images/shell/login-shield.png"/>
+                                </image>
+                            </ImageView>
+                            <Label text="HỆ THỐNG QUẢN LÝ PHÒNG KHÁM NHA KHOA" wrapText="true" styleClass="dang-nhap-tieu-de-lon"/>
+                            <Label text="Một không gian làm việc thống nhất cho tiếp nhận, khám bệnh và vận hành phòng khám." wrapText="true" styleClass="noi-dung-chinh-van-ban"/>
+                            <Separator/>
+                            <VBox spacing="20">
+                                <HBox spacing="12" alignment="CENTER_LEFT">
+                                    <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                        <image>
+                                            <Image url="@/images/shell/login-calendar.png"/>
+                                        </image>
+                                    </ImageView>
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Tiếp nhận &amp; lịch hẹn" styleClass="danh-tinh-ten"/>
+                                        <Label text="Sắp xếp lịch, tiếp nhận đúng quy trình." wrapText="true" styleClass="mo"/>
+                                    </VBox>
+                                </HBox>
+                                <HBox spacing="12" alignment="CENTER_LEFT">
+                                    <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                        <image>
+                                            <Image url="@/images/shell/login-exam.png"/>
+                                        </image>
+                                    </ImageView>
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Khám &amp; điều trị" styleClass="danh-tinh-ten"/>
+                                        <Label text="Hồ sơ, dịch vụ và đơn thuốc cùng một ca khám." wrapText="true" styleClass="mo"/>
+                                    </VBox>
+                                </HBox>
+                                <HBox spacing="12" alignment="CENTER_LEFT">
+                                    <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                        <image>
+                                            <Image url="@/images/shell/login-operations.png"/>
+                                        </image>
+                                    </ImageView>
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Quản lý vận hành" styleClass="danh-tinh-ten"/>
+                                        <Label text="Nhân sự, phân công và báo cáo." wrapText="true" styleClass="mo"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                            <Label text="Quản lý phòng khám theo quy trình thống nhất." wrapText="true" styleClass="mo"/>
+                        </VBox>
+                        <VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="556" minWidth="360" minHeight="600" spacing="20" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" styleClass="dang-nhap-bieu-mau">
+                            <VBox spacing="6">
+                                <Label fx:id="lblTieuDeDangNhap" text="Đăng nhập" styleClass="trang-tieu-de"/>
+                                <Label fx:id="lblMoTaDangNhap" text="Sử dụng tài khoản nhân viên của phòng khám." wrapText="true" styleClass="noi-dung-chinh-van-ban"/>
+                            </VBox>
+                            <VBox fx:id="vungDangNhap" spacing="16">
+                                <VBox spacing="8">
+                                    <Label text="Tên đăng nhập" styleClass="danh-tinh-ten"/>
+                                    <TextField fx:id="txtTenDangNhap" promptText="Nhập tên đăng nhập" maxWidth="Infinity" styleClass="dang-nhap-nhap"/>
+                                </VBox>
+                                <VBox spacing="8">
+                                    <Label text="Mật khẩu" styleClass="danh-tinh-ten"/>
+                                    <StackPane>
+                                        <PasswordField fx:id="txtMatKhau" promptText="Nhập mật khẩu" maxWidth="Infinity" onAction="#xuLyDangNhap" styleClass="dang-nhap-nhap"/>
+                                        <TextField fx:id="txtMatKhauHien" promptText="Nhập mật khẩu" visible="false" managed="false" maxWidth="Infinity" onAction="#xuLyDangNhap" styleClass="dang-nhap-nhap" accessibleText="Mật khẩu đang hiển thị"/>
+                                    </StackPane>
+                                    <CheckBox fx:id="chkHienMatKhau" text="Hiển thị mật khẩu" onAction="#doiHienThiMatKhau"/>
+                                </VBox>
+                                <Button fx:id="btnDangNhap" text="Đăng nhập" defaultButton="true" maxWidth="Infinity" onAction="#xuLyDangNhap" styleClass="chinh-nut"/>
+                                <HBox fx:id="vungDangXuLy" spacing="8" alignment="CENTER_LEFT" visible="false" managed="false">
+                                    <ProgressIndicator prefWidth="20" prefHeight="20" maxWidth="20" maxHeight="20"/>
+                                    <Label text="Đang đăng nhập…" styleClass="mo"/>
+                                </HBox>
+                            </VBox>
+                            <Label fx:id="lblLoiDangNhap" text="" wrapText="true" minHeight="-Infinity" visible="false" managed="false" maxWidth="Infinity" styleClass="loi-dai-thong-bao"/>
+                            <Label text="Quyền truy cập được xác định theo chức vụ của nhân viên." wrapText="true" styleClass="mo"/>
+                        </VBox>
+                    </HBox>
+                </StackPane>
+    </center>
+    <bottom>
+        <Label text="DentaFlow · IUH · Nhóm 19" alignment="CENTER" maxWidth="Infinity" wrapText="true" styleClass="mo"/>
+    </bottom>
+</BorderPane>

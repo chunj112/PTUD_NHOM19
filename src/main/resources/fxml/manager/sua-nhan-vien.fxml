@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="suaNhanSuBieuMau" stylesheets="@/css/chu-de.css, @/css/bieu-mau-nhan-vien.css" styleClass="bieu-mau-nhan-vien" spacing="16" minWidth="680" prefWidth="680" maxWidth="680" maxHeight="-Infinity">
+    <HBox alignment="CENTER_LEFT" minHeight="32" prefHeight="32" maxHeight="32">
+        <Label fx:id="lblNhanSuBieuMauTieuDe" text="Sửa nhân viên" styleClass="nhan-su-bieu-mau-tieu-de" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnDongNhanSuBieuMau" minWidth="32" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng sửa nhân viên" styleClass="nhan-su-bieu-mau-dong" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/close-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <HBox spacing="12">
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="nhan-su-bieu-mau-truong, nhan-su-bieu-mau-chi-doc">
+            <Label text="Mã nhân viên · Chỉ đọc" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+            <TextField fx:id="txtNhanSuMa" text="" editable="false" focusTraversable="false" accessibleText="Mã nhân viên chỉ đọc" styleClass="nhan-su-bieu-mau-nhap"/>
+        </VBox>
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="nhan-su-bieu-mau-truong">
+            <Label text="Chức vụ *" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+            <ComboBox fx:id="cboNhanSuChucVu" maxWidth="Infinity" styleClass="nhan-su-bieu-mau-lua-chon" promptText="Chọn thông tin">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Quản lý"/>
+                        <String fx:value="NHASI · Nha sĩ"/>
+                        <String fx:value="Lễ tân"/>
+                        <String fx:value="Y tá"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+    </HBox>
+    <VBox spacing="0" styleClass="nhan-su-bieu-mau-truong">
+        <Label text="Họ tên *" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+        <TextField fx:id="txtNhanSuDayDuTen" text="" styleClass="nhan-su-bieu-mau-nhap"/>
+    </VBox>
+    <HBox spacing="12">
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="nhan-su-bieu-mau-truong">
+            <Label text="Ngày sinh" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+            <DatePicker fx:id="dpNhanSuSinhNgay" promptText="dd/MM/yyyy" maxWidth="Infinity" styleClass="nhan-su-bieu-mau-ngay">
+                <editor text=""/>
+            </DatePicker>
+        </VBox>
+        <VBox spacing="0" prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="nhan-su-bieu-mau-truong">
+            <Label text="Giới tính" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+            <ComboBox fx:id="cboNhanSuGioiTinh" maxWidth="Infinity" styleClass="nhan-su-bieu-mau-lua-chon" promptText="Chọn giới tính">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Nam"/>
+                        <String fx:value="Nữ"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+    </HBox>
+    <VBox spacing="0" styleClass="nhan-su-bieu-mau-truong">
+        <Label text="Điện thoại *" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+        <TextField fx:id="txtNhanSuSoDienThoai" text="" styleClass="nhan-su-bieu-mau-nhap"/>
+    </VBox>
+    <VBox spacing="0" styleClass="nhan-su-bieu-mau-truong">
+        <Label text="Email" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+        <TextField fx:id="txtNhanSuEmail" text="" styleClass="nhan-su-bieu-mau-nhap"/>
+    </VBox>
+    <VBox spacing="0" styleClass="nhan-su-bieu-mau-truong">
+        <Label text="Địa chỉ" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+        <TextField fx:id="txtNhanSuDiaChi" text="" styleClass="nhan-su-bieu-mau-nhap"/>
+    </VBox>
+    <VBox spacing="0" styleClass="nhan-su-bieu-mau-truong">
+        <Label text="Trạng thái *" styleClass="nhan-su-bieu-mau-truong-nhan"/>
+        <ComboBox fx:id="cboNhanSuTinhTrang" maxWidth="Infinity" styleClass="nhan-su-bieu-mau-lua-chon" promptText="Chọn trạng thái">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Hoạt động"/>
+                    <String fx:value="Ngừng hoạt động"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </VBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnHuyNhanSuBieuMau" text="Hủy" cancelButton="true" styleClass="phu-nut" disable="true"/>
+        <Button fx:id="btnLuuNhanSu" text="Lưu thay đổi" styleClass="chinh-nut" disable="true"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="suaPhanCongBieuMau" stylesheets="@/css/chu-de.css, @/css/bieu-mau-phan-cong.css" styleClass="phan-cong-bieu-mau" spacing="16" minWidth="480" prefWidth="480" maxWidth="480" maxHeight="-Infinity">
+    <Label fx:id="lblPhanCongBieuMauTieuDe" text="Sửa phân công" styleClass="phan-cong-bieu-mau-tieu-de"/>
+    <VBox styleClass="phan-cong-bieu-mau-truong">
+        <Label text="Nhân viên *" styleClass="phan-cong-truong-chu-thich"/>
+        <ComboBox fx:id="cboPhanCongNhanVien" maxWidth="Infinity" styleClass="phan-cong-bieu-mau-lua-chon" accessibleText="Nhân viên được phân công" promptText="Chọn nhân viên">
+            <items>
+                <FXCollections fx:factory="observableArrayList"/>
+            </items>
+        </ComboBox>
+    </VBox>
+    <VBox styleClass="phan-cong-bieu-mau-truong">
+        <Label text="Ngày *" styleClass="phan-cong-truong-chu-thich"/>
+        <DatePicker fx:id="dpPhanCongNgay" maxWidth="Infinity" promptText="dd/MM/yyyy" styleClass="phan-cong-bieu-mau-ngay" accessibleText="Ngày phân công">
+            <editor text=""/>
+        </DatePicker>
+    </VBox>
+    <HBox spacing="12">
+        <VBox prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="phan-cong-bieu-mau-truong">
+            <Label text="Giờ bắt đầu *" styleClass="phan-cong-truong-chu-thich"/>
+            <ComboBox fx:id="cboPhanCongBatDauGio" maxWidth="Infinity" styleClass="phan-cong-bieu-mau-lua-chon" accessibleText="Giờ bắt đầu ca" promptText="Chọn thông tin">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="08:00"/>
+                        <String fx:value="13:30"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+        <VBox prefWidth="0" minWidth="0" HBox.hgrow="ALWAYS" styleClass="phan-cong-bieu-mau-truong">
+            <Label text="Giờ kết thúc *" styleClass="phan-cong-truong-chu-thich"/>
+            <ComboBox fx:id="cboPhanCongKetThucGio" maxWidth="Infinity" styleClass="phan-cong-bieu-mau-lua-chon" accessibleText="Giờ kết thúc ca" promptText="Chọn thông tin">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="12:00"/>
+                        <String fx:value="17:00"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+    </HBox>
+    <VBox styleClass="phan-cong-bieu-mau-truong">
+        <Label text="Phòng / Khu vực *" styleClass="phan-cong-truong-chu-thich"/>
+        <ComboBox fx:id="cboPhanCongPhong" maxWidth="Infinity" styleClass="phan-cong-bieu-mau-lua-chon" accessibleText="Phòng hoặc khu vực được phân công" promptText="Chọn phòng">
+            <items>
+                <FXCollections fx:factory="observableArrayList"/>
+            </items>
+        </ComboBox>
+    </VBox>
+    <VBox styleClass="phan-cong-bieu-mau-truong">
+        <Label text="Công việc" styleClass="phan-cong-truong-chu-thich"/>
+        <TextField fx:id="txtPhanCongCongViec" text="" styleClass="phan-cong-bieu-mau-nhap"/>
+    </VBox>
+    <HBox spacing="12">
+        <Button fx:id="btnHuyPhanCongBieuMau" text="Hủy" cancelButton="true" styleClass="phu-nut" disable="true"/>
+        <Button fx:id="btnLuuPhanCong" text="Lưu thay đổi" styleClass="chinh-nut" disable="true"/>
+    </HBox>
+</VBox>

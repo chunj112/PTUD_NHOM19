@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="huyLichHenBieuMau" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-hop-thoai-noi, le-tan-tiep-nhan" spacing="16" minWidth="480" prefWidth="480" maxWidth="480" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblHopThoaiTieuDe" text="Hủy lịch hẹn?" styleClass="le-tan-hop-thoai-noi-tieu-de" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnDong" text="" minWidth="32" styleClass="le-tan-dong" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" graphicTextGap="8" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/receptionist/close-circle.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+        <Label text="Bệnh nhân / giờ hẹn" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblHuyLichHenTomTat" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+        <Label text="Lý do hủy *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtHuyLichHenLyDo" text="" styleClass="le-tan-truong-nhap"/>
+    </VBox>
+    <Label fx:id="lblHuyLichHenCanhBao" text="—" styleClass="le-tan-canh-bao, le-tan-canh-bao-canh-bao" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnHuy" text="Hủy" minWidth="-Infinity" styleClass="phu-nut" cancelButton="true" disable="true"/>
+        <Button fx:id="btnXacNhanHuyLichHen" text="Xác nhận hủy" minWidth="-Infinity" styleClass="phu-nut, le-tan-nguy-hiem-nut" disable="true"/>
+    </HBox>
+</VBox>

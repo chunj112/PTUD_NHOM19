@@ -1,0 +1,6 @@
+.le-tan-thu-ngan .le-tan-thanh-toan-phuong-thuc { -fx-min-width: 100; }
+.le-tan-thu-ngan .le-tan-loi-truong { -fx-border-color: #C33D42; -fx-min-height: 112; -fx-pref-height: 112; -fx-max-height: 112; }
+.le-tan-thu-ngan .le-tan-loi-van-ban { -fx-font-size: 12px; -fx-text-fill: #C33D42; }
+.le-tan-thu-ngan.le-tan-trang-thai-the { -fx-padding: 19; }
+.le-tan-thu-ngan.le-tan-trang-thai-the .le-tan-hop-thoai-noi-tieu-de { -fx-font-size: 18px; }
+.le-tan-thu-ngan .le-tan-thanh-cong-dau { -fx-background-color: #EDF7F1; -fx-background-radius: 100; -fx-text-fill: #21764F; -fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 8 12; }

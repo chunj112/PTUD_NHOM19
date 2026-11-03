@@ -1,0 +1,67 @@
+/* UC004: modal Thêm 1:5204 và Sửa 1:5270. Chỉ áp dụng trong .bieu-mau-nhan-vien.
+   Theme chung cung cấp font và các nút primary-button/secondary-button. */
+.bieu-mau-nhan-vien {
+    /* 23px + viền 1px = khoảng cách nội dung 24px của Figma. */
+    -fx-padding: 23;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-tieu-de { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-dong {
+    -fx-padding: 7;
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-dong:hover { -fx-background-color: #E8F5F6; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-dong:focused { -fx-border-color: #087E91; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-truong {
+    -fx-padding: 8 11;
+    -fx-min-height: 62;
+    -fx-pref-height: 62;
+    -fx-max-height: 62;
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-chi-doc { -fx-background-color: #F4F7FA; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-truong-nhan { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-nhap,
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-lua-chon,
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-ngay,
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-ngay > .text-field {
+    -fx-min-height: 23;
+    -fx-pref-height: 23;
+    -fx-max-height: 23;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-font-size: 14px;
+    -fx-text-fill: #172B3A;
+    -fx-prompt-text-fill: #617584;
+}
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-nhap:focused,
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-ngay > .text-field:focused {
+    -fx-background-color: #E8F5F6;
+    -fx-background-radius: 2;
+}
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-chi-doc .nhan-su-bieu-mau-nhap { -fx-text-fill: #617584; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-lua-chon > .list-cell {
+    -fx-padding: 0;
+    -fx-font-size: 14px;
+    -fx-text-fill: #172B3A;
+    -fx-background-color: transparent;
+}
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-lua-chon > .arrow-button,
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-ngay > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 3; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-lua-chon > .arrow-button > .arrow { -fx-background-color: #172B3A; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-lua-chon:focused { -fx-background-color: #E8F5F6; -fx-background-radius: 2; }
+.bieu-mau-nhan-vien .nhan-su-bieu-mau-ngay > .arrow-button > .arrow { -fx-background-color: #617584; }
