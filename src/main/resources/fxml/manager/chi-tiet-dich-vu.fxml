@@ -36,13 +36,16 @@
     </VBox>
     <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dich-vu-chi-tiet-duong-phan-cach"/>
     <Label fx:id="lblDichVuDonGiaChinhSach" text="—" wrapText="true" minHeight="-Infinity" styleClass="danh-muc-dich-vu-chu-thich"/>
-    <Button fx:id="btnSuaDichVu" text="Sửa dịch vụ" graphicTextGap="8" minWidth="-Infinity" styleClass="phu-nut" disable="true">
-        <graphic>
-            <ImageView fx:id="imgSuaDichVu" fitWidth="16" fitHeight="16" preserveRatio="true">
-                <image>
-                    <Image url="@/images/staff/edit-staff.png"/>
-                </image>
-            </ImageView>
-        </graphic>
-    </Button>
+    <HBox spacing="10">
+        <Button fx:id="btnSuaDichVu" text="Sửa dịch vụ" graphicTextGap="8" minWidth="-Infinity" styleClass="phu-nut" disable="true">
+            <graphic>
+                <ImageView fx:id="imgSuaDichVu" fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/edit-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnDoiTrangThaiDichVu" text="Đổi trạng thái" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+    </HBox>
 </VBox>
