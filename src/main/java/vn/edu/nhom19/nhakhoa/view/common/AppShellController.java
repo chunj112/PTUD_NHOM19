@@ -127,11 +127,15 @@ public final class AppShellController {
         } catch (IOException ex) {
             page = placeholder(route.title(), "Không thể nạp giao diện của màn hình.");
         }
-        // Các màn hình nghiệp vụ hiện chưa có Controller/Service SQL. Giữ UI nhưng thông báo rõ trạng thái.
-        Label thongBao=new Label("Chức năng đang phát triển · Chưa tải dữ liệu từ hệ thống.");
-        thongBao.setWrapText(true);thongBao.getStyleClass().add("info-banner");
-        VBox noiDung=new VBox(16,thongBao,page);noiDung.setMinWidth(0);
-        contentArea.getChildren().setAll(noiDung);
+        // Các màn hình nghiệp vụ chưa có Controller/Service SQL hiển thị banner; trang đã nối Backend thì hiển thị trực tiếp.
+        if (route == Route.SERVICES) {
+            contentArea.getChildren().setAll(page);
+        } else {
+            Label thongBao=new Label("Chức năng đang phát triển · Chưa tải dữ liệu từ hệ thống.");
+            thongBao.setWrapText(true);thongBao.getStyleClass().add("info-banner");
+            VBox noiDung=new VBox(16,thongBao,page);noiDung.setMinWidth(0);
+            contentArea.getChildren().setAll(noiDung);
+        }
         contentScroll.setVvalue(0);
         lblBreadcrumbPage.setText(route.title());
         clearSelection();

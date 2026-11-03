@@ -36,13 +36,16 @@
     </VBox>
     <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="service-detail-divider"/>
     <Label fx:id="lblServicePricePolicy" text="—" wrapText="true" minHeight="-Infinity" styleClass="services-caption"/>
-    <Button fx:id="btnEditService" text="Sửa dịch vụ" graphicTextGap="8" minWidth="-Infinity" styleClass="secondary-button" disable="true">
-        <graphic>
-            <ImageView fx:id="imgEditService" fitWidth="16" fitHeight="16" preserveRatio="true">
-                <image>
-                    <Image url="@/images/staff/edit-staff.png"/>
-                </image>
-            </ImageView>
-        </graphic>
-    </Button>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button fx:id="btnEditService" text="Sửa dịch vụ" graphicTextGap="8" minWidth="-Infinity" styleClass="secondary-button" disable="true">
+            <graphic>
+                <ImageView fx:id="imgEditService" fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/edit-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnToggleServiceStatus" text="Ngừng áp dụng" minWidth="-Infinity" styleClass="secondary-button" disable="true"/>
+    </HBox>
 </VBox>

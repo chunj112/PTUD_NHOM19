@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="editServiceForm" stylesheets="@/css/theme.css, @/css/service-form.css" styleClass="service-form" spacing="16" minWidth="680" prefWidth="680" maxWidth="680" minHeight="-Infinity" prefHeight="802" maxHeight="-Infinity">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="editServiceForm" stylesheets="@/css/theme.css, @/css/service-form.css" styleClass="service-form" spacing="16" minWidth="680" prefWidth="680" maxWidth="680" minHeight="-Infinity" prefHeight="802" maxHeight="-Infinity" fx:controller="vn.edu.nhom19.nhakhoa.view.manager.DichVuFormController">
     <HBox alignment="CENTER_LEFT" minHeight="32" prefHeight="32" maxHeight="32">
         <Label fx:id="lblServiceFormTitle" text="Sửa dịch vụ" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="service-form-title"/>
         <!-- Figma dùng ký tự ×, không thay bằng icon tự vẽ. -->
