@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="huyPhanCongHopThoai" stylesheets="@/css/chu-de.css, @/css/bieu-mau-phan-cong.css" styleClass="phan-cong-huy-hop-thoai" spacing="16" minWidth="440" prefWidth="440" maxWidth="440" prefHeight="283" maxHeight="-Infinity">
+    <Label fx:id="lblHuyPhanCongTieuDe" text="Hủy phân công?" styleClass="phan-cong-bieu-mau-tieu-de"/>
+    <GridPane fx:id="huyPhanCongTomTat" hgap="12" vgap="2" styleClass="phan-cong-huy-tom-tat">
+        <columnConstraints>
+            <ColumnConstraints minWidth="78" prefWidth="78"/>
+            <ColumnConstraints hgrow="ALWAYS" fillWidth="true"/>
+        </columnConstraints>
+        <Label text="Nhân viên" GridPane.rowIndex="0" styleClass="phan-cong-huy-chu-thich"/>
+        <Label fx:id="lblHuyNhanVien" text="—" GridPane.rowIndex="0" GridPane.columnIndex="1" wrapText="true" styleClass="phan-cong-huy-gia-tri, phan-cong-huy-ten"/>
+        <Label text="Ngày" GridPane.rowIndex="1" styleClass="phan-cong-huy-chu-thich"/>
+        <Label fx:id="lblHuyNgay" text="—" GridPane.rowIndex="1" GridPane.columnIndex="1" wrapText="true" styleClass="phan-cong-huy-gia-tri"/>
+        <Label text="Ca" GridPane.rowIndex="2" styleClass="phan-cong-huy-chu-thich"/>
+        <Label fx:id="lblHuyCa" text="—" GridPane.rowIndex="2" GridPane.columnIndex="1" wrapText="true" styleClass="phan-cong-huy-gia-tri"/>
+        <Label text="Phòng" GridPane.rowIndex="3" styleClass="phan-cong-huy-chu-thich"/>
+        <Label fx:id="lblHuyPhong" text="—" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="phan-cong-huy-gia-tri"/>
+    </GridPane>
+    <Label fx:id="lblHuyPhanCongCauHoi" text="—" wrapText="true" minHeight="-Infinity" styleClass="phan-cong-huy-cau-hoi"/>
+    <HBox spacing="12">
+        <Button fx:id="btnGiuPhanCong" text="Không" cancelButton="true" styleClass="phu-nut" disable="true"/>
+        <Button fx:id="btnXacNhanHuyPhanCong" text="Hủy phân công" styleClass="phu-nut, phan-cong-nguy-hiem-nut" disable="true"/>
+    </HBox>
+</VBox>

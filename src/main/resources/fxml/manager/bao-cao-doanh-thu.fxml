@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="doanhThuBanBaoCao" spacing="20" minWidth="0" prefHeight="1160">
+    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="bao-cao-bo-loc-the">
+        <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="bao-cao-truong">
+            <Label text="Từ ngày" styleClass="bao-cao-truong-nhan"/>
+            <DatePicker fx:id="dpDoanhThuTu" editable="false" maxWidth="Infinity" minWidth="0" accessibleText="Chưa tải dữ liệu" styleClass="bao-cao-ngay">
+                <!-- Chỉ chữ xem trước; Nhi tự setValue(LocalDate) và converter khi viết Controller. -->
+                <editor text=""/>
+            </DatePicker>
+        </VBox>
+        <VBox spacing="2" minWidth="0" HBox.hgrow="ALWAYS" styleClass="bao-cao-truong">
+            <Label text="Đến ngày" styleClass="bao-cao-truong-nhan"/>
+            <DatePicker fx:id="dpDoanhThuDen" editable="false" maxWidth="Infinity" minWidth="0" accessibleText="Chưa tải dữ liệu" styleClass="bao-cao-ngay">
+                <!-- Chỉ chữ xem trước; Nhi tự setValue(LocalDate) và converter khi viết Controller. -->
+                <editor text=""/>
+            </DatePicker>
+        </VBox>
+        <Button fx:id="btnApDungDoanhThuBanBaoCao" text="Xem báo cáo" minWidth="-Infinity" styleClass="chinh-nut" disable="true"/>
+    </HBox>
+    <GridPane fx:id="doanhThuCacChiSo" hgap="16" minHeight="132" prefHeight="132" maxHeight="132">
+        <rowConstraints>
+            <RowConstraints percentHeight="100" fillHeight="true"/>
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+            <ColumnConstraints percentWidth="25" fillWidth="true"/>
+        </columnConstraints>
+        <VBox spacing="8" minWidth="0" styleClass="bao-cao-the" GridPane.columnIndex="0">
+            <Label text="Doanh thu thực thu" styleClass="bao-cao-chi-so-nhan" wrapText="true"/>
+            <Label fx:id="lblDoanhThuDaThu" text="—" styleClass="bao-cao-chi-so-gia-tri" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblDoanhThuDaThuGhiChu" text="Hóa đơn dịch vụ đã thanh toán" styleClass="bao-cao-chu-thich" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="bao-cao-the" GridPane.columnIndex="1">
+            <Label text="Hóa đơn" styleClass="bao-cao-chi-so-nhan" wrapText="true"/>
+            <Label fx:id="lblDoanhThuHoaDonSoLuong" text="Chưa tải dữ liệu" styleClass="bao-cao-chi-so-gia-tri" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblDoanhThuHoaDonSoLuongGhiChu" text="Trong kỳ báo cáo" styleClass="bao-cao-chu-thich" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="bao-cao-the" GridPane.columnIndex="2">
+            <Label text="Trung bình / hóa đơn" styleClass="bao-cao-chi-so-nhan" wrapText="true"/>
+            <Label fx:id="lblDoanhThuTrungBinh" text="—" styleClass="bao-cao-chi-so-gia-tri" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+        <VBox spacing="8" minWidth="0" styleClass="bao-cao-the" GridPane.columnIndex="3">
+            <Label text="Chờ thu tiền" styleClass="bao-cao-chi-so-nhan" wrapText="true"/>
+            <Label fx:id="lblDoanhThuChoXuLy" text="—" styleClass="bao-cao-chi-so-gia-tri" minHeight="-Infinity" wrapText="true"/>
+            <Label fx:id="lblDoanhThuChoXuLyGhiChu" text="Chưa tải dữ liệu" styleClass="bao-cao-chu-thich" minHeight="-Infinity" wrapText="true"/>
+        </VBox>
+    </GridPane>
+    <VBox spacing="16" minWidth="0" styleClass="bao-cao-the">
+        <Label fx:id="lblDoanhThuBieuDoTieuDe" text="Doanh thu theo ngày" styleClass="bao-cao-the-tieu-de"/>
+        <Label fx:id="lblDoanhThuBieuDoPhuDe" text="Chỉ tính các hóa đơn đã thanh toán" styleClass="bao-cao-chu-thich" wrapText="true"/>
+        <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+        <HBox fx:id="bieuDoDoanhThu" spacing="20" alignment="BOTTOM_CENTER" minHeight="222" prefHeight="222" maxHeight="222" styleClass="bao-cao-bieu-do" accessibleText="Doanh thu theo ngày, dữ liệu minh họa">
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri1" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu1" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri2" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu2" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri3" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu3" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri4" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu4" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri5" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu5" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri6" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu6" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri7" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu7" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri8" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu8" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+            <VBox spacing="8" alignment="BOTTOM_CENTER" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <Label fx:id="lblDoanhThuThanhGiaTri9" text="—" styleClass="bao-cao-thanh-gia-tri"/>
+                <Region fx:id="thanhDoanhThu9" minHeight="0" prefHeight="0" maxHeight="0" maxWidth="Infinity" styleClass="bao-cao-thanh, bao-cao-thanh-nhan-manh"/>
+                <Label text="—" styleClass="bao-cao-truc-nhan"/>
+            </VBox>
+        </HBox>
+        <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="bao-cao-duong-phan-cach"/>
+        <Label fx:id="lblDoanhThuBieuDoGhiChu" text="Chưa tải dữ liệu" styleClass="bao-cao-chu-thich" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="16" minWidth="0" styleClass="bao-cao-the">
+        <Label text="Dữ liệu chi tiết" styleClass="bao-cao-the-tieu-de"/>
+        <VBox styleClass="bao-cao-bang-vien">
+            <!-- Chỉ đọc; không mở chi tiết, không hover/selected highlight.
+                 editable=false không tắt selection: Nhi tự setSelectionModel(null) khi nối Controller. -->
+            <TableView fx:id="tblDoanhThu" editable="false" focusTraversable="false" fixedCellSize="72" minHeight="326" prefHeight="326" maxHeight="326" styleClass="bao-cao-bang">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="trong-du-lieu-ghi-chu"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="colDoanhThuNgay" text="Ngày" prefWidth="278" minWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="date"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colDoanhThuDaHoanTatCacLuotKham" text="Lượt khám hoàn tất" prefWidth="278" minWidth="180" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="completed"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colDoanhThuDaThanhToanDanhSachHoaDon" text="Hóa đơn đã thu" prefWidth="278" minWidth="150" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="paid"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colDoanhThuSoTien" text="Doanh thu" prefWidth="278" minWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="amount"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <HBox spacing="6" alignment="CENTER_LEFT" minHeight="40" prefHeight="40" styleClass="bao-cao-bang-chan">
+                <Label fx:id="lblDoanhThuHoSoSoLuong" text="Chưa tải dữ liệu" styleClass="bao-cao-chu-thich"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnDoanhThuTruocTrang" text="‹" disable="true" accessibleText="Trang báo cáo trước" styleClass="bao-cao-trang-nut"/>
+                <Label fx:id="lblDoanhThuHienTaiTrang" text="—" styleClass="bao-cao-chu-thich"/>
+                <Button fx:id="btnDoanhThuTiepTrang" text="›" disable="true" accessibleText="Trang báo cáo tiếp theo, chưa có xử lý" styleClass="bao-cao-trang-nut"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <VBox spacing="2">
+    </VBox>
+</VBox>

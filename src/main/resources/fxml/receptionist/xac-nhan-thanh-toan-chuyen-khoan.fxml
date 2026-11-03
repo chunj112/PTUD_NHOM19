@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="xacNhanChuyenKhoanBieuMau" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-thu-ngan.css" styleClass="le-tan-hop-thoai-noi, le-tan-thu-ngan" spacing="16" minWidth="640" prefWidth="640" maxWidth="640" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblHopThoaiTieuDe" text="Xác nhận đã nhận tiền?" styleClass="le-tan-hop-thoai-noi-tieu-de" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnDong" text="×" minWidth="32" styleClass="le-tan-dong" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" disable="true"/>
+    </HBox>
+    <Label text="Bạn đã kiểm tra giao dịch ngân hàng và xác nhận phòng khám đã nhận đủ số tiền này?" styleClass="le-tan-noi-dung-chinh" wrapText="true" minHeight="-Infinity"/>
+    <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+        <Label text="Bệnh nhân" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblXacNhanChuyenKhoanBenhNhan" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+        <Label text="Mã hóa đơn" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblXacNhanChuyenKhoanHoaDon" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+        <Label text="Số tiền" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblXacNhanChuyenKhoanSoTien" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+        <Label text="Phương thức" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblXacNhanChuyenKhoanPhuongThuc" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <Label fx:id="lblXacNhanChuyenKhoanCanhBao" text="—" styleClass="le-tan-canh-bao, le-tan-canh-bao-canh-bao" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnQuayLaiDenChuyenKhoan" text="Quay lại" minWidth="-Infinity" styleClass="phu-nut" cancelButton="true" disable="true"/>
+        <Button fx:id="btnXacNhanChuyenKhoanThanhToan" text="Xác nhận thanh toán" minWidth="-Infinity" styleClass="chinh-nut" disable="true"/>
+    </HBox>
+</VBox>

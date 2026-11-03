@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="dangTimBenhNhanXemTruoc" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-benh-nhan.css" styleClass="le-tan-trang, le-tan-danh-sach-benh-nhan" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTrangTieuDe" text="TRA CỨU BỆNH NHÂN" styleClass="le-tan-tieu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTrangPhuDe" text="Tìm hồ sơ theo mã bệnh nhân, họ tên hoặc số điện thoại" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the" prefHeight="506">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+                <Label text="Điều kiện tìm kiếm" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                <TextField fx:id="txtBenhNhanTimKiem" text="" styleClass="le-tan-truong-nhap"/>
+            </VBox>
+            <Button fx:id="btnTimKiemBenhNhan" text="Đang tìm…" minWidth="-Infinity" styleClass="chinh-nut" disable="true" graphicTextGap="8">
+                <graphic>
+                    <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/receptionist/search-button.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+        <VBox spacing="16" minWidth="0" alignment="CENTER" minHeight="300" VBox.vgrow="ALWAYS" styleClass="le-tan-tim-kiem-giua">
+            <StackPane minWidth="64" prefWidth="64" maxWidth="64" minHeight="64" prefHeight="64" maxHeight="64" styleClass="le-tan-trong-hinh-tron">
+                <ImageView fitWidth="28" fitHeight="28" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/receptionist/searching.png"/>
+                    </image>
+                </ImageView>
+            </StackPane>
+            <Label fx:id="lblBenhNhanTimKiemTrangThaiTieuDe" text="Chức năng đang phát triển" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity" alignment="CENTER" textAlignment="CENTER" maxWidth="600"/>
+            <Label fx:id="lblBenhNhanTimKiemTrangThaiThongBao" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity" alignment="CENTER" textAlignment="CENTER" maxWidth="620"/>
+        </VBox>
+        <Label fx:id="lblBenhNhanTraCuuBaoMat" text="—" styleClass="le-tan-canh-bao, le-tan-canh-bao-thong-tin-ngan" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    </VBox>
+</VBox>

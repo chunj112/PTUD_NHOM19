@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="chuyenKhoanThanhToanBieuMau" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-thu-ngan.css" styleClass="le-tan-hop-thoai-noi, le-tan-thu-ngan" spacing="16" minWidth="700" prefWidth="700" maxWidth="700" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblHopThoaiTieuDe" text="Thanh toán chuyển khoản" styleClass="le-tan-hop-thoai-noi-tieu-de" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <Button fx:id="btnDong" text="×" minWidth="32" styleClass="le-tan-dong" prefWidth="32" maxWidth="32" minHeight="32" prefHeight="32" maxHeight="32" accessibleText="Đóng" disable="true"/>
+    </HBox>
+    <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+        <Label text="Mã hóa đơn / bệnh nhân" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="lblChuyenKhoanHoaDonBenhNhan" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+    </VBox>
+    <HBox spacing="24" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="200" prefWidth="200" maxWidth="200" alignment="TOP_CENTER">
+            <ImageView fx:id="imgChuyenKhoanQrMinhHoa" fitWidth="180" fitHeight="180" preserveRatio="true" visible="false" managed="false"/>
+            <Label text="Chưa cấu hình mã QR thanh toán" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+            <GridPane hgap="12" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="35"/>
+                    <ColumnConstraints percentWidth="65"/>
+                </columnConstraints>
+                <Label text="Ngân hàng" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity" GridPane.rowIndex="0"/>
+                <Label fx:id="lblChuyenKhoanNganHang" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="CENTER_RIGHT" maxWidth="Infinity"/>
+                <Label text="Số tài khoản" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity" GridPane.rowIndex="1"/>
+                <Label fx:id="lblChuyenKhoanTaiKhoan" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER_RIGHT" maxWidth="Infinity"/>
+                <Label text="Chủ tài khoản" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity" GridPane.rowIndex="2"/>
+                <Label fx:id="lblChuyenKhoanChuTaiKhoan" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" alignment="CENTER_RIGHT" maxWidth="Infinity"/>
+                <Label text="Số tiền" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity" GridPane.rowIndex="3"/>
+                <Label fx:id="lblChuyenKhoanSoTien" text="—" styleClass="le-tan-tinh-trang-thong-tin-ngan" wrapText="true" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" alignment="CENTER_RIGHT" maxWidth="Infinity"/>
+                <Label text="Nội dung CK" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity" GridPane.rowIndex="4"/>
+                <Label fx:id="lblChuyenKhoanNoiDung" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="4" alignment="CENTER_RIGHT" maxWidth="Infinity"/>
+            </GridPane>
+            <Label fx:id="lblChuyenKhoanHuongDan" text="Yêu cầu khách quét mã QR và hoàn tất chuyển khoản." styleClass="le-tan-canh-bao, le-tan-canh-bao-thong-tin-ngan" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+            <Label fx:id="lblChuyenKhoanXacMinh" text="Chỉ xác nhận thanh toán sau khi đã kiểm tra giao dịch trên tài khoản ngân hàng của phòng khám." styleClass="le-tan-canh-bao, le-tan-canh-bao-canh-bao" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnHuy" text="Hủy" minWidth="-Infinity" styleClass="phu-nut" cancelButton="true" disable="true"/>
+        <Button fx:id="btnXacNhanChuyenKhoanDaNhan" text="Xác nhận đã nhận tiền" minWidth="-Infinity" styleClass="chinh-nut" disable="true"/>
+    </HBox>
+</VBox>

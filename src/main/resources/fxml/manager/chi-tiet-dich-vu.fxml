@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="dichVuDaChonPhanChiTiet" stylesheets="@/css/quan-ly-dich-vu.css" styleClass="danh-muc-dich-vu-trang, dich-vu-phan-chi-tiet" spacing="16" minWidth="356" prefWidth="356" maxWidth="356" minHeight="-Infinity" maxHeight="-Infinity">
+    <Label fx:id="lblDaChonDichVuTen" text="—" wrapText="true" minHeight="-Infinity" styleClass="danh-muc-dich-vu-the-tieu-de"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label fx:id="lblDaChonDichVuMa" text="—" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="dich-vu-chi-tiet-tom-tat"/>
+        <Label fx:id="lblDaChonDichVuTinhTrang" text="—" styleClass="dich-vu-chi-tiet-nhan"/>
+    </HBox>
+    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dich-vu-chi-tiet-duong-phan-cach"/>
+    <VBox spacing="4" minHeight="44">
+        <Label text="Nhóm dịch vụ" styleClass="danh-muc-dich-vu-chu-thich"/>
+        <Label fx:id="lblDichVuChiTietNhom" text="—" wrapText="true" styleClass="dich-vu-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="4" minHeight="44">
+        <Label text="Đơn vị tính" styleClass="danh-muc-dich-vu-chu-thich"/>
+        <Label fx:id="lblDichVuChiTietDonVi" text="—" wrapText="true" styleClass="dich-vu-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="4" minHeight="44">
+        <Label text="Giá niêm yết" styleClass="danh-muc-dich-vu-chu-thich"/>
+        <Label fx:id="lblDichVuChiTietDonGia" text="—" wrapText="true" styleClass="dich-vu-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="4" minHeight="44">
+        <Label text="Thời gian dự kiến" styleClass="danh-muc-dich-vu-chu-thich"/>
+        <Label fx:id="lblDichVuChiTietThoiLuong" text="—" wrapText="true" styleClass="dich-vu-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="4" minHeight="44">
+        <Label text="Vị trí điều trị" styleClass="danh-muc-dich-vu-chu-thich"/>
+        <Label fx:id="lblDichVuChiTietFdiDieuKien" text="—" wrapText="true" styleClass="dich-vu-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="4" minHeight="67">
+        <Label text="Mô tả" styleClass="danh-muc-dich-vu-chu-thich"/>
+        <Label fx:id="lblDichVuChiTietMoTa" text="—" wrapText="true" minHeight="-Infinity" styleClass="dich-vu-chi-tiet-gia-tri"/>
+    </VBox>
+    <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="dich-vu-chi-tiet-duong-phan-cach"/>
+    <Label fx:id="lblDichVuDonGiaChinhSach" text="—" wrapText="true" minHeight="-Infinity" styleClass="danh-muc-dich-vu-chu-thich"/>
+    <Button fx:id="btnSuaDichVu" text="Sửa dịch vụ" graphicTextGap="8" minWidth="-Infinity" styleClass="phu-nut" disable="true">
+        <graphic>
+            <ImageView fx:id="imgSuaDichVu" fitWidth="16" fitHeight="16" preserveRatio="true">
+                <image>
+                    <Image url="@/images/staff/edit-staff.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+</VBox>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="leTanLichLamViec" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-lich-lam-viec.css" styleClass="le-tan-trang, le-tan-lich-lam-viec" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTrangTieuDe" text="Lịch làm việc" styleClass="le-tan-tieu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTrangPhuDe" text="Lịch được quản lý phân công · Chỉ xem, không chỉnh sửa ca" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+    </HBox>
+    <StackPane minWidth="0">
+        <TabPane fx:id="lichLamViecCacTab" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${lichLamViecCacTab.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="le-tan-cac-tab">
+            <tabs>
+                <Tab fx:id="tabLichLamViecNgayLam" text="Ngày">
+                    <content>
+                        <fx:include fx:id="tabLichLamViecNgayLamNoiDung" source="lich-lam-viec-ngay.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabLichLamViecTuan" text="Tuần">
+                    <content>
+                        <fx:include fx:id="tabLichLamViecTuanNoiDung" source="lich-lam-viec-tuan.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <ComboBox fx:id="cboLichLamViecTuan" prefWidth="200" minWidth="200" maxWidth="200" styleClass="le-tan-bo-loc" StackPane.alignment="TOP_RIGHT" visible="${tabLichLamViecTuan.selected}" managed="${tabLichLamViecTuan.selected}" promptText="Chọn thông tin">
+            <items>
+                <FXCollections fx:factory="observableArrayList"/>
+            </items>
+        </ComboBox>
+    </StackPane>
+</VBox>

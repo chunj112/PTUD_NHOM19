@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="benhNhanDanhSachHoaDon" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-benh-nhan.css" styleClass="le-tan-trang, le-tan-danh-sach-benh-nhan" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="900">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+            <Label text="Từ ngày" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpBenhNhanHoaDonTu" maxWidth="Infinity" minWidth="0" editable="false" styleClass="le-tan-truong-ngay">
+                <editor text=""/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+            <Label text="Đến ngày" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpBenhNhanHoaDonDen" maxWidth="Infinity" minWidth="0" editable="false" styleClass="le-tan-truong-ngay">
+                <editor text=""/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+            <Label text="Trạng thái" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <ComboBox fx:id="cboBenhNhanHoaDonTinhTrang" maxWidth="Infinity" minWidth="0" styleClass="le-tan-truong-lua-chon" promptText="Tất cả" value="Tất cả">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Đã thanh toán"/>
+                        <String fx:value="Chưa thanh toán"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+            <Label text="Phương thức" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <ComboBox fx:id="cboBenhNhanHoaDonPhuongThuc" maxWidth="Infinity" minWidth="0" styleClass="le-tan-truong-lua-chon" promptText="Tất cả" value="Tất cả">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tất cả"/>
+                        <String fx:value="Tiền mặt"/>
+                        <String fx:value="Chuyển khoản"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+        <Button fx:id="btnApDungBenhNhanHoaDonBoLoc" text="Áp dụng" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+    </HBox>
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <Label text="Hóa đơn của bệnh nhân" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="le-tan-bang-vien">
+            <TableView fx:id="tblBenhNhanDanhSachHoaDon" editable="false" fixedCellSize="72" minHeight="188" prefHeight="188" maxHeight="188" styleClass="le-tan-bang">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="trong-du-lieu-ghi-chu"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblBenhNhanDanhSachHoaDonCotMa" text="Mã hóa đơn" minWidth="110" prefWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanDanhSachHoaDonCotNgay" text="Ngày" minWidth="130" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanDanhSachHoaDonCotSoTien" text="Tổng tiền" minWidth="130" prefWidth="160" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanDanhSachHoaDonCotPhuongThuc" text="Phương thức" minWidth="135" prefWidth="190" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanDanhSachHoaDonCotTinhTrang" text="Trạng thái" minWidth="135" prefWidth="170" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanDanhSachHoaDonCotNguoiThu" text="Nhân viên thu" minWidth="150" prefWidth="180" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v5"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="le-tan-bang-chan">
+                <Label fx:id="tblBenhNhanDanhSachHoaDonSoLuong" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblBenhNhanDanhSachHoaDonTruoc" text="‹" minWidth="-Infinity" styleClass="le-tan-trang-nut" disable="true"/>
+                <Label fx:id="tblBenhNhanDanhSachHoaDonTrang" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblBenhNhanDanhSachHoaDonTiep" text="›" minWidth="-Infinity" styleClass="le-tan-trang-nut" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <Label fx:id="lblBenhNhanHoaDonTieuDe" text="Thông tin hóa đơn" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Bệnh nhân / phiếu khám" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblBenhNhanHoaDonPhieuKham" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Ngày lập" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblBenhNhanHoaDonDaTao" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <Label text="—" styleClass="le-tan-tinh-trang-thanh-cong" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="le-tan-bang-vien">
+            <TableView fx:id="tblBenhNhanHoaDonDanhMucDichVu" editable="false" fixedCellSize="72" minHeight="188" prefHeight="188" maxHeight="188" styleClass="le-tan-bang, le-tan-chi-doc-bang">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="trong-du-lieu-ghi-chu"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblBenhNhanHoaDonDanhMucDichVuCotDichVu" text="Danh sách dịch vụ" minWidth="200" prefWidth="300" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanHoaDonDanhMucDichVuCotChucVu" text="Vị trí răng" minWidth="130" prefWidth="170" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanHoaDonDanhMucDichVuCotSoLuong" text="Số lượng" minWidth="80" prefWidth="120" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanHoaDonDanhMucDichVuCotDonGia" text="Đơn giá" minWidth="140" prefWidth="180" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblBenhNhanHoaDonDanhMucDichVuCotSoTien" text="Thành tiền" minWidth="150" prefWidth="200" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v4"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+        </VBox>
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Tổng tiền" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblBenhNhanHoaDonTong" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Phương thức thanh toán" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblBenhNhanHoaDonPhuongThuc" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Thời gian thanh toán" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblBenhNhanHoaDonDaThanhToanTai" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" prefWidth="0">
+                <VBox spacing="4" minWidth="0" styleClass="le-tan-chi-tiet">
+                    <Label text="Người xác nhận" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                    <Label fx:id="lblBenhNhanHoaDonNguoiXacNhan" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
+                </VBox>
+            </VBox>
+        </HBox>
+        <Label fx:id="lblBenhNhanHoaDonChiDoc" text="—" styleClass="le-tan-canh-bao, le-tan-canh-bao-thong-tin-ngan" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    </VBox>
+</VBox>

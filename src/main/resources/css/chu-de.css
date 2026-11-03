@@ -1,0 +1,151 @@
+/* JavaFX AppShell — Figma 1:2903 / 1:4375 / 1:4957 / 1:8725.
+   Segoe UI is the desktop fallback for Inter. Controller owns Role and selection. */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #F4F7FA;
+    -fx-accent: #087E91;
+    -fx-focus-color: #087E91;
+    -fx-faint-focus-color: transparent;
+}
+.khung-ung-dung {
+    -df-mau-chinh: #087E91;
+    -df-mau-chinh-nhat: #E8F5F6;
+    -df-mau-chu: #172B3A;
+    -df-mau-chu-mo: #617584;
+    -df-vien: #DCE4EA;
+    -df-nen: #F4F7FA;
+    -fx-background-color: -df-nen;
+}
+.thanh-ben {
+    -fx-padding: 24 16 24 16;
+    -fx-background-color: white;
+    -fx-border-color: transparent -df-vien transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+.thuong-hieu-ten { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: -df-mau-chu; }
+.vai-tro-nhan, .mo { -fx-font-size: 12px; -fx-text-fill: -df-mau-chu-mo; }
+.danh-tinh-ten { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: -df-mau-chu; }
+.thanh-ben-danh-tinh { -fx-padding: 0 8 0 8; }
+.khung-ung-dung-cuon, .khung-ung-dung-cuon > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+.khung-ung-dung-cuon:focused { -fx-background-insets: 0; }
+.dieu-huong-trang-cuon > .viewport { -fx-background-color: white; }
+.dieu-huong-nut {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 11 9 11 9;
+    -fx-min-height: 46;
+    -fx-pref-height: 46;
+    -fx-font-size: 14px;
+    -fx-text-fill: -df-mau-chu-mo;
+    -fx-cursor: hand;
+}
+.dieu-huong-nut:hover { -fx-background-color: #F4F7FA; -fx-text-fill: -df-mau-chu; }
+.dieu-huong-nut:pressed { -fx-background-color: #DFEFF1; }
+.dieu-huong-nut.trinh-don-da-chon {
+    -fx-background-color: -df-mau-chinh-nhat;
+    -fx-text-fill: -df-mau-chinh;
+    -fx-font-weight: bold;
+}
+.dieu-huong-nut:focused { -fx-border-color: -df-mau-chinh; }
+.thanh-tren {
+    -fx-padding: 0 28 0 28;
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent -df-vien transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.duong-dan, .duong-dan-phan-cach { -fx-text-fill: -df-mau-chu-mo; -fx-font-size: 13px; }
+.duong-dan-phan-cach { -fx-text-fill: #9AAAB5; }
+.anh-dai-dien {
+    -fx-background-color: -df-mau-chinh-nhat;
+    -fx-background-radius: 100;
+    -fx-text-fill: -df-mau-chinh;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tai-khoan-trinh-don {
+    -fx-padding: 6 0 6 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.tai-khoan-trinh-don:hover, .tai-khoan-trinh-don:showing { -fx-background-color: -df-mau-chinh-nhat; }
+.tai-khoan-trinh-don:focused { -fx-border-color: -df-mau-chinh; }
+.tai-khoan-trinh-don > .label { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: -df-mau-chu; }
+.tai-khoan-trinh-don > .arrow-button { -fx-padding: 0 0 0 8; }
+.tai-khoan-trinh-don > .arrow-button > .arrow { -fx-background-color: -df-mau-chu; }
+.context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 10;
+    -fx-padding: 12;
+}
+.menu-item { -fx-padding: 10 12; -fx-background-radius: 6; }
+.menu-item > .label { -fx-font-size: 14px; -fx-text-fill: #172B3A; }
+.menu-item:focused { -fx-background-color: #E8F5F6; }
+.menu-item:focused > .label { -fx-text-fill: #087E91; }
+.chinh-noi-dung { -fx-padding: 28; -fx-background-color: -df-nen; }
+.trang-tieu-de { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: -df-mau-chu; }
+.noi-dung-chinh-van-ban { -fx-font-size: 14px; -fx-text-fill: -df-mau-chu-mo; }
+.luu-y-the {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: -df-vien;
+    -fx-border-radius: 10;
+    -fx-padding: 20;
+}
+.the-tieu-de { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: -df-mau-chu; }
+.xem-truoc-nhan {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -df-mau-chinh;
+    -fx-background-color: -df-mau-chinh-nhat;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+}
+
+/* Prompt 02 — Login Figma 1:11801, Dashboard 1:2903. */
+.dang-nhap-khung-ung-dung { -fx-padding: 40; }
+.dang-nhap-vung-hien-thi { -fx-padding: 32 0; }
+.dang-nhap-the {
+    -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 10;
+}
+.dang-nhap-gioi-thieu {
+    -fx-padding: 40; -fx-background-color: #E8F5F6;
+    -fx-background-radius: 10 0 0 10;
+}
+.dang-nhap-bieu-mau { -fx-padding: 40; }
+.dang-nhap-tieu-de-lon { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.chinh-nut, .phu-nut {
+    -fx-min-height: 40; -fx-padding: 9 14; -fx-font-size: 14px;
+    -fx-font-weight: bold; -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-border-width: 1; -fx-cursor: hand;
+}
+.chinh-nut { -fx-background-color: #087E91; -fx-text-fill: white; -fx-border-color: #087E91; }
+.chinh-nut:hover { -fx-background-color: #066B7B; }
+.phu-nut { -fx-background-color: white; -fx-text-fill: #172B3A; -fx-border-color: #DCE4EA; }
+.phu-nut:hover { -fx-background-color: #E8F5F6; }
+.chinh-nut:focused, .phu-nut:focused { -fx-border-color: #172B3A; }
+.loi-dai-thong-bao { -fx-padding: 12; -fx-background-color: #FEF0F0; -fx-background-radius: 8; -fx-text-fill: #C33D42; -fx-font-size: 12px; }
+.chi-so-gia-tri { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.table-view { -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-background-radius: 8; }
+.table-view .column-header-background, .table-view .column-header { -fx-background-color: #F4F7FA; }
+.table-view .column-header .label { -fx-text-fill: #617584; -fx-font-size: 12px; -fx-alignment: CENTER_LEFT; -fx-padding: 10 6; }
+.table-view .table-cell { -fx-text-fill: #172B3A; -fx-padding: 12; }
+
+/* Trạng thái chưa tải dữ liệu: dùng màu trực tiếp để fragment FXML cũng preview độc lập được. */
+.trong-du-lieu-ghi-chu { -fx-text-fill: #617584; -fx-font-size: 13px; -fx-padding: 8; }

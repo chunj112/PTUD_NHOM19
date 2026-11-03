@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="nhanSuTrang" stylesheets="@/css/quan-ly-nhan-su.css" styleClass="nhan-su-trang" spacing="20" minWidth="960">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblNhanSuTieuDe" text="Nhân sự" styleClass="nhan-su-trang-tieu-de"/>
+            <Label fx:id="lblNhanSuPhuDe" text="Quản lý thông tin nhân viên, lịch làm việc và tài khoản theo vai trò" wrapText="true" minHeight="-Infinity" styleClass="nhan-su-trang-phu-de"/>
+        </VBox>
+        <Button fx:id="btnThemNhanSu" text="Thêm nhân viên" graphicTextGap="8" styleClass="chinh-nut" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/add-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <!-- Thanh tìm kiếm/lọc đúng ba ô trong frame; chưa có xử lý lọc dữ liệu. -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <TextField fx:id="txtNhanSuTimKiem" promptText="Tìm mã nhân viên / họ tên / SĐT" minWidth="0" HBox.hgrow="ALWAYS" styleClass="nhan-su-tim-kiem" accessibleText="Tìm nhân viên theo mã, họ tên hoặc số điện thoại"/>
+        <ComboBox fx:id="cboChucVuBoLoc" minWidth="180" prefWidth="180" maxWidth="180" styleClass="nhan-su-bo-loc" accessibleText="Lọc theo chức vụ" promptText="Tất cả chức vụ" value="Tất cả chức vụ">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả chức vụ"/>
+                    <String fx:value="Quản lý"/>
+                    <String fx:value="Nha sĩ"/>
+                    <String fx:value="Lễ tân"/>
+                    <String fx:value="Y tá"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="cboTinhTrangBoLoc" minWidth="180" prefWidth="180" maxWidth="180" styleClass="nhan-su-bo-loc" accessibleText="Lọc theo trạng thái nhân viên" promptText="Tất cả trạng thái" value="Tất cả trạng thái">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tất cả trạng thái"/>
+                    <String fx:value="Hoạt động"/>
+                    <String fx:value="Ngừng hoạt động"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+    <HBox fx:id="nhanSuCacCot" spacing="20" alignment="TOP_LEFT">
+        <VBox spacing="16" minWidth="0" HBox.hgrow="ALWAYS" styleClass="nhan-su-the">
+            <Label text="Danh sách nhân viên" styleClass="nhan-su-the-tieu-de"/>
+            <Label fx:id="lblNhanSuSoLuong" text="Chưa tải dữ liệu" styleClass="nhan-su-chu-thich"/>
+            <VBox styleClass="nhan-su-bang-vien">
+                <TableView fx:id="tblNhanSu" editable="false" fixedCellSize="72" minHeight="616" prefHeight="616" maxHeight="616" styleClass="nhan-su-bang">
+                    <!-- Phân bố các cột theo chiều ngang bảng khi panel mặc định ẩn. -->
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                    </columnResizePolicy>
+                    <placeholder>
+                        <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="trong-du-lieu-ghi-chu"/>
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="colNhanSuMa" text="Mã NV" prefWidth="65" minWidth="60" sortable="false" reorderable="false" styleClass="nhan-su-ma-column">
+                            <cellValueFactory>
+                                <MapValueFactory key="staffId"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colNhanSuTen" text="Họ tên" prefWidth="135" minWidth="125" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="fullName"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colChucVu" text="Chức vụ" prefWidth="75" minWidth="70" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="position"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colSoDienThoai" text="SĐT" prefWidth="115" minWidth="110" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="phone"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="180" minWidth="175" sortable="false" reorderable="false" styleClass="nhan-su-email-column">
+                            <cellValueFactory>
+                                <MapValueFactory key="email"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colNhanSuTinhTrang" text="Trạng thái" prefWidth="130" minWidth="125" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <MapValueFactory key="status"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                <HBox alignment="CENTER_LEFT" spacing="6" minHeight="38" prefHeight="38" styleClass="nhan-su-bang-chan">
+                    <Label fx:id="lblHoSoSoLuong" text="Chưa tải dữ liệu" styleClass="nhan-su-chu-thich"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+                    <Button fx:id="btnTruocTrang" text="‹" disable="true" accessibleText="Trang nhân viên trước" styleClass="nhan-su-trang-nut"/>
+                    <Label fx:id="lblHienTaiTrang" text="—" styleClass="nhan-su-chu-thich"/>
+                    <Button fx:id="btnTiepTrang" text="›" disable="true" accessibleText="Trang nhân viên tiếp theo" styleClass="nhan-su-trang-nut"/>
+                </HBox>
+            </VBox>
+        </VBox>
+        <!-- Chưa chọn nhân viên: ẩn cả panel và không giữ chỗ bên phải.
+             Controller điền dữ liệu rồi hiện staffDetailsPane + staffSelectedDetails
+             bằng cả visible/managed; bỏ chọn thì ẩn lại. Không hiện panel lời nhắc. -->
+        <VBox fx:id="nhanSuPhanChiTietKhung" spacing="16" minWidth="370" prefWidth="370" maxWidth="370" maxHeight="-Infinity" visible="false" managed="false" styleClass="nhan-su-the">
+            <VBox fx:id="nhanSuTrongPhanChiTiet" spacing="16" visible="false" managed="false">
+                <Label fx:id="lblPhanChiTietTieuDe" text="Thông tin chi tiết nhân viên" styleClass="nhan-su-the-tieu-de"/>
+                <Separator/>
+                <Label fx:id="lblPhanChiTietChoTrong" text="Chọn một nhân viên để xem thông tin chi tiết." wrapText="true" minHeight="-Infinity" styleClass="nhan-su-phan-chi-tiet-goi-y"/>
+                <Separator/>
+            </VBox>
+            <fx:include fx:id="nhanSuDaChonPhanChiTiet" source="chi-tiet-nhan-vien.fxml" visible="false" managed="false"/>
+        </VBox>
+    </HBox>
+</VBox>

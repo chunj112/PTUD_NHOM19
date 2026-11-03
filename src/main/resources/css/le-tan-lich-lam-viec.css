@@ -1,0 +1,9 @@
+.le-tan-lich-lam-viec .le-tan-lich-lam-viec-ngay-lam { -fx-padding: 10; -fx-background-color: #F4F7FA; -fx-background-radius: 8; }
+.le-tan-lich-lam-viec .le-tan-lich-lam-viec-hom-nay { -fx-background-color: #E8F5F6; }
+.le-tan-lich-lam-viec .le-tan-ca-the { -fx-padding: 10; -fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #DCE4EA; -fx-border-radius: 6; -fx-border-width: 1; -fx-cursor: default; }
+.le-tan-lich-lam-viec .le-tan-ca-the:hover, .le-tan-lich-lam-viec .le-tan-ca-the:pressed { -fx-background-color: white; -fx-border-color: #DCE4EA; }
+.le-tan-lich-lam-viec .le-tan-ca-gio { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+
+/* Trạng thái và panel chi tiết riêng cho lịch cá nhân, không đổi theme chung. */
+.le-tan-lich-lam-viec .le-tan-ca-tinh-trang { -fx-padding: 4 8; -fx-background-color: #E8F5F6; -fx-background-radius: 4; -fx-text-fill: #087E91; -fx-font-size: 12px; -fx-font-weight: bold; }
+.le-tan-lich-lam-viec .le-tan-chi-tiet-gia-tri { -fx-font-size: 13px; }

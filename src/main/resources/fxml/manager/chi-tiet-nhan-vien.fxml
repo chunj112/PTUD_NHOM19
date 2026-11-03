@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="nhanSuDaChonPhanChiTiet" stylesheets="@/css/quan-ly-nhan-su.css" styleClass="nhan-su-trang, nhan-su-phan-chi-tiet" spacing="16" minWidth="0">
+    <Label fx:id="lblDaChonNhanSuTen" text="—" wrapText="true" styleClass="nhan-su-the-tieu-de"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label fx:id="lblDaChonNhanSuTomTat" text="—" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="nhan-su-chi-tiet-tom-tat"/>
+        <Label fx:id="lblDaChonNhanSuTinhTrangNhan" text="—" styleClass="nhan-su-chi-tiet-nhan"/>
+    </HBox>
+    <Separator/>
+    <HBox spacing="12">
+        <VBox spacing="3" HBox.hgrow="ALWAYS" prefWidth="0" minWidth="0">
+            <Label text="Họ tên" styleClass="nhan-su-chu-thich"/>
+            <Label fx:id="lblChiTietDayDuTen" text="—" wrapText="true" styleClass="nhan-su-chi-tiet-gia-tri"/>
+        </VBox>
+        <VBox spacing="3" HBox.hgrow="ALWAYS" prefWidth="0" minWidth="0">
+            <Label text="Mã NV" styleClass="nhan-su-chu-thich"/>
+            <Label fx:id="lblChiTietNhanSuMa" text="—" styleClass="nhan-su-chi-tiet-gia-tri"/>
+        </VBox>
+    </HBox>
+    <VBox spacing="3">
+        <Label text="Chức vụ" styleClass="nhan-su-chu-thich"/>
+        <Label fx:id="lblChiTietChucVu" text="—" styleClass="nhan-su-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="SĐT" styleClass="nhan-su-chu-thich"/>
+        <Label fx:id="lblChiTietSoDienThoai" text="—" styleClass="nhan-su-chi-tiet-gia-tri"/>
+    </VBox>
+    <VBox spacing="3">
+        <Label text="Email" styleClass="nhan-su-chu-thich"/>
+        <Label fx:id="lblChiTietEmail" text="—" wrapText="true" styleClass="nhan-su-chi-tiet-gia-tri"/>
+    </VBox>
+    <Label text="—" styleClass="nhan-su-chi-tiet-gia-tri"/>
+    <VBox spacing="3">
+        <Label text="Trạng thái" styleClass="nhan-su-chu-thich"/>
+        <Label fx:id="lblChiTietTinhTrang" text="—" styleClass="nhan-su-chi-tiet-gia-tri"/>
+    </VBox>
+    <Separator/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnSuaNhanSu" text="Sửa" graphicTextGap="8" styleClass="phu-nut" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/edit-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnNhanSuTaiKhoanCacQuyen" text="Tài khoản &amp; quyền" styleClass="phu-nut" disable="true"/>
+    </HBox>
+</VBox>

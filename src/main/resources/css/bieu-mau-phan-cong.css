@@ -1,0 +1,64 @@
+/* UC005: chi tiết bên phải 1:3932, Thêm 1:4237, Sửa 1:5579, Hủy 1:10709.
+   Dựa trên ảnh đầy đủ người dùng cung cấp khi Figma MCP hết quota.
+   Chỉ áp dụng trong .phan-cong-bieu-mau, .phan-cong-chi-tiet, .phan-cong-huy-hop-thoai. */
+.phan-cong-bieu-mau, .phan-cong-huy-hop-thoai {
+    -fx-padding: 23;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+.phan-cong-bieu-mau .phan-cong-bieu-mau-tieu-de, .phan-cong-huy-hop-thoai .phan-cong-bieu-mau-tieu-de {
+    -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.phan-cong-bieu-mau .phan-cong-bieu-mau-truong {
+    -fx-padding: 8 11;
+    -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62;
+    -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+}
+.phan-cong-bieu-mau .phan-cong-truong-chu-thich, .phan-cong-chi-tiet .phan-cong-truong-chu-thich {
+    -fx-font-size: 12px; -fx-text-fill: #617584;
+}
+.phan-cong-bieu-mau .phan-cong-bieu-mau-nhap, .phan-cong-bieu-mau .phan-cong-bieu-mau-lua-chon,
+.phan-cong-bieu-mau .phan-cong-bieu-mau-ngay, .phan-cong-bieu-mau .phan-cong-bieu-mau-ngay > .text-field {
+    -fx-min-height: 23; -fx-pref-height: 23; -fx-max-height: 23;
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0;
+    -fx-border-width: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A;
+    -fx-prompt-text-fill: #617584;
+}
+.phan-cong-bieu-mau .phan-cong-bieu-mau-nhap:focused,
+.phan-cong-bieu-mau .phan-cong-bieu-mau-ngay > .text-field:focused,
+.phan-cong-bieu-mau .phan-cong-bieu-mau-lua-chon:focused { -fx-background-color: #E8F5F6; -fx-background-radius: 2; }
+.phan-cong-bieu-mau .phan-cong-bieu-mau-lua-chon > .list-cell {
+    -fx-padding: 0; -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-background-color: transparent;
+}
+.phan-cong-bieu-mau .phan-cong-bieu-mau-lua-chon > .arrow-button,
+.phan-cong-bieu-mau .phan-cong-bieu-mau-ngay > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 3; }
+.phan-cong-bieu-mau .phan-cong-bieu-mau-lua-chon > .arrow-button > .arrow { -fx-background-color: #172B3A; }
+.phan-cong-bieu-mau .phan-cong-bieu-mau-ngay > .arrow-button > .arrow { -fx-background-color: #617584; }
+.phan-cong-chi-tiet {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.phan-cong-chi-tiet .phan-cong-chi-tiet-tieu-de { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.phan-cong-chi-tiet .phan-cong-chi-tiet-tom-tat { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.phan-cong-chi-tiet .phan-cong-chi-tiet-gia-tri { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.phan-cong-chi-tiet .separator .line { -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0; }
+.phan-cong-chi-tiet .phan-cong-tinh-trang-nhan {
+    -fx-padding: 4 8; -fx-background-color: #EDF7F1; -fx-background-radius: 6;
+    -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #21764F;
+}
+.phan-cong-chi-tiet .phan-cong-tinh-trang-nhan.ngung-hoat-dong { -fx-background-color: #FDECEC; -fx-text-fill: #C33D42; }
+.phan-cong-chi-tiet .phan-cong-nguy-hiem-nut, .phan-cong-huy-hop-thoai .phan-cong-nguy-hiem-nut {
+    -fx-background-color: white; -fx-border-color: #C33D42; -fx-text-fill: #C33D42;
+}
+.phan-cong-chi-tiet .phan-cong-nguy-hiem-nut:hover, .phan-cong-huy-hop-thoai .phan-cong-nguy-hiem-nut:hover {
+    -fx-background-color: #FDECEC;
+}
+.phan-cong-huy-hop-thoai .phan-cong-huy-tom-tat { -fx-padding: 12; -fx-background-color: #F4F7FA; -fx-background-radius: 8; }
+.phan-cong-huy-hop-thoai .phan-cong-huy-chu-thich { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.phan-cong-huy-hop-thoai .phan-cong-huy-gia-tri { -fx-font-size: 13px; -fx-text-fill: #172B3A; }
+.phan-cong-huy-hop-thoai .phan-cong-huy-ten { -fx-font-weight: bold; }
+.phan-cong-huy-hop-thoai .phan-cong-huy-cau-hoi { -fx-font-size: 14px; -fx-text-fill: #172B3A; }

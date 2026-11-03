@@ -1,0 +1,135 @@
+/* UI dùng riêng cho RECEPTIONIST; không đổi theme hoặc UI Manager. */
+.le-tan-trang { -fx-background-color: transparent; }
+.le-tan-trang .le-tan-tieu-de { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.le-tan-trang .le-tan-phu-de { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.le-tan-trang .le-tan-noi-dung-chinh, .le-tan-hop-thoai-noi .le-tan-noi-dung-chinh { -fx-font-size: 13px; -fx-text-fill: #172B3A; }
+.le-tan-trang .le-tan-chu-thich, .le-tan-hop-thoai-noi .le-tan-chu-thich { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.le-tan-trang .le-tan-the, .le-tan-hop-thoai-noi .le-tan-the {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.le-tan-trang .le-tan-the-tieu-de, .le-tan-hop-thoai-noi .le-tan-the-tieu-de {
+    -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.le-tan-trang .le-tan-chi-tiet, .le-tan-hop-thoai-noi .le-tan-chi-tiet { -fx-min-height: 44; }
+.le-tan-trang .le-tan-chi-tiet-gia-tri, .le-tan-hop-thoai-noi .le-tan-chi-tiet-gia-tri {
+    -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #172B3A;
+}
+.le-tan-trang .le-tan-duong-phan-cach, .le-tan-hop-thoai-noi .le-tan-duong-phan-cach { -fx-background-color: #DCE4EA; }
+.le-tan-trang .le-tan-canh-bao, .le-tan-hop-thoai-noi .le-tan-canh-bao { -fx-padding: 12; -fx-background-radius: 8; -fx-font-size: 12px; }
+.le-tan-trang .le-tan-canh-bao-thong-tin-ngan, .le-tan-hop-thoai-noi .le-tan-canh-bao-thong-tin-ngan { -fx-background-color: #E8F5F6; -fx-text-fill: #087E91; }
+.le-tan-trang .le-tan-canh-bao-canh-bao, .le-tan-hop-thoai-noi .le-tan-canh-bao-canh-bao { -fx-background-color: #FFF7E1; -fx-text-fill: #966B16; }
+.le-tan-trang .le-tan-canh-bao-thanh-cong, .le-tan-hop-thoai-noi .le-tan-canh-bao-thanh-cong { -fx-background-color: #EDF7F1; -fx-text-fill: #21764F; }
+.le-tan-trang .le-tan-canh-bao-nguy-hiem, .le-tan-hop-thoai-noi .le-tan-canh-bao-nguy-hiem { -fx-background-color: #FDEFF0; -fx-text-fill: #C33D42; }
+.le-tan-trang .le-tan-tim-kiem, .le-tan-trang .le-tan-bo-loc {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-max-height: 42;
+    -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A;
+}
+.le-tan-trang .le-tan-tim-kiem { -fx-padding: 10 12; -fx-prompt-text-fill: #617584; }
+.le-tan-trang .le-tan-bo-loc > .text-field, .le-tan-trang .le-tan-bo-loc > .list-cell {
+    -fx-padding: 8 12; -fx-background-color: transparent; -fx-background-insets: 0; -fx-text-fill: #172B3A;
+}
+.le-tan-trang .le-tan-bo-loc > .arrow-button { -fx-background-color: transparent; -fx-padding: 0 10; }
+.le-tan-trang .le-tan-bo-loc > .arrow-button > .arrow { -fx-background-color: #617584; }
+.le-tan-trang .le-tan-tim-kiem:focused, .le-tan-trang .le-tan-bo-loc:focused { -fx-border-color: #087E91; }
+.le-tan-trang .le-tan-bang-vien, .le-tan-hop-thoai-noi .le-tan-bang-vien {
+    -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+}
+.le-tan-trang .le-tan-bang, .le-tan-hop-thoai-noi .le-tan-bang {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0; -fx-border-width: 0;
+}
+.le-tan-trang .le-tan-bang .column-header-background, .le-tan-trang .le-tan-bang .column-header,
+.le-tan-trang .le-tan-bang .filler, .le-tan-hop-thoai-noi .le-tan-bang .column-header-background,
+.le-tan-hop-thoai-noi .le-tan-bang .column-header, .le-tan-hop-thoai-noi .le-tan-bang .filler { -fx-background-color: #F4F7FA; }
+.le-tan-trang .le-tan-bang .column-header, .le-tan-hop-thoai-noi .le-tan-bang .column-header {
+    -fx-min-height: 42; -fx-pref-height: 42; -fx-border-width: 0;
+}
+.le-tan-trang .le-tan-bang .column-header .label, .le-tan-hop-thoai-noi .le-tan-bang .column-header .label {
+    -fx-padding: 4 8; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584;
+    -fx-alignment: CENTER_LEFT; -fx-wrap-text: true;
+}
+.le-tan-trang .le-tan-bang .table-row-cell, .le-tan-hop-thoai-noi .le-tan-bang .table-row-cell {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0;
+}
+.le-tan-trang .le-tan-bang .table-row-cell:filled:hover, .le-tan-hop-thoai-noi .le-tan-bang .table-row-cell:filled:hover { -fx-background-color: #F0F6F8; }
+.le-tan-trang .le-tan-bang .table-row-cell:filled:selected, .le-tan-hop-thoai-noi .le-tan-bang .table-row-cell:filled:selected {
+    -fx-background-color: #087E91, #E8F5F6; -fx-background-insets: 0, 0 0 0 3;
+}
+.le-tan-trang .le-tan-bang .table-cell, .le-tan-hop-thoai-noi .le-tan-bang .table-cell {
+    -fx-padding: 12; -fx-font-size: 13px; -fx-text-fill: #172B3A; -fx-wrap-text: true; -fx-alignment: TOP_LEFT;
+    -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.le-tan-trang .le-tan-bang .table-cell:empty, .le-tan-hop-thoai-noi .le-tan-bang .table-cell:empty { -fx-border-width: 0; }
+.le-tan-trang .le-tan-chi-doc-bang .table-row-cell:filled:hover,
+.le-tan-trang .le-tan-chi-doc-bang .table-row-cell:filled:selected { -fx-background-color: white; -fx-background-insets: 0; -fx-cursor: default; }
+.le-tan-trang .le-tan-bang-chan, .le-tan-hop-thoai-noi .le-tan-bang-chan {
+    -fx-padding: 8 12; -fx-min-height: 38; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0;
+}
+.le-tan-trang .le-tan-trang-nut, .le-tan-hop-thoai-noi .le-tan-trang-nut {
+    -fx-padding: 0 6; -fx-background-color: transparent; -fx-text-fill: #172B3A; -fx-cursor: hand;
+}
+.le-tan-trang .le-tan-tinh-trang-canh-bao, .le-tan-hop-thoai-noi .le-tan-tinh-trang-canh-bao { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #966B16; }
+.le-tan-trang .le-tan-tinh-trang-thanh-cong, .le-tan-hop-thoai-noi .le-tan-tinh-trang-thanh-cong { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #21764F; }
+.le-tan-trang .le-tan-tinh-trang-nguy-hiem, .le-tan-hop-thoai-noi .le-tan-tinh-trang-nguy-hiem { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #C33D42; }
+.le-tan-trang .le-tan-tinh-trang-thong-tin-ngan, .le-tan-hop-thoai-noi .le-tan-tinh-trang-thong-tin-ngan { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.le-tan-trang .le-tan-cac-tab { -fx-background-color: transparent; }
+.le-tan-trang .le-tan-cac-tab > .tab-header-area { -fx-padding: 0; }
+.le-tan-trang .le-tan-cac-tab > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent; -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+}
+.le-tan-trang .le-tan-cac-tab .tab {
+    -fx-padding: 12 16; -fx-background-color: white; -fx-background-insets: 0; -fx-background-radius: 0;
+    -fx-border-color: transparent; -fx-border-width: 0 0 2 0;
+}
+.le-tan-trang .le-tan-cac-tab .tab .tab-label { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.le-tan-trang .le-tan-cac-tab .tab:selected { -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent; }
+.le-tan-trang .le-tan-cac-tab .tab:selected .tab-label { -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.le-tan-trang .le-tan-cac-tab .tab .focus-indicator,
+.le-tan-trang .le-tan-cac-tab:focused .tab:selected .focus-indicator { -fx-border-width: 0; -fx-border-color: transparent; }
+.le-tan-trang .le-tan-cac-tab > .tab-content-area { -fx-padding: 16 0 0 0; }
+.le-tan-trang .truong-nhap, .le-tan-hop-thoai-noi .truong-nhap {
+    -fx-padding: 8 11; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-border-width: 1;
+    -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62;
+}
+.le-tan-trang .le-tan-truong-cao, .le-tan-hop-thoai-noi .le-tan-truong-cao { -fx-min-height: 104; -fx-pref-height: 104; -fx-max-height: 104; }
+.le-tan-trang .le-tan-truong-chi-doc, .le-tan-hop-thoai-noi .le-tan-truong-chi-doc { -fx-background-color: #F4F7FA; }
+.le-tan-trang .le-tan-truong-nhap, .le-tan-trang .le-tan-truong-lua-chon, .le-tan-trang .le-tan-truong-ngay,
+.le-tan-hop-thoai-noi .le-tan-truong-nhap, .le-tan-hop-thoai-noi .le-tan-truong-lua-chon, .le-tan-hop-thoai-noi .le-tan-truong-ngay {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-border-width: 0;
+    -fx-font-size: 14px; -fx-text-fill: #172B3A; -fx-min-height: 23; -fx-pref-height: 23; -fx-max-height: 23;
+}
+.le-tan-trang .le-tan-truong-chi-doc .text-field, .le-tan-hop-thoai-noi .le-tan-truong-chi-doc .text-field { -fx-text-fill: #617584; }
+.le-tan-trang .le-tan-truong-ngay > .text-field, .le-tan-hop-thoai-noi .le-tan-truong-ngay > .text-field,
+.le-tan-trang .le-tan-truong-lua-chon > .list-cell, .le-tan-hop-thoai-noi .le-tan-truong-lua-chon > .list-cell {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-text-fill: #172B3A;
+}
+.le-tan-trang .le-tan-truong-ngay > .arrow-button, .le-tan-hop-thoai-noi .le-tan-truong-ngay > .arrow-button,
+.le-tan-trang .le-tan-truong-lua-chon > .arrow-button, .le-tan-hop-thoai-noi .le-tan-truong-lua-chon > .arrow-button { -fx-padding: 0 3; -fx-background-color: transparent; }
+.le-tan-trang .le-tan-truong-vung, .le-tan-hop-thoai-noi .le-tan-truong-vung {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0; -fx-border-width: 0;
+    -fx-text-fill: #172B3A; -fx-font-size: 14px;
+}
+.le-tan-trang .le-tan-truong-vung .content, .le-tan-hop-thoai-noi .le-tan-truong-vung .content,
+.le-tan-trang .le-tan-truong-vung .scroll-pane, .le-tan-hop-thoai-noi .le-tan-truong-vung .scroll-pane,
+.le-tan-trang .le-tan-truong-vung .viewport, .le-tan-hop-thoai-noi .le-tan-truong-vung .viewport { -fx-padding: 0; -fx-background-color: transparent; }
+.le-tan-trang .le-tan-truong-nhap:focused, .le-tan-hop-thoai-noi .le-tan-truong-nhap:focused,
+.le-tan-trang .le-tan-truong-lua-chon:focused, .le-tan-hop-thoai-noi .le-tan-truong-lua-chon:focused { -fx-background-color: #E8F5F6; }
+.le-tan-hop-thoai-noi {
+    -fx-padding: 23; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.le-tan-hop-thoai-noi .le-tan-hop-thoai-noi-tieu-de { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.le-tan-hop-thoai-noi .le-tan-dong {
+    -fx-padding: 0; -fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-text-fill: #617584; -fx-font-size: 16px; -fx-cursor: hand;
+}
+.le-tan-trang .le-tan-nguy-hiem-nut, .le-tan-hop-thoai-noi .le-tan-nguy-hiem-nut { -fx-border-color: #C33D42; -fx-text-fill: #C33D42; }
+.le-tan-trang .le-tan-tong, .le-tan-hop-thoai-noi .le-tan-tong { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #087E91; }
+.le-tan-trang .le-tan-trong-hinh-tron { -fx-background-color: #E8F5F6; -fx-background-radius: 100; }
+.le-tan-trang .le-tan-da-chon-the { -fx-background-color: #E8F5F6; -fx-border-color: #087E91; }
+.le-tan-trang .le-tan-khung-dang-tai { -fx-background-color: #E8EDF1; -fx-background-radius: 6; }
+
+.le-tan-trang .chinh-nut:disabled, .le-tan-hop-thoai-noi .chinh-nut:disabled { -fx-opacity: 1; -fx-background-color: #E8EDF1; -fx-border-color: #E8EDF1; -fx-text-fill: #617584; }

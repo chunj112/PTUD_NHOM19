@@ -1,0 +1,108 @@
+/* UC007 · Figma chính thức: 15:683 / 15:2417 / 15:2435.
+   Mọi selector giới hạn trong .bao-cao-trang; không ảnh hưởng UI khác.
+   Dùng chu-de.css hiện có cho phông chữ và nut-chinh/nut-phu. */
+.bao-cao-trang { -fx-background-color: transparent; }
+.bao-cao-trang .bao-cao-tieu-de { -fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.bao-cao-trang .bao-cao-phu-de { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.bao-cao-trang .bao-cao-chu-thich, .bao-cao-trang .bao-cao-truong-nhan {
+    -fx-font-size: 12px; -fx-text-fill: #617584;
+}
+.bao-cao-trang .bao-cao-the {
+    -fx-padding: 19; -fx-background-color: white; -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 10;
+}
+.bao-cao-trang .bao-cao-the-tieu-de { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+.bao-cao-trang .bao-cao-chi-so-nhan { -fx-font-size: 13px; -fx-text-fill: #617584; }
+.bao-cao-trang .bao-cao-chi-so-gia-tri { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172B3A; }
+
+/* Thanh tab và bộ lọc bên dưới ghép thành một card như Figma.
+   KPI, biểu đồ và bảng nằm ngoài card lọc, trong nội dung mỗi Tab. */
+.bao-cao-trang .bao-cao-cac-tab { -fx-background-color: transparent; }
+.bao-cao-trang .bao-cao-cac-tab > .tab-header-area {
+    -fx-padding: 19 19 0 19;
+    -fx-background-color: white; -fx-background-radius: 10 10 0 0;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1 1 0 1; -fx-border-radius: 10 10 0 0;
+}
+.bao-cao-trang .bao-cao-cac-tab > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent; -fx-border-color: transparent transparent #DCE4EA transparent;
+    -fx-border-width: 0 0 1 0; -fx-border-insets: 0 19;
+}
+.bao-cao-trang .bao-cao-cac-tab .tab {
+    -fx-padding: 12 16; -fx-background-color: white; -fx-background-insets: 0;
+    -fx-background-radius: 0; -fx-border-color: transparent; -fx-border-width: 0 0 2 0;
+}
+.bao-cao-trang .bao-cao-cac-tab .tab .tab-label { -fx-font-size: 14px; -fx-text-fill: #617584; }
+.bao-cao-trang .bao-cao-cac-tab .tab:selected {
+    -fx-background-color: #E8F5F6; -fx-border-color: transparent transparent #087E91 transparent;
+}
+.bao-cao-trang .bao-cao-cac-tab .tab:selected .tab-label { -fx-font-weight: bold; -fx-text-fill: #087E91; }
+/* Không vẽ viền focus bên trong khi click tab; giữ nền và gạch chân đã chọn. */
+.bao-cao-trang .bao-cao-cac-tab .tab .focus-indicator,
+.bao-cao-trang .bao-cao-cac-tab:focused .tab:selected .focus-indicator {
+    -fx-border-color: transparent; -fx-border-width: 0; -fx-background-color: transparent;
+}
+.bao-cao-trang .bao-cao-cac-tab > .tab-content-area { -fx-padding: 0; }
+.bao-cao-trang .bao-cao-bo-loc-the {
+    -fx-padding: 16 19 19 19; -fx-background-color: white; -fx-background-radius: 0 0 10 10;
+    -fx-border-color: #DCE4EA; -fx-border-width: 0 1 1 1; -fx-border-radius: 0 0 10 10;
+}
+.bao-cao-trang .bao-cao-truong {
+    -fx-padding: 8 11; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+    -fx-min-height: 62; -fx-pref-height: 62; -fx-max-height: 62;
+}
+.bao-cao-trang .bao-cao-ngay, .bao-cao-trang .bao-cao-bo-loc {
+    -fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;
+    -fx-border-color: transparent; -fx-border-width: 0;
+    -fx-min-height: 24; -fx-pref-height: 24; -fx-max-height: 24; -fx-font-size: 14px;
+}
+.bao-cao-trang .bao-cao-ngay > .text-field {
+    -fx-padding: 0; -fx-background-color: transparent; -fx-background-insets: 0;
+    -fx-border-width: 0; -fx-text-fill: #172B3A; -fx-font-size: 14px;
+}
+.bao-cao-trang .bao-cao-ngay > .arrow-button, .bao-cao-trang .bao-cao-bo-loc > .arrow-button {
+    -fx-background-color: transparent; -fx-padding: 0 2 0 8;
+}
+.bao-cao-trang .bao-cao-ngay > .arrow-button > .arrow,
+.bao-cao-trang .bao-cao-bo-loc > .arrow-button > .arrow { -fx-background-color: #617584; }
+.bao-cao-trang .bao-cao-ngay:focused, .bao-cao-trang .bao-cao-bo-loc:focused { -fx-border-color: #087E91; -fx-border-width: 0 0 1 0; }
+.bao-cao-trang .bao-cao-bo-loc > .list-cell { -fx-padding: 0; -fx-background-color: transparent; -fx-text-fill: #172B3A; }
+.bao-cao-trang .bao-cao-bieu-do { -fx-padding: 20 16 0 16; }
+.bao-cao-trang .bao-cao-thanh { -fx-background-color: #9CCCD3; -fx-background-radius: 4 4 0 0; }
+.bao-cao-trang .bao-cao-thanh-nhan-manh { -fx-background-color: #087E91; }
+.bao-cao-trang .bao-cao-thanh-gia-tri { -fx-font-size: 12px; -fx-text-fill: #172B3A; }
+.bao-cao-trang .bao-cao-truc-nhan { -fx-font-size: 12px; -fx-text-fill: #617584; }
+.bao-cao-trang .bao-cao-duong-phan-cach { -fx-background-color: #DCE4EA; }
+.bao-cao-trang .bao-cao-bang-vien {
+    -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-width: 1; -fx-border-radius: 8;
+}
+.bao-cao-trang .bao-cao-bang { -fx-background-color: white; -fx-background-insets: 0; -fx-border-width: 0; -fx-padding: 0; }
+.bao-cao-trang .bao-cao-bang .column-header-background,
+.bao-cao-trang .bao-cao-bang .column-header,
+.bao-cao-trang .bao-cao-bang .filler { -fx-background-color: #F4F7FA; }
+.bao-cao-trang .bao-cao-bang .column-header { -fx-min-height: 38; -fx-pref-height: 38; -fx-border-width: 0; }
+.bao-cao-trang .bao-cao-bang .column-header .label {
+    -fx-padding: 10 12; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #617584; -fx-alignment: CENTER_LEFT;
+}
+/* Bảng chỉ xem: bỏ màu hover/chọn nhưng vẫn cuộn được.
+   Selection model thật do Nhi tắt khi viết Controller; không chặn sự kiện chuột. */
+.bao-cao-trang .bao-cao-bang .table-row-cell,
+.bao-cao-trang .bao-cao-bang .table-row-cell:filled:hover,
+.bao-cao-trang .bao-cao-bang .table-row-cell:filled:selected,
+.bao-cao-trang .bao-cao-bang .table-row-cell:filled:focused {
+    -fx-background-color: white; -fx-background-insets: 0; -fx-padding: 0; -fx-cursor: default;
+}
+.bao-cao-trang .bao-cao-bang .table-cell {
+    -fx-padding: 12; -fx-font-size: 13px; -fx-text-fill: #172B3A; -fx-alignment: TOP_LEFT;
+    -fx-border-color: transparent transparent #DCE4EA transparent; -fx-border-width: 0 0 1 0;
+    -fx-cursor: default;
+}
+.bao-cao-trang .bao-cao-bang .table-cell:selected { -fx-text-fill: #172B3A; -fx-background-color: transparent; }
+.bao-cao-trang .bao-cao-bang .table-cell:empty { -fx-border-width: 0; }
+.bao-cao-trang .bao-cao-bang-chan { -fx-padding: 0 12; -fx-border-color: #DCE4EA transparent transparent transparent; -fx-border-width: 1 0 0 0; }
+.bao-cao-trang .bao-cao-trang-nut {
+    -fx-padding: 2 6; -fx-background-color: transparent; -fx-background-radius: 4;
+    -fx-text-fill: #172B3A; -fx-font-size: 14px; -fx-cursor: hand;
+}
+.bao-cao-trang .bao-cao-trang-nut:focused { -fx-border-color: #087E91; -fx-border-radius: 4; }

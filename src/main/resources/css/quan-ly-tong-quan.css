@@ -1,0 +1,172 @@
+/* Dashboard MANAGER — Figma 1:2903. Chỉ áp dụng trong .quan-ly-tong-quan.
+   AppShell đã cung cấp padding 28px; không đặt lại ở root trang.
+   Giữ stylesheet riêng để không đổi Login hoặc trang của Role khác. */
+.quan-ly-tong-quan {
+    -fx-background-color: transparent;
+}
+.quan-ly-tong-quan .tong-quan-tieu-de {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.quan-ly-tong-quan .tong-quan-the {
+    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+.quan-ly-tong-quan .tong-quan-chi-so-nhan {
+    -fx-font-size: 13px;
+    -fx-text-fill: #617584;
+}
+.quan-ly-tong-quan .tong-quan-chi-so-gia-tri {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.quan-ly-tong-quan .tong-quan-chu-thich {
+    -fx-font-size: 12px;
+    -fx-text-fill: #617584;
+}
+.quan-ly-tong-quan .tong-quan-the-tieu-de {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.quan-ly-tong-quan .tong-quan-tom-tat {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172B3A;
+}
+.quan-ly-tong-quan .tong-quan-cung-dong-ghi-chu {
+    -fx-padding: 12;
+    -fx-font-size: 12px;
+    -fx-text-fill: #087E91;
+    -fx-background-color: #E8F5F6;
+    -fx-background-radius: 8;
+}
+.quan-ly-tong-quan .separator .line {
+    -fx-border-color: #DCE4EA transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.quan-ly-tong-quan .tong-quan-bang-vien {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+.quan-ly-tong-quan .tong-quan-bang {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+.quan-ly-tong-quan .tong-quan-hoat-dong-bang {
+    -fx-border-color: #DCE4EA;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+.quan-ly-tong-quan .tong-quan-bang .column-header-background,
+.quan-ly-tong-quan .tong-quan-bang .column-header,
+.quan-ly-tong-quan .tong-quan-bang .filler {
+    -fx-background-color: #F4F7FA;
+}
+.quan-ly-tong-quan .tong-quan-bang .column-header {
+    -fx-border-width: 0;
+    -fx-pref-height: 38;
+    -fx-min-height: 38;
+}
+.quan-ly-tong-quan .tong-quan-bang .column-header .label {
+    -fx-padding: 10 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #617584;
+    -fx-alignment: CENTER_LEFT;
+}
+.quan-ly-tong-quan .tong-quan-bang .table-row-cell {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.quan-ly-tong-quan .tong-quan-bang .table-row-cell:filled:hover {
+    -fx-background-color: #F4FAFB;
+}
+.quan-ly-tong-quan .tong-quan-bang .table-row-cell:filled:selected {
+    -fx-background-color: #E8F5F6;
+}
+.quan-ly-tong-quan .tong-quan-bang .table-cell {
+    -fx-padding: 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #172B3A;
+    -fx-alignment: TOP_LEFT;
+    -fx-wrap-text: true;
+    -fx-border-color: transparent transparent #DCE4EA transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.quan-ly-tong-quan .tong-quan-bang .table-cell:empty {
+    -fx-border-width: 0;
+}
+.quan-ly-tong-quan .tong-quan-tinh-trang-dang-cho,
+.quan-ly-tong-quan .tong-quan-tinh-trang-da-nhan {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+.quan-ly-tong-quan .tong-quan-tinh-trang-dang-cho { -fx-text-fill: #966B16; }
+.quan-ly-tong-quan .tong-quan-tinh-trang-da-nhan { -fx-text-fill: #087E91; }
+.quan-ly-tong-quan .tong-quan-bang-chan {
+    -fx-padding: 0 12;
+    -fx-border-color: #DCE4EA transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.quan-ly-tong-quan .tong-quan-trang-nut {
+    -fx-padding: 2 6;
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-text-fill: #172B3A;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.quan-ly-tong-quan .tong-quan-trang-nut:focused {
+    -fx-border-color: #087E91;
+    -fx-border-radius: 4;
+}
+
+/* Chỉ bảng Lịch khám gần nhất: không hover/selected/focus highlight.
+   Đây là hiển thị chỉ xem; CSS không xóa selection model.
+   Không chặn mouse event để bánh xe và thanh cuộn vẫn hoạt động. */
+.quan-ly-tong-quan .chi-doc-bang {
+    -fx-selection-bar: white;
+    -fx-selection-bar-non-focused: white;
+    -fx-selection-bar-text: #172B3A;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-cursor: default;
+}
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell,
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell:filled:hover,
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell:selected,
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell:filled:selected,
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell:focused,
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell:filled:focused,
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell:filled:selected:hover,
+.quan-ly-tong-quan .chi-doc-bang .table-row-cell:filled:selected:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-cursor: default;
+}
+.quan-ly-tong-quan .chi-doc-bang .table-cell,
+.quan-ly-tong-quan .chi-doc-bang .table-cell:hover,
+.quan-ly-tong-quan .chi-doc-bang .table-cell:selected,
+.quan-ly-tong-quan .chi-doc-bang .table-cell:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-text-fill: #172B3A;
+    -fx-cursor: default;
+}
+.quan-ly-tong-quan .chi-doc-bang .table-cell .label {
+    -fx-cursor: default;
+}

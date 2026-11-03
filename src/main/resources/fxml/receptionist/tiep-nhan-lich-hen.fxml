@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="leTanTiepNhan" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-trang, le-tan-tiep-nhan" spacing="20" minWidth="1000" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTrangTieuDe" text="Tiếp nhận &amp; Lịch hẹn" styleClass="le-tan-tieu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTrangPhuDe" text="Quản lý lịch hẹn và tiếp nhận bệnh nhân trong cùng một quy trình" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
+        </VBox>
+        <Button fx:id="btnDatLichHen" text="Đặt lịch" minWidth="-Infinity" styleClass="chinh-nut" graphicTextGap="8" disable="true">
+            <graphic>
+                <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/staff/add-staff.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <TabPane fx:id="tiepNhanCacTab" tabClosingPolicy="UNAVAILABLE" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="${tiepNhanCacTab.selectionModel.selectedItem.content.prefHeight + 66}" styleClass="le-tan-cac-tab">
+        <tabs>
+            <Tab fx:id="tabHomNay" text="Hôm nay">
+                <content>
+                    <fx:include fx:id="tabHomNayNoiDung" source="tiep-nhan-hom-nay.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabTuan" text="Lịch tuần">
+                <content>
+                    <fx:include fx:id="tabTuanNoiDung" source="tiep-nhan-trong-tuan.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabKhongHenTrong" text="Khách không hẹn">
+                <content>
+                    <fx:include fx:id="tabKhongHenTrongNoiDung" source="tiep-nhan-khong-hen.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="themLichHenBieuMau" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-hop-thoai-noi, le-tan-tiep-nhan" spacing="16" minWidth="705" prefWidth="705" maxWidth="705" minHeight="-Infinity" maxHeight="-Infinity">
+    <HBox spacing="12" alignment="CENTER_LEFT" minHeight="32">
+        <Label fx:id="lblHopThoaiTieuDe" text="Đặt lịch hẹn" styleClass="le-tan-hop-thoai-noi-tieu-de" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+    </HBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+        <Label text="Tìm bệnh nhân *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtLichHenBenhNhan" text="" styleClass="le-tan-truong-nhap"/>
+    </VBox>
+    <VBox styleClass="le-tan-bang-vien">
+        <TableView fx:id="tblLichHenBenhNhanCacKetQua" editable="false" fixedCellSize="72" minHeight="116" prefHeight="116" maxHeight="116" styleClass="le-tan-bang">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+            </columnResizePolicy>
+            <placeholder>
+                <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="trong-du-lieu-ghi-chu"/>
+            </placeholder>
+            <columns>
+                <TableColumn fx:id="tblLichHenBenhNhanCacKetQuaCotMa" text="Mã BN" minWidth="80" prefWidth="160" sortable="false" reorderable="false">
+                    <cellValueFactory>
+                        <MapValueFactory key="v0"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tblLichHenBenhNhanCacKetQuaCotTen" text="Họ tên" minWidth="120" prefWidth="220" sortable="false" reorderable="false">
+                    <cellValueFactory>
+                        <MapValueFactory key="v1"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tblLichHenBenhNhanCacKetQuaCotSoDienThoai" text="SĐT" minWidth="120" prefWidth="210" sortable="false" reorderable="false">
+                    <cellValueFactory>
+                        <MapValueFactory key="v2"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+        <Label text="Nha sĩ *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <ComboBox fx:id="cboLichHenNhaSi" maxWidth="Infinity" minWidth="0" styleClass="le-tan-truong-lua-chon" promptText="Chọn nha sĩ">
+            <items>
+                <FXCollections fx:factory="observableArrayList"/>
+            </items>
+        </ComboBox>
+    </VBox>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+            <Label text="Ngày hẹn *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <DatePicker fx:id="dpLichHenNgay" maxWidth="Infinity" minWidth="0" editable="false" styleClass="le-tan-truong-ngay">
+                <editor text=""/>
+            </DatePicker>
+        </VBox>
+        <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+            <Label text="Giờ hẹn *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <ComboBox fx:id="cboLichHenGio" maxWidth="Infinity" minWidth="0" styleClass="le-tan-truong-lua-chon" promptText="Chọn giờ sau khi tải ca khả dụng"/>
+        </VBox>
+    </HBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
+        <Label text="Lý do khám *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <TextField fx:id="txtLichHenLyDo" text="" styleClass="le-tan-truong-nhap"/>
+    </VBox>
+    <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap, le-tan-truong-cao">
+        <Label text="Ghi chú" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <TextArea fx:id="txtLichHenCacGhiChu" text="" wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="le-tan-truong-vung"/>
+    </VBox>
+    <Label fx:id="lblLichHenBieuMauQuyTac" text="Chưa tải dữ liệu" styleClass="le-tan-canh-bao, le-tan-canh-bao-thong-tin-ngan" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Button fx:id="btnHuy" text="Hủy" minWidth="-Infinity" styleClass="phu-nut" cancelButton="true" disable="true"/>
+        <Button fx:id="btnLuuLichHen" text="Lưu lịch hẹn" minWidth="-Infinity" styleClass="chinh-nut" disable="true"/>
+    </HBox>
+</VBox>

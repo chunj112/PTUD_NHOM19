@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import java.util.HashMap?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="leTanSapToiLichLamViec" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-lich-lam-viec.css" styleClass="le-tan-trang, le-tan-lich-lam-viec" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <VBox spacing="16" minWidth="0" styleClass="le-tan-the">
+        <Label text="Lịch sắp tới" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
+        <VBox styleClass="le-tan-bang-vien">
+            <TableView fx:id="tblSapToiCacCa" editable="false" fixedCellSize="72" minHeight="116" prefHeight="116" maxHeight="116" styleClass="le-tan-bang, le-tan-chi-doc-bang">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/>
+                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Chưa tải dữ liệu · Chức năng đang phát triển" wrapText="true" styleClass="trong-du-lieu-ghi-chu"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="tblSapToiCacCaCotNgay" text="Ngày" minWidth="100" prefWidth="140" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v0"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblSapToiCacCaCotCa" text="Ca" minWidth="120" prefWidth="150" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v1"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblSapToiCacCaCotPhong" text="Phòng" minWidth="80" prefWidth="100" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v2"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tblSapToiCacCaCotCongViec" text="Công việc" minWidth="160" prefWidth="280" sortable="false" reorderable="false">
+                        <cellValueFactory>
+                            <MapValueFactory key="v3"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="le-tan-bang-chan">
+                <Label fx:id="tblSapToiCacCaSoLuong" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="tblSapToiCacCaTruoc" text="‹" minWidth="-Infinity" styleClass="le-tan-trang-nut" disable="true"/>
+                <Label fx:id="tblSapToiCacCaTrang" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+                <Button fx:id="tblSapToiCacCaTiep" text="›" minWidth="-Infinity" styleClass="le-tan-trang-nut" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>
