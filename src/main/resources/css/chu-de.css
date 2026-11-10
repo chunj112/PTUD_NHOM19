@@ -27,6 +27,17 @@
 .vai-tro-nhan, .mo { -fx-font-size: 12px; -fx-text-fill: -df-mau-chu-mo; }
 .danh-tinh-ten { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: -df-mau-chu; }
 .thanh-ben-danh-tinh { -fx-padding: 0 8 0 8; }
+.nut-thu-gon-thanh-ben {
+    -fx-padding: 2 4; -fx-background-color: transparent; -fx-text-fill: #617584;
+    -fx-border-color: transparent; -fx-background-radius: 7; -fx-cursor: hand;
+    -fx-font-size: 18px; -fx-font-weight: bold;
+}
+.nut-thu-gon-thanh-ben:hover { -fx-background-color: #E8F5F6; -fx-text-fill: #087E91; }
+.nut-thu-gon-thanh-ben:focused { -fx-border-color: #087E91; }
+.thanh-ben.thu-gon { -fx-padding: 16 8 16 8; -fx-spacing: 16; }
+.thanh-ben.thu-gon > .hbox { -fx-alignment: center; -fx-spacing: 0; }
+.thanh-ben.thu-gon .dieu-huong-nut { -fx-alignment: center; -fx-padding: 11 4; -fx-graphic-text-gap: 0; }
+.thanh-ben.thu-gon .dieu-huong-nut .image-view { -fx-fit-width: 22; -fx-fit-height: 22; }
 .khung-ung-dung-cuon, .khung-ung-dung-cuon > .viewport {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -149,3 +160,12 @@
 
 /* Trạng thái chưa tải dữ liệu: dùng màu trực tiếp để fragment FXML cũng preview độc lập được. */
 .trong-du-lieu-ghi-chu { -fx-text-fill: #617584; -fx-font-size: 13px; -fx-padding: 8; }
+
+/* Nhãn trạng thái dùng chung cho lịch hẹn và phiếu khám. */
+.nhan-trang-thai { -fx-padding: 5 10; -fx-background-radius: 999; -fx-border-radius: 999; -fx-font-size: 12px; -fx-font-weight: bold; }
+.label.nhan-trang-thai.nhan-tt-vang { -fx-background-color: #FFF4D6; -fx-text-fill: #946200; }
+.label.nhan-trang-thai.nhan-tt-xanh-duong { -fx-background-color: #E5F0FF; -fx-text-fill: #245DB5; }
+.label.nhan-trang-thai.nhan-tt-xanh-la { -fx-background-color: #DDF7E9; -fx-text-fill: #167347; }
+.label.nhan-trang-thai.nhan-tt-do { -fx-background-color: #FDE8E8; -fx-text-fill: #B42318; }
+.label.nhan-trang-thai.nhan-tt-cam { -fx-background-color: #FFF0DF; -fx-text-fill: #A95312; }
+.label.nhan-trang-thai.nhan-tt-xam { -fx-background-color: #ECEFF3; -fx-text-fill: #596579; }

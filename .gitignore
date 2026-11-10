@@ -19,3 +19,11 @@ Thumbs.db
 /prompts/
 /AGENTS.md
 /PROMPT_START_CODEX.md
+# SQL thao tac phu chi giu local; Git chi chia se ba script chuan trong database/sqlserver.
+/database/optional/
+!/database/optional/
+/database/optional/*
+!/database/optional/README.md
+!/database/optional/migrations/
+/database/optional/migrations/*
+!/database/optional/migrations/005_cap_stt_kham_theo_ngay.sql

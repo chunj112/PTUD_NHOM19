@@ -17,6 +17,7 @@ public enum DuongDanManHinh {
     LICH_LE_TAN("Lịch làm việc", "btnLichLeTan", "/fxml/receptionist/lich-lam-viec.fxml", VaiTro.RECEPTIONIST),
     KHAM_BENH("Khám bệnh", "btnKhamBenh", "/fxml/dentist/kham-benh.fxml", VaiTro.DENTIST),
     LICH_NHA_SI("Lịch làm việc", "btnLichNhaSi", "/fxml/dentist/lich-lam-viec.fxml", VaiTro.DENTIST),
+    DANH_SACH_CHO_Y_TA("Danh sách chờ khám", "btnDanhSachChoYTa", "/fxml/nurse/danh-sach-cho-kham.fxml", VaiTro.NURSE),
     LICH_Y_TA("Lịch làm việc", "btnLichYTa", "/fxml/nurse/lich-lam-viec.fxml", VaiTro.NURSE),
     THONG_TIN_CA_NHAN("Hồ sơ cá nhân", null, "/fxml/common/thong-tin-ca-nhan.fxml", VaiTro.values()),
     MAT_KHAU("Đổi mật khẩu", null, "/fxml/common/doi-mat-khau.fxml", VaiTro.values());

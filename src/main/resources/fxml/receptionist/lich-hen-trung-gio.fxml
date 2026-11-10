@@ -21,7 +21,7 @@
         </Button>
     </HBox>
     <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
-        <Label text="Tìm bệnh nhân *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+        <Label text="Số điện thoại bệnh nhân *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
         <TextField fx:id="txtLichHenBenhNhan" text="" styleClass="le-tan-truong-nhap"/>
     </VBox>
     <VBox styleClass="le-tan-bang-vien">

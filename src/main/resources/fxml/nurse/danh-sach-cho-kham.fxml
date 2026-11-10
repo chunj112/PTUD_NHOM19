@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="trangChoYTa" fx:controller="iuh.se.nhom19.view.nurse.DanhSachChoYTaController"
+      stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/y-ta-danh-sach.css"
+      styleClass="khung-ung-dung, y-ta-trang-cho" spacing="18" minWidth="900">
+    <HBox alignment="CENTER_LEFT" spacing="14">
+        <VBox spacing="5" HBox.hgrow="ALWAYS">
+            <Label text="Danh sách chờ khám" styleClass="trang-tieu-de"/>
+            <Label fx:id="lblThongTinCa" text="Ngày và phòng theo phân công" wrapText="true" styleClass="mo"/>
+        </VBox>
+        <Button fx:id="btnLamMoiChoYTa" text="Làm mới" styleClass="phu-nut"/>
+    </HBox>
+
+    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="y-ta-bo-loc">
+        <DatePicker fx:id="dpNgayCho" promptText="Ngày" editable="false" prefWidth="160"/>
+        <ComboBox fx:id="cbPhongCho" promptText="Tất cả phòng được phân công" prefWidth="210"/>
+        <ComboBox fx:id="cbTrangThaiCho" prefWidth="200"/>
+    </HBox>
+
+    <HBox spacing="12" styleClass="y-ta-tong-hop">
+        <Label fx:id="lblSoLuongCho" text="Chờ khám: —" styleClass="y-ta-chi-so y-ta-cho"/>
+        <Label fx:id="lblSoLuongDangKham" text="Đang khám: —" styleClass="y-ta-chi-so y-ta-dang-kham"/>
+        <Label fx:id="lblSoLuongDaKham" text="Đã khám: —" styleClass="y-ta-chi-so y-ta-da-kham"/>
+    </HBox>
+
+    <Label fx:id="lblThongBaoChoYTa" text="" wrapText="true" styleClass="y-ta-thong-bao"/>
+
+    <VBox spacing="12" styleClass="le-tan-the" VBox.vgrow="ALWAYS">
+        <Label text="Bệnh nhân theo phòng và ca được phân công · Chỉ xem" styleClass="le-tan-the-tieu-de"/>
+        <TableView fx:id="tblChoYTa" editable="false" fixedCellSize="58" minHeight="420" prefHeight="520" VBox.vgrow="ALWAYS" styleClass="le-tan-bang">
+            <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS"/></columnResizePolicy>
+            <placeholder><Label text="Không có phiếu khám trong phạm vi phân công của bạn." wrapText="true"/></placeholder>
+            <columns>
+                <TableColumn fx:id="cotSTT" text="STT" minWidth="58" prefWidth="68" sortable="false" reorderable="false"/>
+                <TableColumn fx:id="cotBenhNhan" text="Bệnh nhân" minWidth="130" prefWidth="180" sortable="false" reorderable="false"/>
+                <TableColumn fx:id="cotSDT" text="SĐT" minWidth="100" prefWidth="120" sortable="false" reorderable="false"/>
+                <TableColumn fx:id="cotThoiDiemTiepNhan" text="Giờ tiếp nhận" minWidth="100" prefWidth="115" sortable="false" reorderable="false"/>
+                <TableColumn fx:id="cotNhaSi" text="Nha sĩ" minWidth="125" prefWidth="165" sortable="false" reorderable="false"/>
+                <TableColumn fx:id="cotPhong" text="Phòng" minWidth="70" prefWidth="85" sortable="false" reorderable="false"/>
+                <TableColumn fx:id="cotTrangThai" text="Trạng thái khám" minWidth="120" prefWidth="145" sortable="false" reorderable="false"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

@@ -11,4 +11,5 @@ public final class NhanVien {
     public String layHoTen(){return hoTen;}
     public String layChucVu(){return chucVu;}
     public boolean dangLamViec(){return dangLamViec;}
+    @Override public String toString(){return hoTen;}
 }

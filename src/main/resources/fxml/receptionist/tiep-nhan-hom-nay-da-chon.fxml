@@ -9,7 +9,7 @@
 <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="tiepNhanHomNayDaChon" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-trang, le-tan-tiep-nhan" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="800">
     <HBox spacing="12" alignment="CENTER_LEFT">
-        <TextField fx:id="txtLichHenTimKiem" promptText="Tìm bệnh nhân / mã lịch hẹn" minWidth="0" HBox.hgrow="ALWAYS" styleClass="le-tan-tim-kiem"/>
+        <TextField fx:id="txtLichHenTimKiem" promptText="Nhập số điện thoại bệnh nhân" minWidth="0" HBox.hgrow="ALWAYS" styleClass="le-tan-tim-kiem"/>
         <DatePicker fx:id="dpLichHenNgayLam" prefWidth="190" minWidth="190" maxWidth="190" editable="false" styleClass="le-tan-bo-loc">
             <editor text=""/>
         </DatePicker>

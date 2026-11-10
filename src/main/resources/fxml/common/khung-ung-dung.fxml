@@ -6,17 +6,18 @@
 <!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="khungUngDung" fx:controller="iuh.se.nhom19.view.common.KhungUngDungController" styleClass="khung-ung-dung" stylesheets="@/css/chu-de.css" prefWidth="1280.0" prefHeight="800.0">
     <left>
-        <VBox fx:id="thanhBen" minWidth="232.0" prefWidth="232.0" maxWidth="232.0" spacing="24.0" styleClass="thanh-ben">
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <VBox fx:id="thanhBen" minWidth="232.0" prefWidth="232.0" maxWidth="255.0" spacing="24.0" styleClass="thanh-ben">
+            <HBox fx:id="khuVucThuongHieu" alignment="CENTER_LEFT" spacing="10.0">
                 <ImageView fx:id="imgThuongHieuLogo" fitWidth="38.0" fitHeight="38.0" preserveRatio="true" smooth="true" accessibleText="Logo DentaFlow">
                     <image>
                         <Image url="@/images/dentaflow-logo.png"/>
                     </image>
                 </ImageView>
-                <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-                    <Label text="DentaFlow" styleClass="thuong-hieu-ten"/>
-                    <Label text="Quản lý phòng khám" styleClass="mo"/>
+                <VBox fx:id="chuThuongHieu" spacing="2.0" HBox.hgrow="ALWAYS">
+                    <Label fx:id="lblTenThuongHieu" text="DentaFlow" styleClass="thuong-hieu-ten"/>
+                    <Label fx:id="lblMoTaThuongHieu" text="Quản lý phòng khám" styleClass="mo"/>
                 </VBox>
+                <Button fx:id="btnThuGonThanhBen" text="‹" accessibleText="Thu gọn menu" minWidth="28" prefWidth="28" maxWidth="28" minHeight="30" prefHeight="30" maxHeight="30" styleClass="nut-thu-gon-thanh-ben"/>
             </HBox>
             <Label fx:id="lblVaiTro" text="" styleClass="vai-tro-nhan"/>
             <ScrollPane fx:id="thanhBenCuon" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" minHeight="0.0" VBox.vgrow="ALWAYS" styleClass="khung-ung-dung-cuon, dieu-huong-trang-cuon">
@@ -128,6 +129,9 @@
                             </Button>
                         </VBox>
                         <VBox fx:id="trinhDonYTa" spacing="6.0" fillWidth="true" visible="false" managed="false">
+                            <Button fx:id="btnDanhSachChoYTa" text="Danh sách chờ khám" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="dieu-huong-nut">
+                                <graphic><ImageView fitWidth="18" fitHeight="18" preserveRatio="true"><image><Image url="@/images/shell/calendar.png"/></image></ImageView></graphic>
+                            </Button>
                             <Button fx:id="btnLichYTa" text="Lịch làm việc" maxWidth="Infinity" alignment="CENTER_LEFT" graphicTextGap="10.0" styleClass="dieu-huong-nut">
                                 <graphic>
                                     <ImageView fitWidth="20.0" fitHeight="20.0" preserveRatio="true">
@@ -141,7 +145,7 @@
                     </VBox>
                 </content>
             </ScrollPane>
-            <VBox spacing="2.0" styleClass="thanh-ben-danh-tinh">
+            <VBox fx:id="khuVucDanhTinh" spacing="2.0" styleClass="thanh-ben-danh-tinh">
                 <Label fx:id="lblTenThanhBen" text="" maxWidth="Infinity" styleClass="danh-tinh-ten"/>
                 <Label fx:id="lblTrangThaiThanhBen" text="" wrapText="true" styleClass="mo"/>
             </VBox>

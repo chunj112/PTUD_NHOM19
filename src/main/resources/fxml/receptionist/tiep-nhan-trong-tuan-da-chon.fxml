@@ -29,7 +29,7 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <TextField fx:id="txtTuanBenhNhanTimKiem" promptText="Tìm bệnh nhân" minWidth="0" HBox.hgrow="ALWAYS" styleClass="le-tan-tim-kiem"/>
+        <TextField fx:id="txtTuanBenhNhanTimKiem" promptText="Nhập số điện thoại bệnh nhân" minWidth="0" HBox.hgrow="ALWAYS" styleClass="le-tan-tim-kiem"/>
     </HBox>
     <HBox spacing="20" alignment="TOP_LEFT">
         <VBox spacing="16" minWidth="0" styleClass="le-tan-the" HBox.hgrow="ALWAYS">

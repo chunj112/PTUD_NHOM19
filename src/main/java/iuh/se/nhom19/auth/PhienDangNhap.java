@@ -4,7 +4,8 @@ package iuh.se.nhom19.auth;
 public final class PhienDangNhap {
     private VaiTro vaiTro;
     private String maNV, hoTen;
-    private long phienBan;
+    // Luồng JDBC nền cũng kiểm tra phiên bản trước commit; volatile giúp thấy lần logout trên luồng FX.
+    private volatile long phienBan;
 
     public void batDauPhienDangNhap(KetQuaDangNhap ketQua) {
         if (ketQua == null) throw new IllegalArgumentException("Thiếu kết quả xác thực.");

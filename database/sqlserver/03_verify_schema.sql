@@ -5,7 +5,7 @@ USE [DENTAFLOW_DB];
 GO
 SELECT DB_NAME() AS tenDatabase, COUNT(*) AS soBangNghiepVu
 FROM sys.tables WHERE schema_id=SCHEMA_ID('dbo') AND is_ms_shipped=0;
--- Expected baseline: 15 bang. Bang thieu duoc liet ke ben duoi.
+-- Expected baseline: 16 bang nghiep vu, tinh ca bo dem STT toi gian.
 WITH BangBatBuoc AS (
     SELECT tenBang FROM (VALUES
         (N'PhongKham'),
@@ -22,7 +22,8 @@ WITH BangBatBuoc AS (
         (N'ChiTietDonThuoc'),
         (N'HoaDon'),
         (N'ChiTietHoaDon'),
-        (N'ThanhToan')
+        (N'ThanhToan'),
+        (N'SoThuTuKhamNgay')
     ) ds(tenBang)
 )
 SELECT tenBang AS bangChuaCo FROM BangBatBuoc
@@ -52,4 +53,25 @@ SELECT tk.maTaiKhoan,tk.tenDangNhap,tk.maNV,nv.hoTen,nv.chucVu,tk.trangThaiHoatD
 FROM dbo.TaiKhoan tk JOIN dbo.NhanVien nv ON tk.maNV=nv.maNV ORDER BY tk.tenDangNhap;
 SELECT maPhong,tenPhong FROM dbo.PhongKham;
 SELECT maDV,tenDV,donGia FROM dbo.DichVu;
+-- Kiem tra cau truc STT; phieu cu co the NULL, phieu moi phai co du ngay va so.
+SELECT OBJECT_ID(N'dbo.SoThuTuKhamNgay',N'U') AS bangBoDemSTT,
+       COL_LENGTH(N'dbo.PhieuKham',N'ngayCapSo') AS doDaiCotNgayCapSo,
+       COL_LENGTH(N'dbo.PhieuKham',N'soThuTuKham') AS doDaiCotSoThuTu;
+SELECT ngayCapSo,soThuTuKham,COUNT_BIG(*) AS soPhieu
+FROM dbo.PhieuKham
+WHERE soThuTuKham IS NOT NULL
+GROUP BY ngayCapSo,soThuTuKham
+HAVING COUNT_BIG(*)>1;
+-- Phiếu mới (đã cấp STT) phải có đủ ngày; phiếu cũ chưa backfill có thể để cả hai cột NULL.
+SELECT maPhieuKham, ngayCapSo, soThuTuKham
+FROM dbo.PhieuKham
+WHERE (ngayCapSo IS NULL AND soThuTuKham IS NOT NULL)
+   OR (ngayCapSo IS NOT NULL AND soThuTuKham IS NULL)
+   OR soThuTuKham <= 0;
+-- Bộ đếm phải lớn hơn hoặc bằng STT lớn nhất đã ghi theo ngày.
+SELECT d.ngayCapSo,d.soCuoi,MAX(p.soThuTuKham) AS sttLonNhat
+FROM dbo.SoThuTuKhamNgay d
+JOIN dbo.PhieuKham p ON p.ngayCapSo=d.ngayCapSo AND p.soThuTuKham IS NOT NULL
+GROUP BY d.ngayCapSo,d.soCuoi
+HAVING d.soCuoi < MAX(p.soThuTuKham);
 GO

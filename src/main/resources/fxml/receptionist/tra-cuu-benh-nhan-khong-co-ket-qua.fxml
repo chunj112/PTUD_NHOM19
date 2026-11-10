@@ -11,7 +11,7 @@
     <HBox spacing="12" alignment="CENTER_LEFT">
         <VBox spacing="4" minWidth="0" HBox.hgrow="ALWAYS">
             <Label fx:id="lblTrangTieuDe" text="TRA CỨU BỆNH NHÂN" styleClass="le-tan-tieu-de" wrapText="true" minHeight="-Infinity"/>
-            <Label fx:id="lblTrangPhuDe" text="Tìm hồ sơ theo mã bệnh nhân, họ tên hoặc số điện thoại" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label fx:id="lblTrangPhuDe" text="Tìm hồ sơ bệnh nhân bằng số điện thoại" styleClass="le-tan-phu-de" wrapText="true" minHeight="-Infinity"/>
         </VBox>
     </HBox>
     <VBox spacing="16" minWidth="0" styleClass="le-tan-the" prefHeight="506">

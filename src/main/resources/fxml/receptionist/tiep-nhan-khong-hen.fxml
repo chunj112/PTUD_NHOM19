@@ -1,62 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import java.lang.String?>
-<?import java.util.HashMap?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.MapValueFactory?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="tiepNhanKhongHenBanDau" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-trang, le-tan-tiep-nhan" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="610">
-    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="le-tan-buoc-thanh">
-        <Label fx:id="lblKhongHenTrongBuocBenhNhan" text="—" styleClass="le-tan-tinh-trang-thong-tin-ngan" wrapText="true" minHeight="-Infinity"/>
-        <Label text="›" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-        <Label fx:id="lblKhongHenTrongBuocKhungGio" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-    </HBox>
-    <HBox spacing="20" alignment="TOP_LEFT">
-        <VBox spacing="16" minWidth="420" styleClass="le-tan-the" prefWidth="420" maxWidth="420">
-            <Label text="Bước 1 · Tìm bệnh nhân" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
-            <Label text="Kiểm tra hồ sơ trước khi tạo bệnh nhân mới." styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-            <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
-                <Label text="Tìm mã BN / họ tên / SĐT" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                <TextField fx:id="txtTimBenhNhanKhongHen" text="" styleClass="le-tan-truong-nhap"/>
-            </VBox>
-            <Button fx:id="btnTimKiemKhongHenTrongBenhNhan" text="Tìm kiếm" minWidth="-Infinity" styleClass="chinh-nut" disable="true"/>
-            <Region minHeight="1" prefHeight="1" maxHeight="1" styleClass="le-tan-duong-phan-cach"/>
-            <Label text="Tìm hồ sơ để bắt đầu" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
-            <Label text="Nhập mã bệnh nhân, họ tên hoặc số điện thoại rồi chọn Tìm kiếm. Không tải danh sách bệnh nhân mặc định." styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-        </VBox>
-        <VBox spacing="16" minWidth="0" styleClass="le-tan-the" HBox.hgrow="ALWAYS">
-            <Label text="Bước 2 · Chọn ca và tiếp nhận" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
-            <Label text="Tìm và chọn bệnh nhân ở bước 1 để tiếp tục." styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap" disable="true">
-                    <Label text="Nha sĩ *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <ComboBox fx:id="cboNhaSiKhongHen" maxWidth="Infinity" minWidth="0" styleClass="le-tan-truong-lua-chon" promptText="Chọn nha sĩ">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Chọn nha sĩ"/>
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="tiepNhanKhongHenBanDau" fx:controller="iuh.se.nhom19.view.receptionist.KhongHenController" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="khung-ung-dung, le-tan-hop-thoai-noi, luong-tiep-nhan, hop-thoai-co-cuon-noi" minWidth="760" prefWidth="820" maxWidth="900" prefHeight="650">
+    <top><VBox spacing="4" styleClass="hop-thoai-tieu-de-khu-vuc"><Label text="Tiếp nhận bệnh nhân không hẹn" styleClass="le-tan-hop-thoai-noi-tieu-de"/><Label text="Tạo phiếu khám khi lễ tân xác nhận tiếp nhận" styleClass="le-tan-chu-thich"/></VBox></top>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="khung-ung-dung-cuon">
+            <content><VBox spacing="14" styleClass="hop-thoai-noi-dung">
+                <VBox spacing="8" styleClass="le-tan-the"><Label text="Thông tin bệnh nhân" styleClass="le-tan-the-tieu-de"/><fx:include fx:id="chonBenhNhan" source="them-benh-nhan.fxml"/></VBox>
+                <VBox spacing="10" styleClass="le-tan-the">
+                    <Label text="Thông tin tiếp nhận" styleClass="le-tan-the-tieu-de"/>
+                    <Label fx:id="lblThoiDiemKhongHen" text="" styleClass="thoi-diem-tiep-nhan"/>
+                    <VBox spacing="4"><Label text="Nha sĩ / ca / phòng *"/><ComboBox fx:id="cboNhaSiKhongHen" maxWidth="Infinity" promptText="Chọn nha sĩ đang trong ca"/><Label fx:id="lblLoiCaKhongHen" text="" wrapText="true" styleClass="loi-truong"/></VBox>
+                    <VBox spacing="4"><Label text="Lý do khám *"/><TextArea fx:id="txtKhongHenTrongLyDo" prefRowCount="2" wrapText="true" promptText="Nhập lý do khám"/><Label fx:id="lblLoiLyDoKhongHen" text="" wrapText="true" styleClass="loi-truong"/></VBox>
+                    <TitledPane text="Ghi chú (không bắt buộc)" expanded="false" collapsible="true" styleClass="ghi-chu-mo-rong"><content><TextArea fx:id="txtKhongHenGhiChu" prefRowCount="2" wrapText="true" promptText="Nhập ghi chú nếu cần"/></content></TitledPane>
                 </VBox>
-                <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap" disable="true">
-                    <Label text="Ngày khám *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <DatePicker fx:id="dpKhongHenTrongNgay" maxWidth="Infinity" minWidth="0" editable="false" styleClass="le-tan-truong-ngay">
-                        <editor text=""/>
-                    </DatePicker>
-                </VBox>
-            </HBox>
-            <Label fx:id="lblKhongHenTrongKhungGioGoiY" text="Chưa chọn bệnh nhân. Các ca khả dụng sẽ được hiển thị sau khi hoàn thành bước 1." styleClass="le-tan-canh-bao, le-tan-canh-bao-thong-tin-ngan" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
-            <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap, le-tan-truong-cao" disable="true">
-                <Label text="Lý do khám *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                <TextArea fx:id="txtKhongHenTrongLyDo" text="" wrapText="true" prefRowCount="3" minHeight="0" VBox.vgrow="ALWAYS" styleClass="le-tan-truong-vung"/>
-            </VBox>
-            <Label fx:id="lblKhongHenTrongQuyTac" text="Xác nhận tiếp nhận sẽ tạo phiếu khám và đưa bệnh nhân vào hàng chờ của nha sĩ. Không cần lịch hẹn trước." styleClass="le-tan-canh-bao, le-tan-canh-bao-thong-tin-ngan" wrapText="true" minHeight="-Infinity" maxWidth="Infinity"/>
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <Button fx:id="btnDatLaiKhongHenTrong" text="Làm mới" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
-                <Button fx:id="btnTiepNhanKhongHen" text="Tiếp nhận bệnh nhân" minWidth="-Infinity" styleClass="chinh-nut" disable="true"/>
-            </HBox>
-        </VBox>
-    </HBox>
-</VBox>
+                <Label fx:id="lblKhongHenTrongQuyTac" text="" wrapText="true"/>
+            </VBox></content>
+        </ScrollPane>
+    </center>
+    <bottom><HBox spacing="10" alignment="CENTER_RIGHT" styleClass="hop-thoai-chan"><Button fx:id="btnHuy" text="Hủy" cancelButton="true" styleClass="phu-nut" disable="true"/><Button fx:id="btnTiepNhanKhongHen" text="Xác nhận tiếp nhận" styleClass="chinh-nut" disable="true"/></HBox></bottom>
+</BorderPane>

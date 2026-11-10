@@ -12,3 +12,58 @@
 .le-tan-tiep-nhan .le-tan-khung-gio-da-chon { -fx-background-color: #087E91; }
 .le-tan-tiep-nhan .le-tan-khung-gio-da-chon .label { -fx-text-fill: white; }
 .le-tan-tiep-nhan .le-tan-buoc-thanh { -fx-padding: 16; -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; }
+
+/* Phương án A: giữ theme teal, chỉ chuẩn hóa trường trong modal đặt lịch/tiếp nhận. */
+.luong-tiep-nhan .text-field, .luong-tiep-nhan .combo-box, .luong-tiep-nhan .date-picker {
+    -fx-min-height: 38; -fx-background-color: white; -fx-background-radius: 8;
+    -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-text-fill: #172B3A;
+}
+.luong-tiep-nhan .text-field:focused, .luong-tiep-nhan .combo-box:focused { -fx-border-color: #087E91; }
+.luong-tiep-nhan .text-area { -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; }
+
+.slot-lich { -fx-min-width: 132; -fx-pref-width: 145; -fx-min-height: 55; -fx-background-color: #F1FAFB; -fx-text-fill: #087E91; -fx-border-color: #B7DDE3; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; }
+.slot-lich:hover { -fx-background-color: #DDEFF2; }
+.slot-lich:selected { -fx-background-color: #087E91; -fx-text-fill: white; -fx-border-color: #065C6A; -fx-border-width: 2; }
+.slot-lich:disabled { -fx-background-color: #ECEFF3; -fx-text-fill: #596579; -fx-border-color: #DCE4EA; -fx-opacity: 0.85; }
+.the-lich-tuan { -fx-padding: 8; -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-background-radius: 8; -fx-alignment: TOP_LEFT; }
+.the-lich-tuan:hover { -fx-background-color: #E8F5F6; -fx-border-color: #087E91; }
+.the-lich-tuan-thong-tin { -fx-font-size: 10px; -fx-text-fill: #617584; -fx-wrap-text: false; -fx-text-overrun: ellipsis; }
+.le-tan-trang .le-tan-bang-lich-hen-ngay .table-cell { -fx-padding: 8 6; -fx-font-size: 12px; -fx-wrap-text: false; }
+.le-tan-trang .le-tan-bang-lich-hen-ngay .column-header .label { -fx-padding: 4 6; }
+.loi-truong { -fx-text-fill: #B42318; -fx-font-size: 12px; }
+.dau-bat-buoc { -fx-text-fill: #C62828; -fx-font-weight: bold; }
+
+/* Giữ kích thước điều khiển ổn định khi giá trị ComboBox đổi độ dài. */
+.hop-thoai-dat-lich .lich-hen-luoi-chon .combo-box,
+.hop-thoai-dat-lich .lich-hen-luoi-chon .date-picker {
+    -fx-min-height: 38; -fx-pref-height: 38; -fx-max-height: 38;
+    -fx-min-width: 0; -fx-background-insets: 0;
+}
+.hop-thoai-dat-lich .lich-hen-luoi-chon .list-cell,
+.hop-thoai-dat-lich .lich-hen-luoi-chon .text-field { -fx-text-overrun: ellipsis; }
+
+.le-tan-trang .le-tan-bang .table-cell.chu-rut-gon { -fx-wrap-text: false; }
+
+/* Tối ưu modal tiếp nhận: một vùng cuộn nội dung và footer luôn nằm ngoài vùng cuộn. */
+.hop-thoai-co-cuon-noi { -fx-background-color: #F4F7FA; }
+.hop-thoai-tieu-de-khu-vuc { -fx-padding: 18 22 14 22; -fx-background-color: white; -fx-border-color: transparent transparent #DCE4EA transparent; }
+.hop-thoai-noi-dung { -fx-padding: 16 20; -fx-background-color: #F4F7FA; }
+.hop-thoai-chan { -fx-padding: 12 20; -fx-background-color: white; -fx-border-color: #DCE4EA transparent transparent transparent; }
+.hop-thoai-dat-lich-noi-dung { -fx-padding: 16 20; }
+.hop-thoai-dat-lich .le-tan-the { -fx-padding: 14; -fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #DCE4EA; -fx-border-radius: 10; }
+.hop-thoai-dat-lich .le-tan-the-tieu-de { -fx-font-size: 15px; }
+.tra-cuu-goi-y { -fx-padding: 8 10; -fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-border-color: #E1E8EE; -fx-border-radius: 8; }
+.ket-qua-goi-y { -fx-background-color: white; -fx-border-color: #DCE4EA; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 2; }
+.ket-qua-goi-y .list-cell { -fx-padding: 6 9; -fx-background-color: white; -fx-border-color: transparent transparent #E8EDF1 transparent; -fx-text-fill: #172B3A; }
+.ket-qua-goi-y .list-cell:filled:hover { -fx-background-color: #F4FAFB; }
+.ket-qua-goi-y .list-cell:filled:selected { -fx-background-color: #E8F5F6; -fx-text-fill: #172B3A; }
+.nut-nho { -fx-padding: 4 8; -fx-background-color: transparent; -fx-border-color: transparent; -fx-text-fill: #087E91; -fx-font-size: 11px; -fx-cursor: hand; }
+.nut-nho:hover { -fx-background-color: #E8F5F6; -fx-background-radius: 6; }
+.khung-gio-du-kien { -fx-padding: 9 11; -fx-background-color: #E8F5F6; -fx-background-radius: 8; -fx-text-fill: #087E91; -fx-font-weight: bold; -fx-wrap-text: false; -fx-text-overrun: ellipsis; }
+.khung-gio-du-kien-loi { -fx-background-color: #FDECEC; -fx-text-fill: #B42318; }
+.thoi-diem-tiep-nhan { -fx-padding: 9 12; -fx-background-color: #E8F5F6; -fx-background-radius: 8; -fx-text-fill: #087E91; -fx-font-weight: bold; }
+.ghi-chu-mo-rong { -fx-background-color: transparent; -fx-border-color: #DCE4EA; -fx-border-radius: 8; -fx-background-radius: 8; }
+.ghi-chu-mo-rong > .title { -fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 8 10; }
+.ghi-chu-mo-rong > .content { -fx-padding: 8; }
+.luong-tiep-nhan .text-field:focused, .luong-tiep-nhan .combo-box:focused, .luong-tiep-nhan .date-picker:focused { -fx-border-color: #087E91; }
+.table-view .table-cell { -fx-alignment: CENTER_LEFT; }

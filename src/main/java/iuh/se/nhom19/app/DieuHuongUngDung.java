@@ -13,6 +13,7 @@ import iuh.se.nhom19.view.common.KhungUngDungController;
 import iuh.se.nhom19.view.common.DangNhapController;
 import iuh.se.nhom19.auth.KetQuaDangNhap;
 import iuh.se.nhom19.service.DangNhapService;
+import iuh.se.nhom19.database.KetNoiCSDL;
 
 /** Giữ một Stage/Scene, chỉ mở không gian làm việc sau xác thực tài khoản SQL. */
 public final class DieuHuongUngDung implements AutoCloseable {
@@ -22,18 +23,25 @@ public final class DieuHuongUngDung implements AutoCloseable {
     private final DangNhapService dichVuDangNhap;
     private KhungUngDungController dieuKhienKhungUngDung;
     private boolean daDong;
+    private final KetNoiCSDL ketNoiNghiepVu;
 
     public DieuHuongUngDung(Stage cuaSo, PhienDangNhap phienDangNhap) {
         this(cuaSo,phienDangNhap,new DangNhapService());
     }
     /** Cho phép cấp Service khi kiểm thử; ứng dụng mặc định luôn dùng Service/DAO SQL thật. */
     public DieuHuongUngDung(Stage cuaSo, PhienDangNhap phienDangNhap, DangNhapService dichVuDangNhap) {
+        this(cuaSo, phienDangNhap, dichVuDangNhap, new KetNoiCSDL());
+    }
+
+    /** Test có thể cấp kết nối giả lỗi để không truy cập SQL local ngoài ý muốn. Login/PBKDF2 giữ nguyên. */
+    public DieuHuongUngDung(Stage cuaSo, PhienDangNhap phienDangNhap, DangNhapService dichVuDangNhap, KetNoiCSDL ketNoiNghiepVu) {
         if (cuaSo == null || phienDangNhap == null) {
             throw new IllegalArgumentException("Thiếu cửa sổ hoặc Session.");
         }
         this.cuaSo = cuaSo;
         this.phienDangNhap = phienDangNhap;
         this.dichVuDangNhap=java.util.Objects.requireNonNull(dichVuDangNhap);
+        this.ketNoiNghiepVu = java.util.Objects.requireNonNull(ketNoiNghiepVu);
     }
 
     public void khoiDong() throws IOException {
@@ -105,7 +113,7 @@ public final class DieuHuongUngDung implements AutoCloseable {
             FXMLLoader boNapFXML = taoBoNapFXML("/fxml/common/khung-ung-dung.fxml");
             Parent nutGoc = boNapFXML.load();
             dieuKhienKhungUngDung = boNapFXML.getController();
-            dieuKhienKhungUngDung.cauHinh(phienDangNhap, this);
+            dieuKhienKhungUngDung.cauHinh(phienDangNhap, this, ketNoiNghiepVu);
             ganGiaoDien(nutGoc, vaiTro.layTenHienThi() + " / Dashboard");
             if (dieuKhienDangNhap != null) {
                 dieuKhienDangNhap.giaiPhong();

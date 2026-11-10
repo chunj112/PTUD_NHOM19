@@ -38,7 +38,9 @@ class LuongDangNhapTest {
     }
     @BeforeEach void mo()throws Exception{trenLuongGiaoDien(()->{
         cuaSo=new Stage();phien=new PhienDangNhap();kho=new KhoGiaLap();
-        dieuHuong=new DieuHuongUngDung(cuaSo,phien,new DangNhapService(kho));dieuHuong.khoiDong();return null;
+        dieuHuong=new DieuHuongUngDung(cuaSo,phien,new DangNhapService(kho),new iuh.se.nhom19.database.KetNoiCSDL(){
+            @Override public java.sql.Connection layKetNoi()throws java.sql.SQLException{throw new java.sql.SQLException("SQL không được gọi trong test Login.");}
+        });dieuHuong.khoiDong();return null;
     });}
     @AfterEach void dong()throws Exception{trenLuongGiaoDien(()->{if(kho.choPhep!=null)kho.choPhep.countDown();dieuHuong.close();cuaSo.close();return null;});}
     private <T extends Node>T timThanhPhan(String ma,Class<T> kieu){
@@ -57,7 +59,7 @@ class LuongDangNhapTest {
                 Parent nutGoc=new javafx.fxml.FXMLLoader(tep.toUri().toURL()).load();new Scene(nutGoc);nutGoc.applyCss();nutGoc.layout();soLuong++;
             }
         }
-        assertEquals(87,soLuong);return null;
+        assertEquals(89,soLuong);return null;
     });}
     @Test void chiCoFormTaiKhoanVaBaoThieuDuLieu()throws Exception{trenLuongGiaoDien(()->{
         assertNull(cuaSo.getScene().getRoot().lookup("#vungDemo"));
@@ -87,6 +89,17 @@ class LuongDangNhapTest {
                 assertEquals("Nhân viên từ SQL",timThanhPhan("lblTenThanhBen",Label.class).getText());
                 assertTrue(timThanhPhan("lblTrangThaiThanhBen",Label.class).getText().contains("Đã đăng nhập"));
                 for(int j=0;j<cacTrinhDon.length;j++)assertEquals(j==viTri,timThanhPhan(cacTrinhDon[j],javafx.scene.layout.VBox.class).isVisible());
+                Scene sceneTruocThuGon=cuaSo.getScene();Parent shellTruocThuGon=sceneTruocThuGon.getRoot();
+                String tieuDeTruocThuGon=timThanhPhan("lblTrangDuongDan",Label.class).getText();
+                Button btnSidebar=timThanhPhan("btnThuGonThanhBen",Button.class);
+                btnSidebar.fire();
+                assertSame(sceneTruocThuGon,cuaSo.getScene());assertSame(shellTruocThuGon,sceneTruocThuGon.getRoot());
+                assertEquals(64.0,timThanhPhan("thanhBen",javafx.scene.layout.VBox.class).getPrefWidth());
+                assertEquals("",timThanhPhan("btnTongQuan",Button.class).getText());
+                assertNotNull(timThanhPhan("btnTongQuan",Button.class).getTooltip());
+                assertEquals(tieuDeTruocThuGon,timThanhPhan("lblTrangDuongDan",Label.class).getText());
+                btnSidebar.fire();
+                assertSame(shellTruocThuGon,sceneTruocThuGon.getRoot());assertEquals("Dashboard",timThanhPhan("btnTongQuan",Button.class).getText());
                 if(cacVaiTro[viTri]==VaiTro.MANAGER){
                     assertEquals("—",timThanhPhan("lblDanhSachBenhNhanHomNay",Label.class).getText());
                     assertTrue(timThanhPhan("tblGanNhatDanhSachLichHen",TableView.class).getItems().isEmpty());

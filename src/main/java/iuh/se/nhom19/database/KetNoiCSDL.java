@@ -15,6 +15,8 @@ public class KetNoiCSDL {
         Properties thuocTinh=new Properties();
         thuocTinh.setProperty("user",tenNguoiDung);thuocTinh.setProperty("password",matKhau);
         thuocTinh.setProperty("loginTimeout","10");thuocTinh.setProperty("socketTimeout","15000");
+        // Schema dùng TIME cho giờ hẹn/ca làm. Không để driver gửi java.sql.Time thành DATETIME.
+        thuocTinh.setProperty("sendTimeAsDatetime", "false");
         String diaChiThuong=diaChi.toLowerCase(java.util.Locale.ROOT);
         if(!diaChiThuong.matches(".*;\\s*encrypt\\s*=.*"))thuocTinh.setProperty("encrypt","true");
         if(!diaChiThuong.matches(".*;\\s*trustservercertificate\\s*=.*"))thuocTinh.setProperty("trustServerCertificate","false");

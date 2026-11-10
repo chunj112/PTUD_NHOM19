@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="trangTongQuanYTa" fx:controller="iuh.se.nhom19.view.nurse.TongQuanYTaController"
+      stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/y-ta-danh-sach.css"
+      styleClass="khung-ung-dung, y-ta-trang-cho" spacing="18" minWidth="820">
+    <HBox alignment="CENTER_LEFT" spacing="14">
+        <VBox spacing="5" HBox.hgrow="ALWAYS">
+            <Label text="Dashboard Y tá" styleClass="trang-tieu-de"/>
+            <Label text="Ca làm, phòng và tình trạng bệnh nhân trong phạm vi phân công" styleClass="mo" wrapText="true"/>
+        </VBox>
+        <Button fx:id="btnLamMoiTongQuanYTa" text="Làm mới" styleClass="phu-nut"/>
+        <Button fx:id="btnXemDanhSachChoYTa" text="Xem danh sách chờ khám" styleClass="chinh-nut"/>
+    </HBox>
+    <Label fx:id="lblThongBaoTongQuanYTa" text="" wrapText="true" styleClass="y-ta-thong-bao"/>
+    <HBox spacing="14">
+        <VBox styleClass="le-tan-the" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Ca làm hôm nay" styleClass="le-tan-chu-thich"/>
+            <Label fx:id="lblCaLamYTa" text="—" styleClass="le-tan-the-tieu-de" wrapText="true"/>
+        </VBox>
+        <VBox styleClass="le-tan-the" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Phòng được phân công" styleClass="le-tan-chu-thich"/>
+            <Label fx:id="lblPhongYTa" text="—" styleClass="le-tan-the-tieu-de" wrapText="true"/>
+        </VBox>
+    </HBox>
+    <HBox spacing="14">
+        <VBox styleClass="le-tan-the" spacing="8" HBox.hgrow="ALWAYS"><Label text="Chờ khám" styleClass="le-tan-chu-thich"/><Label fx:id="lblSoChoYTa" text="—" styleClass="y-ta-chi-so y-ta-cho"/></VBox>
+        <VBox styleClass="le-tan-the" spacing="8" HBox.hgrow="ALWAYS"><Label text="Đang khám" styleClass="le-tan-chu-thich"/><Label fx:id="lblSoDangKhamYTa" text="—" styleClass="y-ta-chi-so y-ta-dang-kham"/></VBox>
+        <VBox styleClass="le-tan-the" spacing="8" HBox.hgrow="ALWAYS"><Label text="Đã khám" styleClass="le-tan-chu-thich"/><Label fx:id="lblSoDaKhamYTa" text="—" styleClass="y-ta-chi-so y-ta-da-kham"/></VBox>
+    </HBox>
+    <VBox styleClass="le-tan-the" spacing="8">
+        <Label text="STT chờ khám gần nhất" styleClass="le-tan-chu-thich"/>
+        <Label fx:id="lblSTTChoGanNhat" text="—" styleClass="le-tan-the-tieu-de" wrapText="true"/>
+    </VBox>
+</VBox>

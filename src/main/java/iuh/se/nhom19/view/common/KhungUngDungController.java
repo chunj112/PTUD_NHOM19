@@ -12,16 +12,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import iuh.se.nhom19.app.DieuHuongUngDung;
 import iuh.se.nhom19.app.DuongDanManHinh;
 import iuh.se.nhom19.auth.VaiTro;
 import iuh.se.nhom19.auth.PhienDangNhap;
+import iuh.se.nhom19.database.KetNoiCSDL;
+import iuh.se.nhom19.view.receptionist.TiepNhanController;
+import iuh.se.nhom19.view.receptionist.TraCuuBenhNhanController;
+import iuh.se.nhom19.view.dentist.DanhSachChoKhamController;
+import iuh.se.nhom19.view.nurse.DanhSachChoYTaController;
+import iuh.se.nhom19.view.nurse.LichLamViecYTaController;
+import iuh.se.nhom19.view.nurse.TongQuanYTaController;
 
 /** AppShell dùng danh tính Session đã xác thực; chức năng chưa có backend hiển thị trống, không gán dữ liệu giả. */
 public final class KhungUngDungController {
     @FXML private BorderPane khungUngDung;
+    @FXML private VBox thanhBen, chuThuongHieu, khuVucDanhTinh;
+    @FXML private HBox khuVucThuongHieu;
+    @FXML private ImageView imgThuongHieuLogo;
     @FXML private VBox trinhDonQuanLy, trinhDonLeTan, trinhDonNhaSi, trinhDonYTa, trinhDonDieuHuong;
     @FXML private StackPane vungNoiDung;
     @FXML private ScrollPane vungCuonNoiDung;
@@ -31,13 +42,15 @@ public final class KhungUngDungController {
     @FXML private MenuItem miThongTinCaNhan, miThayDoiMatKhau, miDangXuat;
     @FXML private Button btnTongQuan, btnNhanSu, btnPhanCong, btnDichVu, btnBaoCao,
         btnTrangTiepNhanLichHen, btnThuNgan, btnTraCuuBenhNhan, btnLichLeTan,
-        btnKhamBenh, btnLichNhaSi, btnLichYTa;
+        btnKhamBenh, btnLichNhaSi, btnDanhSachChoYTa, btnLichYTa, btnThuGonThanhBen;
 
     private Map<DuongDanManHinh, Button> cacNut;
     private PhienDangNhap phienDangNhap;
     private DieuHuongUngDung dieuHuongUngDung;
     private long phienBanDangNhap;
     private boolean daGiaiPhong;
+    private boolean thanhBenThuGon;
+    private KetNoiCSDL ketNoiNghiepVu;
 
     @FXML private void initialize() {
         anTrinhDonVaiTro();
@@ -54,21 +67,61 @@ public final class KhungUngDungController {
         cacNut.put(DuongDanManHinh.LICH_LE_TAN, btnLichLeTan);
         cacNut.put(DuongDanManHinh.KHAM_BENH, btnKhamBenh);
         cacNut.put(DuongDanManHinh.LICH_NHA_SI, btnLichNhaSi);
+        cacNut.put(DuongDanManHinh.DANH_SACH_CHO_Y_TA, btnDanhSachChoYTa);
         cacNut.put(DuongDanManHinh.LICH_Y_TA, btnLichYTa);
         for (Map.Entry<DuongDanManHinh, Button> muc : cacNut.entrySet()) {
             DuongDanManHinh manHinh = muc.getKey();
             muc.getValue().setOnAction(suKien -> chuyenTrang(manHinh));
         }
+        for (Button nut : cacNut.values()) nut.setTooltip(new Tooltip(nut.getText()));
+        btnThuGonThanhBen.setTooltip(new Tooltip("Thu gọn menu"));
+        btnThuGonThanhBen.setOnAction(suKien -> doiTrangThaiThanhBen());
         miThongTinCaNhan.setOnAction(suKien -> chuyenTrang(DuongDanManHinh.THONG_TIN_CA_NHAN));
         miThayDoiMatKhau.setOnAction(suKien -> chuyenTrang(DuongDanManHinh.MAT_KHAU));
     }
 
+    /** Thu gọn Sidebar ngay trên Scene hiện tại, không nạp lại trang hoặc làm mới form. */
+    private void doiTrangThaiThanhBen() {
+        thanhBenThuGon = !thanhBenThuGon;
+        if (thanhBenThuGon) {
+            thanhBen.getStyleClass().add("thu-gon");
+            thanhBen.setMinWidth(64); thanhBen.setPrefWidth(64); thanhBen.setMaxWidth(68);
+            chuThuongHieu.setVisible(false); chuThuongHieu.setManaged(false);
+            khuVucDanhTinh.setVisible(false); khuVucDanhTinh.setManaged(false);
+            lblVaiTro.setVisible(false); lblVaiTro.setManaged(false);
+            khuVucThuongHieu.setAlignment(javafx.geometry.Pos.CENTER); khuVucThuongHieu.setSpacing(0);
+            btnThuGonThanhBen.setText("›"); btnThuGonThanhBen.setAccessibleText("Mở rộng menu");
+            btnThuGonThanhBen.setMinWidth(20);btnThuGonThanhBen.setPrefWidth(20);btnThuGonThanhBen.setMaxWidth(20);
+            btnThuGonThanhBen.setTooltip(new Tooltip("Mở rộng menu"));
+            imgThuongHieuLogo.setFitWidth(22); imgThuongHieuLogo.setFitHeight(22);
+            for (Button nut : cacNut.values()) nut.setText("");
+        } else {
+            thanhBen.getStyleClass().remove("thu-gon");
+            thanhBen.setMinWidth(232); thanhBen.setPrefWidth(232); thanhBen.setMaxWidth(255);
+            chuThuongHieu.setVisible(true); chuThuongHieu.setManaged(true);
+            khuVucDanhTinh.setVisible(true); khuVucDanhTinh.setManaged(true);
+            lblVaiTro.setVisible(true); lblVaiTro.setManaged(true);
+            khuVucThuongHieu.setAlignment(javafx.geometry.Pos.CENTER_LEFT); khuVucThuongHieu.setSpacing(10);
+            btnThuGonThanhBen.setText("‹"); btnThuGonThanhBen.setAccessibleText("Thu gọn menu");
+            btnThuGonThanhBen.setMinWidth(28);btnThuGonThanhBen.setPrefWidth(28);btnThuGonThanhBen.setMaxWidth(28);
+            btnThuGonThanhBen.setTooltip(new Tooltip("Thu gọn menu"));
+            imgThuongHieuLogo.setFitWidth(38); imgThuongHieuLogo.setFitHeight(38);
+            for (Map.Entry<DuongDanManHinh, Button> muc : cacNut.entrySet())
+                muc.getValue().setText(muc.getValue().getTooltip().getText());
+        }
+    }
+
     public void cauHinh(PhienDangNhap phienCanDung, DieuHuongUngDung dieuHuongCanDung) {
+        cauHinh(phienCanDung, dieuHuongCanDung, new KetNoiCSDL());
+    }
+
+    public void cauHinh(PhienDangNhap phienCanDung, DieuHuongUngDung dieuHuongCanDung, KetNoiCSDL ketNoiNghiepVu) {
         if (daGiaiPhong || phienCanDung == null || dieuHuongCanDung == null) {
             throw new IllegalStateException("Không thể mở AppShell.");
         }
         phienDangNhap = phienCanDung;
         dieuHuongUngDung = dieuHuongCanDung;
+        this.ketNoiNghiepVu = ketNoiNghiepVu;
         phienBanDangNhap = phienDangNhap.layPhienBan();
         VaiTro vaiTro = phienDangNhap.yeuCauVaiTro(phienBanDangNhap);
 
@@ -118,6 +171,14 @@ public final class KhungUngDungController {
             } else {
                 FXMLLoader boNapFXML = new FXMLLoader(duongDanTaiNguyen);
                 trang = boNapFXML.load();
+                // Cấp cùng Session đã xác thực cho Controller nghiệp vụ; không tạo Session mới theo Role.
+                Object dieuKhienTrang = boNapFXML.getController();
+                if (dieuKhienTrang instanceof TiepNhanController dieuKhien) dieuKhien.cauHinh(phienDangNhap, ketNoiNghiepVu);
+                if (dieuKhienTrang instanceof TraCuuBenhNhanController dieuKhien) dieuKhien.cauHinh(phienDangNhap, ketNoiNghiepVu);
+                if (dieuKhienTrang instanceof DanhSachChoKhamController dieuKhien) dieuKhien.cauHinh(phienDangNhap, ketNoiNghiepVu);
+                if (dieuKhienTrang instanceof DanhSachChoYTaController dieuKhien) dieuKhien.cauHinh(phienDangNhap, ketNoiNghiepVu);
+                if (dieuKhienTrang instanceof LichLamViecYTaController dieuKhien) dieuKhien.cauHinh(phienDangNhap, ketNoiNghiepVu);
+                if (dieuKhienTrang instanceof TongQuanYTaController dieuKhien) dieuKhien.cauHinh(phienDangNhap, ketNoiNghiepVu);
             }
         } catch (IOException loi) {
             trang = taoTrangChuaSanSang(manHinh.layTieuDe(), "Không thể nạp giao diện của màn hình.");
@@ -125,6 +186,7 @@ public final class KhungUngDungController {
         // Nạp nội dung trang vào khung dùng chung.
         VBox noiDung = new VBox(trang);
         noiDung.setMinWidth(0);
+        for(Node trangCu:vungNoiDung.getChildren())trangCu.getProperties().put("daDong",true);
         vungNoiDung.getChildren().setAll(noiDung);
         vungCuonNoiDung.setVvalue(0);
         lblTrangDuongDan.setText(manHinh.layTieuDe());
@@ -141,6 +203,10 @@ public final class KhungUngDungController {
         Node nutLich = trang.lookup("#btnViewSchedule");
         if (nutLich instanceof Button nut) {
             nut.setDisable(false);nut.setOnAction(suKien -> chuyenTrang(DuongDanManHinh.PHAN_CONG));
+        }
+        Node nutChoYTa = trang.lookup("#btnXemDanhSachChoYTa");
+        if (nutChoYTa instanceof Button nut) {
+            nut.setDisable(false); nut.setOnAction(suKien -> chuyenTrang(DuongDanManHinh.DANH_SACH_CHO_Y_TA));
         }
         dieuHuongUngDung.capNhatTieuDe(vaiTro.layTenHienThi() + " / " + manHinh.layTieuDe());
     }
@@ -191,6 +257,14 @@ public final class KhungUngDungController {
     /** Xóa phiên nhìn thấy trên UI; Controller cũ không được tiếp tục điều hướng. */
     public void giaiPhong() {
         daGiaiPhong = true;
+        // Đóng cả form con khi logout; callback của phiên cũ cũng bị chặn theo phiên bản Session.
+        if (khungUngDung.getScene() != null) {
+            var cuaSoChinh = khungUngDung.getScene().getWindow();
+            for (var cuaSo : List.copyOf(javafx.stage.Window.getWindows())) {
+                if (cuaSo instanceof javafx.stage.Stage cuaSoCon && cuaSoCon.getOwner() == cuaSoChinh
+                    && Boolean.TRUE.equals(cuaSoCon.getProperties().get("hopThoaiNghiepVu"))) cuaSoCon.close();
+            }
+        }
         anTrinhDonVaiTro();
         vungNoiDung.getChildren().clear();
         khungUngDung.setDisable(true);

@@ -1,0 +1,8 @@
+.y-ta-trang-cho { -fx-spacing: 18; }
+.y-ta-trang-cho .y-ta-bo-loc { -fx-padding: 12; -fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-color: #D8E2EA; -fx-border-radius: 12; }
+.y-ta-trang-cho .y-ta-tong-hop { -fx-alignment: CENTER_LEFT; }
+.y-ta-trang-cho .y-ta-chi-so { -fx-padding: 9 14; -fx-background-radius: 999; -fx-font-weight: bold; }
+.y-ta-trang-cho .y-ta-cho { -fx-background-color: #FFF0DF; -fx-text-fill: #A95312; }
+.y-ta-trang-cho .y-ta-dang-kham { -fx-background-color: #E5F0FF; -fx-text-fill: #245DB5; }
+.y-ta-trang-cho .y-ta-da-kham { -fx-background-color: #DDF7E9; -fx-text-fill: #167347; }
+.y-ta-trang-cho .y-ta-thong-bao { -fx-text-fill: #52657A; }

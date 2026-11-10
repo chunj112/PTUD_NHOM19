@@ -25,9 +25,8 @@
         </VBox>
         <VBox minWidth="0" prefWidth="0" HBox.hgrow="ALWAYS" spacing="2" styleClass="truong-nhap">
             <Label text="Ngày sinh *" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-            <DatePicker fx:id="dpBenhNhanSinhNgay" maxWidth="Infinity" minWidth="0" editable="false" styleClass="le-tan-truong-ngay">
-                <editor text=""/>
-            </DatePicker>
+            <TextField fx:id="txtBenhNhanSinhNgay" promptText="dd/MM/yyyy" styleClass="le-tan-truong-nhap"/>
+            <Label fx:id="lblLoiNgaySinh" text="" wrapText="true" styleClass="loi-truong"/>
         </VBox>
     </HBox>
     <HBox spacing="12" alignment="CENTER_LEFT">

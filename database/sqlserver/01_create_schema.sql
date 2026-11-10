@@ -41,7 +41,7 @@ CREATE TABLE dbo.NhanVien (
     email              VARCHAR(254)    NULL,
     CONSTRAINT PK_NhanVien PRIMARY KEY (maNV),
     CONSTRAINT CK_NhanVien_ChucVu CHECK (chucVu IN ('LE_TAN','NHA_SI','Y_TA','NHAN_VIEN_QUAN_LY')),
-    CONSTRAINT CK_NhanVien_SDT CHECK (LEN(soDienThoai) BETWEEN 10 AND 11 AND soDienThoai NOT LIKE '%[^0-9]%'),
+    CONSTRAINT CK_NhanVien_SDT CHECK (LEN(soDienThoai) = 10 AND LEFT(soDienThoai,1) = '0' AND soDienThoai NOT LIKE '%[^0-9]%'),
     CONSTRAINT CK_NhanVien_NgaySinh CHECK (ngaySinh >= '19000101'),
     CONSTRAINT CK_NhanVien_HoTen CHECK (LEN(LTRIM(RTRIM(hoTen))) > 0)
 );
@@ -96,7 +96,7 @@ CREATE TABLE dbo.BenhNhan (
     diaChi        NVARCHAR(255)   NULL,
     CONSTRAINT PK_BenhNhan PRIMARY KEY (maBN),
     CONSTRAINT CK_BenhNhan_Ten CHECK (LEN(LTRIM(RTRIM(hoTen))) > 0),
-    CONSTRAINT CK_BenhNhan_SDT CHECK (LEN(soDienThoai) BETWEEN 10 AND 11 AND soDienThoai NOT LIKE '%[^0-9]%'),
+    CONSTRAINT CK_BenhNhan_SDT CHECK (LEN(soDienThoai) = 10 AND LEFT(soDienThoai,1) = '0' AND soDienThoai NOT LIKE '%[^0-9]%'),
     CONSTRAINT CK_BenhNhan_NgaySinh CHECK (ngaySinh >= '19000101')
 );
 GO
@@ -116,7 +116,9 @@ CREATE TABLE dbo.HoSoBenhAn (
 GO
 CREATE TABLE dbo.LichHen (
     maLH          VARCHAR(20)     NOT NULL,
-    maBN          VARCHAR(20)     NOT NULL,
+    maBN          VARCHAR(20)     NULL, -- chỉ liên kết khi đã có hồ sơ chính thức
+    hoTenNguoiHen NVARCHAR(120)   NOT NULL,
+    soDienThoaiLienHe VARCHAR(15) NOT NULL,
     maNVNhaSi     VARCHAR(20)     NOT NULL,
     ngayHen       DATE            NOT NULL,
     gioBatDau     TIME(0)         NOT NULL,
@@ -128,7 +130,10 @@ CREATE TABLE dbo.LichHen (
     CONSTRAINT FK_LichHen_BenhNhan FOREIGN KEY (maBN) REFERENCES dbo.BenhNhan(maBN),
     CONSTRAINT FK_LichHen_NhaSi FOREIGN KEY (maNVNhaSi) REFERENCES dbo.NhanVien(maNV),
     CONSTRAINT CK_LichHen_Gio CHECK (gioBatDau < gioKetThuc),
-    CONSTRAINT CK_LichHen_TrangThai CHECK (trangThai IN ('CHO_XAC_NHAN','DA_XAC_NHAN','DA_DEN','DA_HUY'))
+    CONSTRAINT CK_LichHen_TrangThai CHECK (trangThai IN ('CHO_XAC_NHAN','DA_XAC_NHAN','DA_DEN','DA_HUY')),
+    CONSTRAINT CK_LichHen_HoTenNguoiHen CHECK (LEN(LTRIM(RTRIM(hoTenNguoiHen)))>0),
+    CONSTRAINT CK_LichHen_SoDienThoaiLienHe CHECK (LEN(soDienThoaiLienHe) = 10 AND LEFT(soDienThoaiLienHe,1) = '0' AND soDienThoaiLienHe NOT LIKE '%[^0-9]%'),
+    CONSTRAINT CK_LichHen_DaDenCoBenhNhan CHECK (trangThai<>'DA_DEN' OR maBN IS NOT NULL)
 );
 GO
 CREATE INDEX IX_LichHen_NhaSi_Ngay ON dbo.LichHen(maNVNhaSi, ngayHen, gioBatDau);
@@ -162,6 +167,8 @@ CREATE TABLE dbo.PhieuKham (
     tinhTrangLamSan     NVARCHAR(1000)  NULL,
     chanDoan            NVARCHAR(1000)  NULL,
     ngayKham            DATE            NULL,
+    ngayCapSo           DATE            NULL,
+    soThuTuKham         INT             NULL,
     lyDo                NVARCHAR(500)   NULL,
     ghiChu              NVARCHAR(1000)  NULL,
     trangThaiKham       VARCHAR(20)     NOT NULL CONSTRAINT DF_PhieuKham_TrangThai DEFAULT ('CHO_KHAM'),
@@ -172,14 +179,27 @@ CREATE TABLE dbo.PhieuKham (
     CONSTRAINT FK_PhieuKham_LichHen FOREIGN KEY (maLH) REFERENCES dbo.LichHen(maLH),
     CONSTRAINT FK_PhieuKham_PhongKham FOREIGN KEY (maPhong) REFERENCES dbo.PhongKham(maPhong),
     CONSTRAINT CK_PhieuKham_TrangThai CHECK (trangThaiKham IN ('CHO_KHAM','DA_KHAM','DANG_KHAM')),
+    CONSTRAINT CK_PhieuKham_STT CHECK ((ngayCapSo IS NULL AND soThuTuKham IS NULL) OR (ngayCapSo IS NOT NULL AND soThuTuKham IS NOT NULL AND soThuTuKham > 0)),
     CONSTRAINT CK_PhieuKham_DaKham CHECK (trangThaiKham <> 'DA_KHAM' OR (ngayKham IS NOT NULL AND NULLIF(LTRIM(RTRIM(chanDoan)), N'') IS NOT NULL))
 );
 GO
 CREATE UNIQUE INDEX UX_PhieuKham_LichHen ON dbo.PhieuKham(maLH) WHERE maLH IS NOT NULL;
 GO
+CREATE UNIQUE INDEX UX_PhieuKham_STT_Ngay ON dbo.PhieuKham(ngayCapSo,soThuTuKham) WHERE soThuTuKham IS NOT NULL;
+GO
 CREATE INDEX IX_PhieuKham_NhaSi_ChoKham ON dbo.PhieuKham(maNVNhaSi, trangThaiKham, thoiDiemTiepNhan);
 GO
 CREATE INDEX IX_PhieuKham_BenhNhan ON dbo.PhieuKham(maBN, thoiDiemTiepNhan);
+GO
+
+-- Bộ đếm tối giản theo ngày; không lưu trạng thái gọi hay lịch sử thao tác của Y tá.
+-- Số đã cấp không bị dùng lại nếu phiếu bị xóa khỏi dữ liệu nghiệp vụ.
+CREATE TABLE dbo.SoThuTuKhamNgay (
+    ngayCapSo DATE NOT NULL,
+    soCuoi INT NOT NULL,
+    CONSTRAINT PK_SoThuTuKhamNgay PRIMARY KEY (ngayCapSo),
+    CONSTRAINT CK_SoThuTuKhamNgay_So CHECK (soCuoi >= 0)
+);
 GO
 -- maCTPK va trangThaiThucHien: hai truong bo sung vat ly, can dong bo vao UML.
 CREATE TABLE dbo.ChiTietPhieuKham (

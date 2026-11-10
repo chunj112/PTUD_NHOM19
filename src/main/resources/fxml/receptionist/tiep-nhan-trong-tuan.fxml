@@ -6,12 +6,13 @@
 <?import javafx.scene.control.cell.MapValueFactory?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<!-- Dữ liệu ban đầu chưa tải; Controller chỉ điền thông tin sau khi đọc backend thật. -->
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:id="tiepNhanTuan" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-trang, le-tan-tiep-nhan" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity" prefHeight="850">
+<!-- Controller chỉ hiển thị dữ liệu đã đọc/lưu bằng SQL Server. -->
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iuh.se.nhom19.view.receptionist.LichHenTuanController" fx:id="tiepNhanTuan" stylesheets="@/css/chu-de.css, @/css/le-tan-dung-chung.css, @/css/le-tan-tiep-nhan.css" styleClass="le-tan-trang, le-tan-tiep-nhan" spacing="20" minWidth="0" minHeight="-Infinity" maxHeight="-Infinity">
+    <Label fx:id="lblKetQuaTiepNhanTuan" text="" wrapText="true"/>
     <HBox spacing="12" alignment="CENTER_LEFT">
-        <Button fx:id="btnTruocLichHenTuan" text="‹" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
-        <Button fx:id="btnLichHenTuanHomNay" text="Hôm nay" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
-        <Button fx:id="btnTiepLichHenTuan" text="›" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+        <Button fx:id="btnTruocLichHenTuan" text="‹" accessibleText="Tuần trước" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
+        <DatePicker fx:id="dpLichHenTuanNgayChon" editable="false" prefWidth="160" minWidth="160" maxWidth="160" styleClass="le-tan-bo-loc"/>
+        <Button fx:id="btnTiepLichHenTuan" text="›" accessibleText="Tuần sau" minWidth="-Infinity" styleClass="phu-nut" disable="true"/>
         <ComboBox fx:id="cboTuanNhaSi" prefWidth="190" minWidth="190" maxWidth="190" styleClass="le-tan-bo-loc" promptText="Nha sĩ: Tất cả" value="Nha sĩ: Tất cả">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -29,13 +30,15 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <TextField fx:id="txtTuanBenhNhanTimKiem" promptText="Tìm bệnh nhân" minWidth="0" HBox.hgrow="ALWAYS" styleClass="le-tan-tim-kiem"/>
     </HBox>
+        <Label fx:id="lblTuanThongBao" text="" wrapText="true"/>
+        <Label fx:id="lblTuanCanhBaoLichTuongLai" text="" wrapText="true" styleClass="loi-truong"/>
     <HBox spacing="20" alignment="TOP_LEFT">
-        <VBox spacing="16" minWidth="0" styleClass="le-tan-the" HBox.hgrow="ALWAYS">
-            <Label text="—" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
-            <Label text="Chọn lịch hẹn để xem chi tiết · Giờ làm việc 08:00–17:00" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-            <GridPane fx:id="lichHenTuanLuoi" hgap="8" minHeight="460" prefHeight="460">
+        <VBox spacing="16" minWidth="0" prefWidth="0" styleClass="le-tan-the" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTuanKhoangNgay" text="—" styleClass="le-tan-the-tieu-de" wrapText="true" minHeight="-Infinity"/>
+            <Label text="Chọn lịch hẹn để xem chi tiết · Thời gian lấy từ lịch hẹn đã lưu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
+            <ScrollPane minWidth="0" minHeight="-Infinity" prefHeight="500" maxHeight="-Infinity" fitToWidth="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED" styleClass="khung-ung-dung-cuon">
+            <content><GridPane fx:id="lichHenTuanLuoi" minWidth="0" maxWidth="Infinity" hgap="8" minHeight="460" prefHeight="-1">
                 <columnConstraints>
                     <ColumnConstraints percentWidth="14.285714285714286"/>
                     <ColumnConstraints percentWidth="14.285714285714286"/>
@@ -45,116 +48,11 @@
                     <ColumnConstraints percentWidth="14.285714285714286"/>
                     <ColumnConstraints percentWidth="14.285714285714286"/>
                 </columnConstraints>
-                <VBox spacing="8" minWidth="0" styleClass="le-tan-lich-ngay-lam" GridPane.columnIndex="0" minHeight="460">
-                    <Label fx:id="lblTuanNgayLam0" text="T2" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <Label fx:id="lblTuanSoLuong0" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe00" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio00" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan00" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi00" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang00" text="—" styleClass="le-tan-tinh-trang-thanh-cong" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe01" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio01" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan01" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi01" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang01" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                </VBox>
-                <VBox spacing="8" minWidth="0" styleClass="le-tan-lich-ngay-lam" GridPane.columnIndex="1" minHeight="460">
-                    <Label fx:id="lblTuanNgayLam1" text="T3" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <Label fx:id="lblTuanSoLuong1" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe10" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio10" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan10" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi10" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang10" text="—" styleClass="le-tan-tinh-trang-thanh-cong" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe11" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio11" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan11" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi11" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang11" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                </VBox>
-                <VBox spacing="8" minWidth="0" styleClass="le-tan-lich-ngay-lam" GridPane.columnIndex="2" minHeight="460">
-                    <Label fx:id="lblTuanNgayLam2" text="T4" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <Label fx:id="lblTuanSoLuong2" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe20" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio20" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan20" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi20" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang20" text="—" styleClass="le-tan-tinh-trang-thanh-cong" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe21" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio21" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan21" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi21" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang21" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                </VBox>
-                <VBox spacing="8" minWidth="0" styleClass="le-tan-lich-ngay-lam" GridPane.columnIndex="3" minHeight="460">
-                    <Label fx:id="lblTuanNgayLam3" text="T5" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <Label fx:id="lblTuanSoLuong3" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe30" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio30" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan30" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi30" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang30" text="—" styleClass="le-tan-tinh-trang-thanh-cong" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe31" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio31" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan31" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi31" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang31" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                </VBox>
-                <VBox spacing="8" minWidth="0" styleClass="le-tan-lich-ngay-lam" GridPane.columnIndex="4" minHeight="460">
-                    <Label fx:id="lblTuanNgayLam4" text="T6" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <Label fx:id="lblTuanSoLuong4" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe40" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio40" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan40" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi40" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang40" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe41" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio41" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan41" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi41" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang41" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                </VBox>
-                <VBox spacing="8" minWidth="0" styleClass="le-tan-lich-ngay-lam" GridPane.columnIndex="5" minHeight="460">
-                    <Label fx:id="lblTuanNgayLam5" text="T7" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <Label fx:id="lblTuanSoLuong5" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe50" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio50" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan50" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi50" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang50" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                    <VBox spacing="16" minWidth="0" styleClass="le-tan-lich-lich-hen" fx:id="lichHenThe51" visible="false" managed="false">
-                        <Label fx:id="lblTuanGio51" text="—" styleClass="le-tan-lich-gio" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanBenhNhan51" text="—" styleClass="le-tan-chi-tiet-gia-tri" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanNhaSi51" text="—" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                        <Label fx:id="lblTuanTinhTrang51" text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                    </VBox>
-                </VBox>
-                <VBox spacing="8" minWidth="0" styleClass="le-tan-lich-ngay-lam" GridPane.columnIndex="6" minHeight="460">
-                    <Label fx:id="lblTuanNgayLam6" text="CN" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                    <Label fx:id="lblTuanSoLuong6" text="Chưa tải dữ liệu" styleClass="le-tan-chu-thich" wrapText="true" minHeight="-Infinity"/>
-                </VBox>
-            </GridPane>
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <Label text="—" styleClass="le-tan-tinh-trang-canh-bao" wrapText="true" minHeight="-Infinity"/>
-                <Label text="—" styleClass="le-tan-tinh-trang-thong-tin-ngan" wrapText="true" minHeight="-Infinity"/>
-                <Label text="—" styleClass="le-tan-tinh-trang-thanh-cong" wrapText="true" minHeight="-Infinity"/>
-            </HBox>
+            </GridPane></content></ScrollPane>
         </VBox>
         <!-- Controller chỉ hiện panel sau khi chọn lịch hẹn; bỏ chọn thì đặt
              visible=false và managed=false để lịch tuần dùng hết chiều rộng. -->
-        <VBox fx:id="daChonTuanLichHenKhung" minWidth="250" prefWidth="250" maxWidth="250" visible="false" managed="false">
+        <VBox fx:id="daChonTuanLichHenKhung" minWidth="280" prefWidth="300" maxWidth="300" visible="false" managed="false">
             <fx:include fx:id="tuanLichHenPhanChiTiet" source="chi-tiet-lich-hen.fxml"/>
         </VBox>
     </HBox>

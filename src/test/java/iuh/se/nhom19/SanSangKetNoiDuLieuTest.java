@@ -22,7 +22,7 @@ class SanSangKetNoiDuLieuTest {
         assertFalse(Files.readString(Path.of(".env.example")).contains("DENTAFLOW_MODE"));
     }
     @Test void giuManHinhNhungKhongConBanGhiVaDuLieuNhapMau()throws Exception{
-        List<Path> tep=layDuongDanFXML();assertEquals(87,tep.size());
+        List<Path> tep=layDuongDanFXML();assertEquals(89,tep.size());
         for(Path duongDanTep:tep){Document taiLieuFXML=docFXML(duongDanTep);assertEquals(0,taiLieuFXML.getElementsByTagNameNS("*","HashMap").getLength(),duongDanTep.toString());
             NodeList tatCa=taiLieuFXML.getElementsByTagName("*");
             for(int i=0;i<tatCa.getLength();i++){
